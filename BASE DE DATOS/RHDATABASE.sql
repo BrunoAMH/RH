@@ -2,7 +2,7 @@ create database RH
 use RH
 
 CREATE TABLE Estados(
-    idEstado INT NOT NULL,
+    idEstado INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(60) NOT NULL,
     siglas VARCHAR(10) NOT NULL,
     estatus CHAR NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE Estados(
 
 
 CREATE TABLE Ciudades(
-    idCiudad INT NOT NULL,
+    idCiudad INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(60) NOT NULL,
     idEstado INT NOT NULL,
     estatus CHAR NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE Ciudades(
 
 
 CREATE TABLE Sucursales (
-    idSucursal INT NOT NULL,
+    idSucursal INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
     direccion VARCHAR(80) NOT NULL,
@@ -36,7 +36,6 @@ CREATE TABLE Sucursales (
     estatus CHAR NOT NULL,
     idCiudad INT NOT NULL,
     CONSTRAINT UK_Sucursales UNIQUE (idSucursal, nombre),
-    CONSTRAINT Chk_Sucursales_telefono check (telefono like '[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]'),
     CONSTRAINT Chk_estatus check (estatus='A' or estatus='I'),
     CONSTRAINT PK_Sucursales PRIMARY KEY (idSucursal),
     CONSTRAINT FK_Sucursales_Ciudades foreign key (idCiudad) references Ciudades (idCiudad)
@@ -44,10 +43,10 @@ CREATE TABLE Sucursales (
 
 
 CREATE TABLE Turnos (
-    idTurno INT NOT NULL,
+    idTurno INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(20) NOT NULL,
-    horaInicio TIME NOT NULL,
-    horaFin TIME NOT NULL,
+    horaInicio TIMESTAMP NOT NULL,
+    horaFin TIMESTAMP NOT NULL,
     dias  VARCHAR(30) NOT NULL,
 	CONSTRAINT UK_Turnos UNIQUE (idTurno),
     CONSTRAINT PK_Turnos PRIMARY KEY (idTurno)
@@ -55,7 +54,7 @@ CREATE TABLE Turnos (
 
 
 CREATE TABLE Departamentos (
-    idDepartamento INT NOT NULL,
+    idDepartamento INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     estatus CHAR NOT NULL,
 	CONSTRAINT UK_Departamentos UNIQUE (idDepartamento, nombre),
@@ -65,7 +64,7 @@ CREATE TABLE Departamentos (
 
 
 CREATE TABLE Percepciones (
-    idPercepcion INT NOT NULL,
+    idPercepcion INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(30) NOT NULL,
     descripcion VARCHAR(80) NOT NULL,
     diasPagar INT NOT NULL,
@@ -74,7 +73,7 @@ CREATE TABLE Percepciones (
 );
 
 CREATE TABLE Deducciones (
-    idDeduccion INT NOT NULL,
+    idDeduccion INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(30) NOT NULL,
     descripcion VARCHAR(80) NOT NULL,
     porcentaje FLOAT NOT NULL,
@@ -85,7 +84,7 @@ CREATE TABLE Deducciones (
 
 
 CREATE TABLE Periodos (
-    idPeriodo INT NOT NULL,
+    idPeriodo INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     fechaInicio DATE NOT NULL,
     fechaFin DATE NOT NULL,
@@ -97,7 +96,7 @@ CREATE TABLE Periodos (
 );
 
 CREATE TABLE FormasPago (
-    idFormaPago  INT NOT NULL,
+    idFormaPago  INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     estatus CHAR NOT NULL,
 	CONSTRAINT UK_FormasPago UNIQUE (idFormaPago, nombre),
@@ -106,7 +105,7 @@ CREATE TABLE FormasPago (
 );
 
 CREATE TABLE Puestos (
-    idPuesto INT NOT NULL,
+    idPuesto INT  AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(60) NOT NULL,
     salarioMinimo FLOAT NOT NULL,
     salarioMaximo FLOAT NOT NULL,
@@ -118,7 +117,7 @@ CREATE TABLE Puestos (
 );
 
 CREATE TABLE Empleados (
-    idEmpleado INT NOT NULL,
+    idEmpleado INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(30) NOT NULL,
     apellidoPaterno VARCHAR(30) NOT NULL,
     apellidoMaterno VARCHAR(30) NOT NULL,
@@ -158,7 +157,7 @@ CREATE TABLE Empleados (
 );
 
 CREATE TABLE HistorialPuestos (
-    idEmpleado INT NOT NULL,
+    idEmpleado INT AUTO_INCREMENT NOT NULL,
     idPuesto INT NOT NULL,
     idDepartamento INT NOT NULL,
     fechaInicio DATE NOT NULL,
@@ -171,7 +170,7 @@ CREATE TABLE HistorialPuestos (
 );
 
 CREATE TABLE Asistencias (
-    idAsistencia INT NOT NULL,
+    idAsistencia INT AUTO_INCREMENT NOT NULL,
     fecha DATE NOT NULL,
     horaEntrada TIMESTAMP NOT NULL,
     horaSalida TIMESTAMP NOT NULL,
@@ -182,7 +181,7 @@ CREATE TABLE Asistencias (
 );
 
 CREATE TABLE AusenciaJustificada (
-    idAusencia INT NOT NULL,
+    idAusencia INT  AUTO_INCREMENT NOT NULL,
     fechaSolicitud DATE NOT NULL,
     fechaInicio DATE NOT NULL,
     fechaFin DATE NOT NULL,
@@ -200,7 +199,7 @@ CREATE TABLE AusenciaJustificada (
 );
 
 CREATE TABLE DocumentacionEmpleado (
-    idDocumento INT NOT NULL,
+    idDocumento INT AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(60) NOT NULL,
     fechaEntrega DATE NOT NULL,
     documento BLOB NOT NULL,
@@ -210,7 +209,7 @@ CREATE TABLE DocumentacionEmpleado (
 );
 
 CREATE TABLE Nominas (
-    idNomina INT NOT NULL,
+    idNomina INT AUTO_INCREMENT NOT NULL,
     fechaElaboracion DATE NOT NULL,
     fechaPago DATE NOT NULL,
     subtotal FLOAT NOT NULL,
@@ -229,7 +228,7 @@ CREATE TABLE Nominas (
 );
 
 CREATE TABLE NominasPercepciones (
-    idNomina INT NOT NULL,
+    idNomina INT AUTO_INCREMENT NOT NULL,
     idPercepcion INT NOT NULL,
     importe FLOAT NOT NULL,
     CONSTRAINT PK_NominasPercepciones PRIMARY KEY (idPercepcion, idNomina),
@@ -238,7 +237,7 @@ CREATE TABLE NominasPercepciones (
 );
 
 CREATE TABLE NominasDeducciones (
-    idNomina INT NOT NULL,
+    idNomina INT AUTO_INCREMENT NOT NULL,
     idDeduccion INT NOT NULL,
     importe FLOAT NOT NULL,
     CONSTRAINT PK_NominasDeducciones PRIMARY KEY (idDeduccion, idNomina),
