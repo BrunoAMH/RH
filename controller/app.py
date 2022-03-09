@@ -4,7 +4,7 @@ from urllib import request
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
 from flask_login import current_user,login_user,logout_user,login_manager,login_required,LoginManager
-from model.DAO import db, Estados
+from model.DAO import db, Estados, Puestos, Turnos
 app=Flask(__name__, template_folder='../view', static_folder='../static')
 Bootstrap(app)
 
@@ -68,6 +68,107 @@ def eliminarEstado(id):
     est = Estados()
     est.eliminar(id)
     flash('Registro del estado eliminado con exito')
+    return redirect(url_for('consultarEstados'))
+
+#________________________________________________________________________________
+#--------------------------------PUESTOS-----------------------------------------
+#__
+@app.route('/puestos/consultarPuestos')
+def consultarPuestos():
+    puesto = Puestos()
+    return render_template('/puestos/consultar.html', pues=puesto.consultaGeneral())
+
+@app.route('/puestos/registrarPuestos')
+def registrarPuestos():
+    return render_template('/puestos/nuevo.html')
+
+@app.route('/puestos/guardandoPuestos',methods=['post'])
+def guardandoPuestos():
+    pues = Puestos()
+    pues.nombre = request.form['nombre']
+    pues.salarioMinimo = request.form['salarioMinimo']
+    pues.salarioMaximo = request.form['salarioMaximo']
+    pues.estatus = request.form['estatus']
+    pues.insertar()
+    flash('Puesto registrado exitosamente')
+    return redirect(url_for('registrarPuestos'))
+
+@app.route('/puestos/ver/<int:id>')
+def editarPuestos(id):
+    pues = Puestos()
+    return render_template('/estados/editar.html', puest=pues.consultaIndividual(id))
+
+@app.route('/puestos/editandoPuestos',methods=['post'])
+def editandoPuestos():
+    try:
+        pues = Puestos()
+        pues.idPuesto = request.form['idPuesto']
+        pues.nombre = request.form['nombrePuesto']
+        pues.salarioMinimo = request.form['salarioMinimo']
+        pues.salarioMaximo = request.form['salarioMaximo']
+        pues.estatus = request.form['estatus']
+        pues.actualizar()
+        flash('Datos actualizados con exito')
+    except:
+        flash('!Error al actualizar!')
+    return render_template('/puestos/editar.html', puest=pues)
+
+
+@app.route('/puestos/eliminarPuestos/<int:id>')
+def eliminarPuestos(id):
+    pues = Puestos()
+    pues.eliminar(id)
+    flash('Registro del puesto eliminado con exito')
+    return redirect(url_for('consultarPuestos'))
+
+#________________________________________________________________________________
+#--------------------------------Turnos-----------------------------------------
+#__
+@app.route('/turnos/consultarTurnos')
+def consultarTurnos():
+    turns = Turnos()
+    return render_template('/turnos/consultar.html', turn=turns.consultaGeneral())
+
+@app.route('/turnos/registrarTurnos')
+def registrarTurnos():
+    return render_template('/turnos/nuevo.html')
+
+@app.route('/turnos/guardandoTurnos',methods=['post'])
+def guardandoTurnos():
+    turn = Turnos()
+    turn.nombre = request.form['nombre']
+    turn.horaInicio = request.form['horaInicio']
+    turn.horaFin = request.form['horaFin']
+    turn.dias = request.form['dias']
+    turn.insertar()
+    flash('Turnos registrado exitosamente')
+    return redirect(url_for('registrarTurnos'))
+
+@app.route('/turnos/ver/<int:id>')
+def editarTurnos(id):
+    turn = Turnos()
+    return render_template('/turnos/editar.html', turns=turn.consultaIndividual(id))
+
+@app.route('/turnos/editandoTurnos',methods=['post'])
+def editandoTurnos():
+    try:
+        turn = Turnos()
+        turn.idTurno = request.form['idTurno']
+        turn.nombre = request.form['nombre']
+        turn.horaInicio = request.form['horaInicio']
+        turn.horaFin = request.form['horaFin']
+        turn.dias = request.form['dias']
+        turn.actualizar()
+        flash('Datos actualizados con exito')
+    except:
+        flash('!Error al actualizar!')
+    return render_template('/turnos/editar.html', turns=turn)
+
+@app.route('/turnos/eliminarTurnos/<int:id>')
+def eliminarTurnos(id):
+    turn = Turnos()
+    turn.eliminar(id)
+    flash('Registro del turno eliminado con exito')
     return redirect(url_for('consultarEstados'))
 
 if __name__ == '__main__':
