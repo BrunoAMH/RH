@@ -222,7 +222,7 @@ def editandoCiudades():
 def eliminarCiudades(id):
     ciudad = Ciudades()
     ciudad.eliminar(id)
-    flash('Registro del estado eliminado con exito')
+    flash('Registro del ciudades eliminado con exito')
     return redirect(url_for('consultarCiudades'))
 
 if __name__ == '__main__':
