@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+    </head>
+    <body>
+        {% include "common/navigation_bar.html" %}
+            {% block content %}
+             <div class="container-fluid">
+                <div class="well">
+                    <h1 class="text-center">CIUDADES REGISTRADOS</h1>
+                    <br>
+                    <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <th class="text-center">ID</th>
+                            <th class="text-center">NOMBRE</th>
+                            <th class="text-center">ID ESTADO</th>
+                            <th class="text-center">ESTATUS</th>
+                            <th class="text-center">VER</th>
+                            <th class="text-center">ELIMINAR</th>
+                        </thead>
+                        {% for ciudad in ciud %}
+                        <tr>
+                            <td class="text-center">{{ciudad.idCiudad}}</td>
+                            <td class="text-center">{{ciudad.nombre}}</td>
+                            <td class="text-center">{{ciudad.idEstado}}</td>
+                            <td class="text-center">{{ciudad.estatus}}</td>
+                            <td class="text-center">
+                                <a href="/ciudades/ver/{{ciudad.idCiudad}}">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="/ciudades/eliminarCiudades/{{ciudad.idCiudad}}">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    </div>
+                    <br>
+                        {% if get_flashed_messages() %}
+                            <div id="menssageAlert" class="alert alert-success alert-dismissible">
+                                {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                </div>
+             </div>
+            {% endblock %}
+        <p class="text text-center">Este es el pie de pagina</p>
+    </body>
+</html>
