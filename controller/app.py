@@ -4,7 +4,7 @@ from urllib import request
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
 from flask_login import current_user,login_user,logout_user,login_manager,login_required,LoginManager
-from model.DAO import db, Estados, Puestos, Turnos
+from model.DAO import db, Estados, Puestos, Turnos, Ciudades
 app=Flask(__name__, template_folder='../view', static_folder='../static')
 Bootstrap(app)
 
@@ -170,6 +170,60 @@ def eliminarTurnos(id):
     turn.eliminar(id)
     flash('Registro del turno eliminado con exito')
     return redirect(url_for('consultarEstados'))
+
+if __name__ == '__main__':
+    db.init_app(app)
+    app.run(debug=True)
+
+#________________________________________________________________________________
+#--------------------------------Ciudades-----------------------------------------
+#________________________________________________________________________________
+@app.route('/ciudades/consultarCiudades')
+def consultarCiudades():
+    ciudad = Ciudades()
+    return render_template('/ciudades/consultar.html', ciud=ciudad.consultaGeneral())
+
+@app.route('/ciudades/registrarCiudades')
+def registrarCiudades():
+    estates = Estados()
+    return render_template('/ciudades/nuevo.html', est=estates.consultaGeneral())
+
+@app.route('/ciudades/guardandoCiudades',methods=['post'])
+def guardandoCiudades():
+    ciudad = Ciudades()
+    ciudad.nombre = request.form['nombre']
+    ciudad.idEstado = request.form['idEstado']
+    ciudad.estatus = request.form['estatus']
+    ciudad.insertar()
+    flash('Ciudad registrado exitosamente')
+    return redirect(url_for('registrarCiudades'))
+
+@app.route('/ciudades/ver/<int:id>')
+def editarCiudades(id):
+    ciudad = Ciudades()
+    estates = Estados()
+    return render_template('/ciudades/editar.html', ciud=ciudad.consultaIndividual(id), est=estates.consultaGeneral())
+
+@app.route('/ciudades/editandoCiudades',methods=['post'])
+def editandoCiudades():
+    try:
+        ciudad = Ciudades()
+        ciudad.idCiudad = request.form['idEstado']
+        ciudad.nombre = request.form['nombre']
+        ciudad.idEstado = request.form['idEstado']
+        ciudad.estatus = request.form['estatus']
+        ciudad.actualizar()
+        flash('Datos actualizados con exito')
+    except:
+        flash('!Error al actualizar!')
+    return render_template('/ciudades/editar.html', ciud=ciudad)
+
+@app.route('/ciudades/eliminarCiudades/<int:id>')
+def eliminarCiudades(id):
+    ciudad = Ciudades()
+    ciudad.eliminar(id)
+    flash('Registro del estado eliminado con exito')
+    return redirect(url_for('consultarCiudades'))
 
 if __name__ == '__main__':
     db.init_app(app)
