@@ -6,24 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/css/login_style.css">
+    <link rel="stylesheet" href="/static/css/login_style.css">
     <title>Agroquimicos el banano</title>
 </head>
 <body>
     <div class="container">
         <div class="row justify-content-center pt-5 mt-5 mr-1">
             <div class="col-md-6 col-sm-6 col-xl-6 col-lg-4 formulary">
-                <form action="">
+                <form action="/empleados/iniciandoSesion" method="post">
                     <div class="form-group text-center pt-3">
                         <h1 class="text-light">Iniciar sesión</h1>
                     </div>
                     <div class="form-group mx-sm-4 pt-3">
                         <label for="usuario">Usuario:</label>
-                        <input type="text" class="form-control" placeholder="Ingrese su usuario">
+                        <input type="email" class="form-control" name="correo" placeholder="Ingrese su correo" required>
                     </div>
                     <div class="form-group mx-sm-4 pb-4">
                         <label for="contrasena">Contrasena:</label>
-                        <input type="password" class="form-control" placeholder="Ingrese su contrasena">
+                        <input type="password" class="form-control" name="contrasena" placeholder="Ingrese su contrasena" required>
                     </div>
                     <div class="form-group mx-sm-4 pb-5 ">
                         <input type="submit" class="btn btn-block ingress" value="INGRESAR">

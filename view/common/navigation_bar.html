@@ -19,33 +19,46 @@
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
     <!-- Dropdown -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/estados/consultarEstados" id="navbardrop" >Estados</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/estados/consultarEstados" id="navbardrop" >Estados</a>
       </li>
-       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/puestos/consultarPuestos" id="navbardrop2" >Puestos</a>
+       <li class="nav-item">
+        <a class="nav-link" href="/puestos/consultarPuestos" id="navbardrop2" >Puestos</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/turnos/consultarTurnos" id="navbardrop3" >Ver Turnos</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/turnos/consultarTurnos" id="navbardrop3" >Ver Turnos</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/percepciones/consultarPercepciones" id="navbardrop4" >Percepciones</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/percepciones/consultarPercepciones" id="navbardrop4" >Percepciones</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/deducciones/consultarDeducciones" id="navbardrop5" >Deducciones</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/deducciones/consultarDeducciones" id="navbardrop5" >Deducciones</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/periodos/consultarPeriodos" id="navbardrop6" >Periodos</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/periodos/consultarPeriodos" id="navbardrop6" >Periodos</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/formaspago/consultarFormasPago" id="navbardrop7" >Formas de pago</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/formaspago/consultarFormasPago" id="navbardrop7" >Formas de pago</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/ciudades/consultarCiudades" id="navbardrop8" >Cuidades</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/ciudades/consultarCiudades" id="navbardrop8" >Cuidades</a>
       </li>
     </ul>
     <!-- Brand -->
-    <a class="navbar-brand ml-auto" href="#">Logo</a>
+      <li class="dropdown">
+        <a data-toggle="dropdown" href="#">
+          <img src="{{url_for('static',filename='/images/infinite.jpg')}}" alt="Avatar Logo" style="width:38px;" class="rounded-pill">
+            {{current_user.nombre}}
+            <span class="caret"></span>
+        </a>
+          <ul class="dropdown-menu" >
+            {% if current_user.is_authenticated %}
+            <li><a href="/empleados/editarDatos">Editar cuenta</a></li>
+            <li><a href="/cerrarSesion">Cerrar sesion</a></li>
+            <li><a href="/">Cambiar cuenta</a></li>
+            {% endif %}
+          </ul>
+      </li>
   </nav>
 </div>
 <br>
