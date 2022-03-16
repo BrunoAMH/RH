@@ -1,10 +1,11 @@
 from _ast import In
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column,Integer,String,Boolean,BLOB,CHAR,Float,ForeignKey,Date
+from sqlalchemy import Column, Integer, String, Boolean, BLOB, CHAR, Float, ForeignKey, Date
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship
 
-db=SQLAlchemy()
+db = SQLAlchemy()
+
 
 class Estados(db.Model):
     __tablename__ = 'estados'
@@ -32,6 +33,7 @@ class Estados(db.Model):
         db.session.delete(obj)
         db.session.commit()
 
+
 class Puestos(db.Model):
     __tablename__ = 'puestos'
     idPuesto = Column(Integer, primary_key=True)
@@ -58,13 +60,14 @@ class Puestos(db.Model):
         obj = self.consultaIndividual(id)
         db.session.delete(obj)
         db.session.commit()
-        
+
+
 class Turnos(db.Model):
     __tablename__ = 'turnos'
     idTurno = Column(Integer, primary_key=True)
     nombre = Column(String(20), nullable=False)
-    horaInicio = Column(String(20), nullable=False)
-    horaFin = Column(String(20), nullable=False)
+    horaInicio = Column(Date, nullable=False)
+    horaFin = Column(Date, nullable=False)
     dias = Column(String(30), nullable=False)
 
     def consultaGeneral(self):
@@ -85,7 +88,8 @@ class Turnos(db.Model):
         obj = self.consultaIndividual(id)
         db.session.delete(obj)
         db.session.commit()
- 
+
+
 class Percepciones(db.Model):
     __tablename__ = 'percepciones'
     idPercepcion = Column(Integer, primary_key=True)
@@ -112,6 +116,7 @@ class Percepciones(db.Model):
         db.session.delete(obj)
         db.session.commit()
 
+
 class Deducciones(db.Model):
     __tablename__ = 'deducciones'
     idDeduccion = Column(Integer, primary_key=True)
@@ -137,6 +142,7 @@ class Deducciones(db.Model):
         obj = self.consultaIndividual(id)
         db.session.delete(obj)
         db.session.commit()
+
 
 class Periodos(db.Model):
     __tablename__ = 'periodos'
@@ -165,6 +171,7 @@ class Periodos(db.Model):
         db.session.delete(obj)
         db.session.commit()
 
+
 class FormasPago(db.Model):
     __tablename__ = 'formaspago'
     idFormaPago = Column(Integer, primary_key=True)
@@ -190,12 +197,12 @@ class FormasPago(db.Model):
         db.session.delete(obj)
         db.session.commit()
 
-        
- class Ciudades(db.Model):
+
+class Ciudades(db.Model):
     __tablename__ = 'ciudades'
     idCiudad = Column(Integer, primary_key=True)
     nombre = Column(String(60), nullable=False)
-    idEstado = Column(Integer,ForeignKey('estados.idEstado'))
+    idEstado = Column(Integer, ForeignKey('estados.idEstado'))
     estatus = Column(CHAR(1), nullable=False)
 
     def consultaGeneral(self):

@@ -16,11 +16,11 @@
                         <form action="/formaspago/editandoFormasPago" method="post" enctype="multipart/form-data">
                             <div class="form-group text-center">
                                 <label>ID FORMA DE PAGO</label>
-                                <input type="number" name="idFormaPago" value="{{formaspa.idFormaPago}}" class="form-control text-center" readonly>
+                                <input type="number" name="idFormaPago" value="{{formaspa.idFormaPago}}" class="form-control text-center" readonly required>
                             </div>
                             <div class="form-group">
                                 <label>NOMBRE</label>
-                                <input type="text" name="nombre" value="{{formaspa.nombre}}" class="form-control text-center">
+                                <input type="text" name="nombre" value="{{formaspa.nombre}}" class="form-control text-center" pattern="[A-z]{1,15}" required>
                             </div>
 
                             <div  class="mb-3">

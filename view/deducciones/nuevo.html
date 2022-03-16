@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script src="/static/js/formulario.js"></script>
     <head>
       <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+        <link rel="stylesheet" >
     </head>
 
     <body>
@@ -13,26 +14,25 @@
                         <div class="col-sm-4" style="background-color: none;"></div>
                         <div class="well col-sm-4">
                         <h1 class="text-center">REGISTRO DE DEDUCCIONES</h1>
-                        <form action="/deducciones/guardandoDeducciones" method="post" enctype="multipart/form-data">
+                        <form action="/deducciones/guardandoDeducciones" method="post" enctype="multipart/form-data" id="form">
 
                         <div  class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre de la Percepcion a registrar" maxlength="30" required name="nombre">
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre de la Deduccion a registrar" pattern="[A-Z]{1,30}" maxlength="30" required name="nombre">
                         </div>
-
                         <div class="form-group">
                             <label for="descripcion" class="form-label">Descripcion de la Deduccion</label>
-                            <input type="text" class="form-control" id="descripcion" placeholder="Descripcion de la Deduccion" maxlength="80" required name="descripcion">
+                            <input type="text" class="form-control" id="descripcion" placeholder="Descripcion de la Deduccion"  maxlength="80" required name="descripcion">
                         </div>
                             <div class="form-group">
                             <label for="porcentaje" class="form-label">Porcentaje</label>
                             <input type="number" class="form-control" id="porcentaje" placeholder="Porcentaje de las deducciones" maxlength="8" required name="porcentaje">
                         </div>
                         <nav id="bloqueBotones">
-                            <button type="submit" class="btn btn-success">Registrar</button>
+                            <button type="submit" onclick="return enviarFormulario();"  class="btn btn-success">Registrar</button>
+                            <p class="warnings" id="warnings"></p>
                             <a href="/deducciones/consultarDeducciones" class="btn btn-warning">Regresar</a>
                         </nav>
-
                         </form>
                         <br>
                             {% if get_flashed_messages() %}
@@ -46,7 +46,9 @@
                         </div>
                     </div>
                 </div>
+
             {% endblock %}
+
         <p class="text text-center">Este es el pie de pagina</p>
     </body>
 </html>

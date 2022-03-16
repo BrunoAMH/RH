@@ -16,11 +16,11 @@
                         <form action="/ciudades/editandoCiudades" method="post" enctype="multipart/form-data">
                             <div class="form-group text-center">
                                 <label>ID CIUDAD</label>
-                                <input type="number" name="idCiudad" value="{{ciud.idCiudad}}" class="form-control text-center" readonly>
+                                <input type="number" name="idCiudad" value="{{ciud.idCiudad}}" class="form-control text-center" readonly required>
                             </div>
                             <div class="form-group">
                                 <label>NOMBRE</label>
-                                <input type="text" name="nombre" value="{{ciud.nombre}}" class="form-control text-center">
+                                <input type="text" name="nombre" value="{{ciud.nombre}}" class="form-control text-center"   required>
                             </div>
 
                             <div class="form-group">
