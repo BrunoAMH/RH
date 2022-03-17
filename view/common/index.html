@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
       <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+        <script src="{{url_for('static', filename='js/fechahora.js')}}"></script>
     </head>
     <body>
         {% include "common/navigation_bar.html" %}
@@ -9,6 +10,24 @@
         {% block content %}
 
         {% endblock %}
+        <a class="text text-center" id="current_date"></a>
+
+
         <p class="text text-center">Este es el pie de pagina</p>
+     <div class="tiempo">
+        <span id="diaSemana" class="diaSemana"></span>
+        <span id="dia" class="dia"></span>
+        <span id="mes" class="mes"></span>
+        <span id="anio" class="anio"></span>
+      </div>
+      <div class="hora">
+        <span id="horas" class="horas"></span>
+        <span>:</span>
+        <span id="minutos" class="minutos"></span>
+        <span>:</span>
+        <span id="segundos" class="segundos"></span>
+        <span>:</span>
+        <span id="ampm" class="ampm"></span>
+      </div>
     </body>
 </html>

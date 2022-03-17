@@ -10,7 +10,7 @@ Bootstrap(app)
 #---------------------Conexion ARMANDO-----------------------------------------
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
 #---------------------Conexion BRUNO-------------------------------------------
-#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
 #------------------------------------------------------------------------------
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key='cl4v3'
