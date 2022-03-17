@@ -4,14 +4,16 @@ from urllib import request
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
 from flask_login import current_user,login_user,logout_user,login_manager,login_required,LoginManager
-from model.DAO import db, Empleados, Estados, Puestos, Turnos, Ciudades, Percepciones, Deducciones, Periodos, FormasPago
+from model.DAO import db, Empleados, Estados, Puestos, Turnos, Ciudades, Percepciones, Deducciones, Periodos, FormasPago, Departamentos
 app=Flask(__name__, template_folder='../view', static_folder='../static')
 Bootstrap(app)
 #---------------------Conexion ARMANDO-----------------------------------------
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
+#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
 #---------------------Conexion BRUNO-------------------------------------------
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
+#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
 #------------------------------------------------------------------------------
+#---------------------Conexion ESPINOZA-----------------------------------------
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@localhost/rh'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key='cl4v3'
 login_manager=LoginManager()
@@ -394,6 +396,7 @@ def registrarPeriodos():
     return render_template('/periodos/nuevo.html')
 
 @app.route('/periodos/guardandoPeriodos',methods=['post'])
+@app.route('/periodos/guardandoPeriodos',methods=['post'])
 @login_required
 def guardandoPeriodos():
     peri = Periodos()
@@ -488,6 +491,53 @@ def eliminarFormasPago(id):
     peri.eliminar(id)
     flash('forma de pago eliminada con exito')
     return redirect(url_for('consultarFormasPago'))
+
+#________________________________________________________________________________
+#--------------------------------Departamentos-----------------------------------------
+#________________________________________________________________________________
+@app.route('/departamentos/consultarDepartamentos')
+def consultarDepartamentos():
+    departamentos = Departamentos()
+    return render_template('/departamentos/consultar.html', dep=departamentos.consultaGeneral())
+
+@app.route('/departamentos/registrarDepartamentos')
+def registrarDepartamentos():
+    departamentos = Departamentos()
+    return render_template('/departamentos/nuevo.html', dep=departamentos.consultaGeneral())
+
+@app.route('/departamentos/guardandoDepartamentos',methods=['post'])
+def guardandoDepartamentos():
+    departamentos = Departamentos()
+    departamentos.nombre = request.form['nombre']
+    departamentos.estatus = request.form['estatus']
+    departamentos.insertar()
+    flash('Departamentos registrado exitosamente')
+    return redirect(url_for('registrarDepartamentos'))
+
+@app.route('/departamentos/ver/<int:id>')
+def editarDepartamentos(id):
+    departamentos = Departamentos()
+    return render_template('/departamentos/editar.html', dep=departamentos.consultaIndividual(id))
+
+@app.route('/departamentos/editandoDepartamentos',methods=['post'])
+def editandoDepartamentos():
+    try:
+        departamentos = Departamentos()
+        departamentos.idDepartamento = request.form['idEstado']
+        departamentos.nombre = request.form['nombre']
+        departamentos.estatus = request.form['estatus']
+        departamentos.actualizar()
+        flash('Datos actualizados con exito')
+    except:
+        flash('!Error al actualizar!')
+    return render_template('/departamentos/editar.html', dep=departamentos)
+
+@app.route('/departamentos/eliminarDepartamentos/<int:id>')
+def eliminarDepartamentos(id):
+    departamentos = Departamentos()
+    departamentos.eliminar(id)
+    flash('Registro del departamentos eliminado con exito')
+    return redirect(url_for('consultarDepartamentos'))
 
 if __name__ == '__main__':
     db.init_app(app)
