@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+        <link rel="stylesheet" href="estilo.css">
+    </head>
+
+    <body>
+        {% include "common/navigation_bar.html" %}
+            {% block content %}
+                <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-sm-4" style="background-color: none;"></div>
+                        <div class="well col-sm-4">
+                        <h1 class="text-center">REGISTRO DE DOCUMENTACION</h1>
+                        <form action="/documentacionEmpleado/guardandoDocumentacionEmpleado" method="post" enctype="multipart/form-data">
+
+                        <div  class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre de la Documentacion a registrar"  maxlength="60" required name="nombre">
+                        </div>
+                        <div  class="form-group">
+                            <label for="fechaEntrega">Nombre</label>
+                            <input type="date" class="form-control" id="fechaEntrega" placeholder="fecha de entrega de la Documentacion a registrar"  required name="fechaEntrega">
+                        </div>
+                       <div class="form-group">
+                            <label for="documento">documento:</label>
+                            <input type="file" class="form-control" id="documento" placeholder="Documento del Empleado"  required name="documento" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idEmpleado" class="form-label">Id Empleado</label>
+                            <select name='idEmpleado'  class="form-control">
+                                {% for empl in emp %}
+                                <option value="{{empl.idEmpleado}}">{{empl.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <nav id="bloqueBotones">
+                            <button type="submit" class="btn btn-success">Registrar</button>
+                            <a href="/documentacionEmpleado/consultarDocumentacionEmpleado" class="btn btn-warning">Regresar</a>
+                        </nav>
+
+                        </form>
+                        <br>
+                            {% if get_flashed_messages() %}
+                                <div id="mensajeAlert" class="alert alert-success alert-dismissible">
+                            {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                            {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        <p class="text text-center">Este es el pie de pagina</p>
+    </body>
+</html>

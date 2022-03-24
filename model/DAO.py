@@ -66,6 +66,12 @@ class Empleados(UserMixin,db.Model):
         db.session.delete(obj)
         db.session.commit()
 
+    def consultarImagen(self, id):
+        return self.consultaIndividual(id).fotografia
+
+    def consultarFoto(self, id):
+        return self.consultaIndividual(id).fotografia
+
     def validar(self, correo, contrasena):
         empleado = None
         empleado = self.query.filter(Empleados.email == correo, Empleados.contraseña == contrasena, Empleados.estatus =='A').first()
@@ -369,6 +375,7 @@ class Sucursales(db.Model):
     estatus = Column(CHAR(1), nullable=False)
     idCiudad = Column(Integer, ForeignKey('ciudades.idCiudad'))
 
+
     def consultaGeneral(self):
         return self.query.all()
 
@@ -387,3 +394,40 @@ class Sucursales(db.Model):
         obj = self.consultaIndividual(id)
         db.session.delete(obj)
         db.session.commit()
+
+#-----------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------DocumentacionEmpleado-------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
+class DocumentacionEmpleado(db.Model):
+    __tablename__ = 'documentacionempleado'
+    idDocumento = Column(Integer, primary_key=True)
+    nombre = Column(String(60), nullable=False)
+    fechaEntrega = Column(Date, nullable=False)
+    documento = Column(BLOB, nullable=False)
+    idEmpleado = Column(Integer, ForeignKey('empleados.idEmpleado'))
+
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        obj = self.consultaIndividual(id)
+        db.session.delete(obj)
+        db.session.commit()
+
+    def consultarImagen(self, id):
+        return self.consultaIndividual(id).documento
+
+    def consultarFoto(self, id):
+        return self.consultaIndividual(id).documento

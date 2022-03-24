@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+    </head>
+
+    <body>
+        {% include "common/navigation_bar.html" %}
+            {% block content %}
+                <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-sm-4" style="background-color: none;"></div>
+                        <div class="well col-sm-4">
+                        <h1 class="text-center">REGISTRO DE EMPLEADOS</h1>
+                        <form action="/empleados/editandoEmpleados" method="post" enctype="multipart/form-data">
+                            <div class="form-group text-center">
+                                <label>ID EMPLEADO</label>
+                                <input type="number" name="idEmpleado" value="{{emp.idEmpleado}}" class="form-control text-center" readonly required>
+                            </div>
+                            <div class="form-group">
+                                <label>NOMBRE</label>
+                                <input type="text" name="nombre" value="{{emp.nombre}}" class="form-control text-center"   required>
+                            </div>
+                             <div class="form-group">
+                                <label>APELLIDO PATERNO</label>
+                                <input type="text" name="apellidoPaterno" value="{{emp.apellidoPaterno}}" class="form-control text-center"   required>
+                            </div>
+                             <div class="form-group">
+                                <label>APELLIDO MATERNO</label>
+                                <input type="text" name="apellidoMaterno" value="{{emp.apellidoMaterno}}" class="form-control text-center"   required>
+                            </div>
+                             <div  class="mb-3">
+                                <label class="form-label">Sexo: </label>
+                                <label class="form-check-label" for="radio1">
+                                    <input type="radio" id="radio3" name="sexo" value="H">Hombre
+                                </label>
+                                <label class="form-check-label" for="radio2">
+                                    <input type="radio"  id="radio4" name="sexo" value="M">Mujer
+                                </label>
+                              </div>
+                            <div class="form-group">
+                                <label>FECHA DE NACIMIENTO</label>
+                                <input type="date" name="fechaNacimiento" value="{{emp.fechaNacimiento}}" class="form-control text-center"   required>
+                            </div>
+                            <div class="form-group">
+                                <label>CURP</label>
+                                <input type="text" name="curp" value="{{emp.curp}}" class="form-control text-center"   required>
+                            </div>
+                             <div   class="form-group">
+                            <label for="estadoCivil">estado Civil:</label>
+                               <select name="estadoCivil" id="estadoCivil">
+                                   <option name="estadoCivil" value="{{emp.estadoCivil}}">{{emp.estadoCivil}}</option>
+                                    <option name="estadoCivil" value="Soltero">Soltero</option>
+                                    <option name="estadoCivil" value="Casado">Casado</option>
+                                    <option name="estadoCivil" value="Union Libre">Union Libre</option>
+                                    <option name="estadoCivil" value="Divorciado">Divorciado</option>
+                                    <option name="estadoCivil" value="Viudo/a">Viudo/a</option>
+                               </select>
+                            </div>
+                             <div class="form-group">
+                                <label>FECHA DE CONTRATACION</label>
+                                <input type="date" name="fechaContratacion" value="{{emp.fechaContratacion}}" class="form-control text-center"   required>
+                            </div>
+                             <div class="form-group">
+                                <label>SALARIO DIARIO</label>
+                                <input type="number" name="salarioDiario" value="{{emp.salarioDiario}}" class="form-control text-center"   required>
+                            </div>
+                            <div class="form-group">
+                                <label>NSS</label>
+                                <input type="number" name="nss" value="{{emp.nss}}" class="form-control text-center"   required>
+                            </div>
+                            <div class="form-group">
+                                <label>DIAS DE VACACIONES</label>
+                                <input type="number" name="nss" value="{{emp.diasVacaciones}}" class="form-control text-center"   required>
+                            </div>
+                             <div class="form-group">
+                                <label>DIAS DE PERMISO</label>
+                                <input type="number" name="nss" value="{{emp.diasPermiso}}" class="form-control text-center"   required>
+                            </div>
+                             <div class="form-group">
+                                <label>foto:</label>
+                                 <img src="/empleados/consultarImagen/{{emp.idEmpleado}}" width="100px" height="80px">
+                                <input type="file" name="fotografia" placeholder="fotografia del Empleado" class="form-control" value="{{emp.fotografia}}">
+                                </a>
+                             </div>
+                            <div class="form-group">
+                                <label>DIRECCION</label>
+                                <input type="text" name="direccion" value="{{emp.direccion}}" class="form-control text-center"   required>
+                            </div>
+                            <div class="form-group">
+                                <label>COLONIA</label>
+                                <input type="text" name="colonia" value="{{emp.colonia}}" class="form-control text-center"   required>
+                            </div>
+                             <div class="form-group">
+                                <label>CODIGO POSTAL</label>
+                                <input type="text" name="codigoPostal" value="{{emp.codigoPostal}}" class="form-control text-center"   required>
+                            </div>
+                              <div   class="form-group">
+                            <label for="escolaridad">ESCOLARIDAD:</label>
+                               <select name="escolaridad" id="escolaridad">
+                                    <option name="escolaridad"value="{{emp.escolaridad}}">{{emp.escolaridad}}</option>
+                                    <option name="escolaridad" value="Preparatoria Completea">Preparatoria Completa</option>
+                                    <option name="escolaridad" value="Bachillerato Tecnivo Completea">Bachillerato Tecnivo Completo</option>
+                                    <option name="escolaridad" value="Licenciatura">Licenciatura</option>
+                                    <option name="escolaridad" value="Ingenieria">Ingenieria</option>
+                                    <option name="escolaridad" value="Maestria">Maestria</option>
+                                    <option name="escolaridad" value="Doctorado">Doctorado</option>
+                                    <option name="escolaridad" value="Pos Grado">Pos Grado</option>
+                               </select>
+                              </div>
+                             <div class="form-group">
+                                <label>ESPECIALIDAD</label>
+                                <input type="text" name="especialidad" value="{{emp.especialidad}}" class="form-control text-center"   required>
+                            </div>
+                            <div class="form-group">
+                                <label>EMAIL:</label>
+                                <input type="email" name="email" value="{{emp.email}}" class="form-control text-center"   required>
+                            </div>
+                            <div class="form-group">
+                                <label>CONTRASEÑA:</label>
+                                <input type="password" name="contraseña" value="{{emp.contraseña}}" class="form-control text-center"   required>
+                            </div>
+                             <div   class="form-group">
+                            <label for="tipo">tipo:</label>
+                               <select name="tipo" id="tipo">
+                                    <option name="tipo" value="{{emp.tipo}}">{{emp.tipo}}</option>
+                                    <option name="tipo" value="Empleado">Empleado</option>
+                                    <option name="tipo" value="Administrador">Administrador</option>
+                               </select>
+                            </div>
+                             <div  class="mb-3">
+                                <label class="form-label">Estatus: </label>
+                                <label class="form-check-label" for="radio1">
+                                    <input type="radio" id="radio1" name="estatus" value="A"checked>Activo
+                                </label>
+                                <label class="form-check-label" for="radio2">
+                                    <input type="radio"  id="radio2" name="estatus" value="I">Inactivo
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                 <div class="form-group">
+                                <label>ID DEPARTAMENTO</label>
+                                <select  name='idDepartamento'  class="form-control">
+                                    {% for department in depa  %}
+                                    {% if depa.idDepartamento!=emp.idCiudad %}
+                                    <option value="{{department.idDepartamento}}">{{department.nombre}}</option>
+                                    {% endif %}
+                                    {% if depa.idDepartamento==emp.idCiudad %}
+                                    <option value="{{emp.idDepartamento}}" selected>{{department.nombre}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                              <div class="form-group">
+                                <label>ID PUESTO</label>
+                                <select  name='idPuesto'  class="form-control">
+                                    {% for puesto in pues  %}
+                                    {% if pues.idPuesto!=emp.idPuesto %}
+                                    <option value="{{puesto.idPuesto}}">{{puesto.nombre}}</option>
+                                    {% endif %}
+                                    {% if pues.idPuesto==emp.idPuesto %}
+                                    <option value="{{emp.idPuesto}}" selected>{{puesto.nombre}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                                <label>ID CIUDAD</label>
+                                <select  name='idCiudad'  class="form-control">
+                                    {% for ciudad in ciud  %}
+                                    {% if ciud.idCiudad!=emp.idCiudad %}
+                                    <option value="{{ciudad.idCiudad}}">{{ciudad.nombre}}</option>
+                                    {% endif %}
+                                    {% if ciud.idCiudad==emp.idCiudad %}
+                                    <option value="{{emp.idCiudad}}" selected>{{ciudad.nombre}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>ID SUCURSAL</label>
+                                <select  name='idSucursal'  class="form-control">
+                                    {% for sucursal in sucu  %}
+                                    {% if sucu.idSucursal!=emp.idSucursal %}
+                                    <option value="{{sucursal.idSucursal}}">{{sucursal.nombre}}</option>
+                                    {% endif %}
+                                    {% if sucu.idSucursal==emp.idSucursal %}
+                                    <option value="{{emp.idSucursal}}" selected>{{sucursal.nombre}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                             <div class="form-group">
+                                <label>ID TURNO</label>
+                                <select  name='idTurno'  class="form-control">
+                                    {% for turno in turn  %}
+                                    {% if turn.idTurno!=emp.idTurno %}
+                                    <option value="{{turno.idTurno}}">{{turno.nombre }}</option>
+                                    {% endif %}
+                                    {% if turn.idTurno==emp.idTurno %}
+                                    <option value="{{emp.idTurno}}" selected>{{turno.nombre}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <br>
+
+                        <nav id="bloqueBotones">
+                            <button type="submit" class="btn btn-success">Actualizar</button>
+                            <a href="/empleados/consultarEmpleados" class="btn btn-warning">Regresar</a>
+                        </nav>
+                        </form>
+                        <br>
+                            {% if get_flashed_messages() %}
+                                <div id="menssageAlert" class="alert alert-success alert-dismissible">
+                            {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                            {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        <p class="text text-center">Este es el pie de pagina</p>
+    </body>
+</html>

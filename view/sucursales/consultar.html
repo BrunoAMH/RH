@@ -12,36 +12,42 @@
             {% block content %}
              <div class="container-fluid">
                 <div class="well">
-                    <h1 class="text-center">CIUDADES REGISTRADOS</h1>
-                    <a class="btn btn-info" href="/ciudades/registrarCiudades">Registrar cuidades</a>
+                    <h1 class="text-center">SUCURSALES REGISTRADAS</h1>
+                    <a class="btn btn-info" href="/sucursales/registrarSucursales">Registrar Sucursales</a>
                     <br>
                     <div class="table-responsive">
                     <table id="tablax" class="table">
                         <thead class="thead-dark">
                             <th class="text-center">ID</th>
                             <th class="text-center">NOMBRE</th>
-                            <th class="text-center">ESTADO</th>
+                            <th class="text-center">TELEFONO</th>
+                            <th class="text-center">DIRECCION</th>
+                            <th class="text-center">COLONIA</th>
+                            <th class="text-center">CODIGO POSTAL</th>
+                            <th class="text-center">PRESUPUESTO</th>
                             <th class="text-center">ESTATUS</th>
+                            <th class="text-center">CIUDAD</th>
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
                         </thead>
-                        {% for ciudad in ciud %}
+                        {% for sucursal in sucu %}
                         <tr>
-                            <td class="text-center">{{ciudad.idCiudad}}</td>
-                            <td class="text-center">{{ciudad.nombre}}</td>
-                            {% for estates in est%}
-                            {% if est.idEstado==ciud.idEstado %}
-                            <td class="text-center">{{estates.nombre}}</td>
-                            {% endif %}
-                            {% endfor %}
-                            <td class="text-center">{{ciudad.estatus}}</td>
+                            <td class="text-center">{{sucursal.idSucursal}}</td>
+                            <td class="text-center">{{sucursal.nombre}}</td>
+                            <td class="text-center">{{sucursal.telefono}}</td>
+                            <td class="text-center">{{sucursal.direccion}}</td>
+                            <td class="text-center">{{sucursal.colonia}}</td>
+                            <td class="text-center">{{sucursal.codigopostal}}</td>
+                            <td class="text-center">{{sucursal.presupuesto}}</td>
+                            <td class="text-center">{{sucursal.estatus}}</td>
+                            <td class="text-center">{{sucursal.idCiudad}}</td>
                             <td class="text-center">
-                                <a href="/ciudades/ver/{{ciudad.idCiudad}}">
+                                <a href="/sucursales/ver/{{sucursal.idSucursal}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
                                 </a>
                             </td>
                             <td class="text-center">
-                                <a href="/ciudades/eliminarCiudades/{{ciudad.idCiudad}}">
+                                <a href="/sucursales/eliminarSucursales/{{sucursal.idSucursal}}">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
@@ -79,7 +85,7 @@
                 language: {
                     processing: "Tratamiento en curso...",
                     search: "Buscar&nbsp;:",
-                    lengthMenu: "Agrupar de _MENU_ Ciudades",
+                    lengthMenu: "Agrupar de _MENU_ Sucursales",
                     info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
                     infoEmpty: "No existen datos.",
                     infoFiltered: "(filtrado de _MAX_ elementos en total)",

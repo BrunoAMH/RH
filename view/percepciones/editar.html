@@ -12,34 +12,30 @@
                     <div class="row">
                         <div class="col-sm-4" style="background-color: none;"></div>
                         <div class="well col-sm-4">
-                        <h1 class="text-center">REGISTRO DE TURNOS</h1>
-                        <form action="/formaspago/editandoFormasPago" method="post" enctype="multipart/form-data">
+                        <h1 class="text-center">REGISTRO DE PERCEPCIONES</h1>
+                        <form action="/percepciones/editandoPercepciones" method="post" enctype="multipart/form-data">
                             <div class="form-group text-center">
                                 <label>ID PERCEPCIONES</label>
-                                <input type="number" name="idFormaPago" value="{{formaspa.idFormaPago}}" class="form-control text-center" readonly>
+                                <input type="number" name="idPercepcion" value="{{perceps.idPercepcion}}" class="form-control text-center" readonly>
                             </div>
                             <div class="form-group">
                                 <label>NOMBRE</label>
-                                <input type="text" name="nombre" value="{{formaspa.nombre}}" pattern="[A-z]{1,15}" class="form-control text-center" required>
+                                <input type="text" name="nombre" value="{{perceps.nombre}}" class="form-control text-center" required>
                             </div>
 
                             <div class="form-group">
                                 <label>DESCRIPCION</label>
-                                <input type="text" name="descripcion" value="{{perceps.descripcion}}" pattern="[A-z]{1,15}" class="form-control text-center" required>
+                                <input type="text" name="descripcion" value="{{perceps.descripcion}}" class="form-control text-center" required>
                             </div>
-                            <div  class="mb-3">
-                                <label class="form-label">Estatus: </label>
-                                <label class="form-check-label" for="radio1">
-                                    <input type="radio" id="radio1" name="estatus" value="A"checked>Activo
-                                </label>
-                                <label class="form-check-label" for="radio2">
-                                    <input type="radio"  id="radio2" name="estatus" value="I">Inactivo
-                                </label>
+
+                            <div class="form-group">
+                                <label>diasPagar</label>
+                                <input type="number" name="diasPagar" value="{{perceps.diasPagar}}" class="form-control text-center" required>
                             </div>
 
                         <nav id="bloqueBotones">
                             <button type="submit" class="btn btn-success">Actualizar</button>
-                            <a href="/formaspago/consultarFormasPago" class="btn btn-warning">Regresar</a>
+                            <a href="/percepciones/consultarPercepciones" class="btn btn-warning">Regresar</a>
                         </nav>
                         </form>
                         <br>

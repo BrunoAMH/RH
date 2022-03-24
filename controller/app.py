@@ -4,7 +4,7 @@ from urllib import request
 from flask import Flask,render_template,request,flash,redirect,url_for,abort
 from flask_bootstrap import Bootstrap
 from flask_login import current_user,login_user,logout_user,login_manager,login_required,LoginManager
-from model.DAO import db, Empleados, Estados, Puestos, Turnos, Ciudades, Percepciones, Deducciones, Periodos, FormasPago
+from model.DAO import db, Empleados, Estados, Puestos, Turnos, Ciudades, Percepciones, Deducciones, Periodos, FormasPago, Sucursales, Departamentos, DocumentacionEmpleado
 app=Flask(__name__, template_folder='../view', static_folder='../static')
 Bootstrap(app)
 #---------------------Conexion ARMANDO-----------------------------------------
@@ -52,6 +52,128 @@ def iniciandoSesion():
 def cerrarSesion():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/empleados/consultarEmpleados')
+@login_required
+def consultarEmpleados():
+    emplea = Empleados()
+    departments = Departamentos()
+    puesto = Puestos()
+    ciuda = Ciudades()
+    sucursa = Sucursales()
+    turns = Turnos()
+    return render_template('/empleados/consultar.html', emp=emplea.consultaGeneral(),depa=departments.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciuda.consultaGeneral(),sucu=sucursa.consultaGeneral(), turn = turns.consultaGeneral())
+
+@app.route('/empleados/consultarImagen/<int:id>')
+def consultarImagenEmpleados(id):
+    emplea= Empleados()
+    return emplea.consultarImagen(id)
+
+@app.route('/empleados/registrarEmpleados')
+@login_required
+def registrarEmpleados():
+    department = Departamentos()
+    puesto = Puestos()
+    ciudad = Ciudades()
+    sucursal = Sucursales()
+    turno = Turnos()
+    return render_template('/empleados/nuevo.html', depa=department.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
+
+@app.route('/empleados/guardandoEmpleados',methods=['post'])
+@login_required
+def guardandoEmpleados():
+    emplea = Empleados()
+    emplea.nombre = request.form['nombre']
+    emplea.apellidoPaterno = request.form['apellidoPaterno']
+    emplea.apellidoMaterno = request.form['apellidoMaterno']
+    emplea.sexo = request.form['sexo']
+    emplea.fechaNacimiento = request.form['fechaNacimiento']
+    emplea.curp = request.form['curp']
+    emplea.estadoCivil = request.form['estadoCivil']
+    emplea.fechaContratacion = request.form['fechaContratacion']
+    emplea.salarioDiario = request.form['salarioDiario']
+    emplea.nss = request.form['nss']
+    emplea.diasVacaciones = request.form['diasVacaciones']
+    emplea.diasPermiso = request.form['diasPermiso']
+    emplea.fotografia = request.files['fotografia'].stream.read()
+    emplea.direccion = request.form['direccion']
+    emplea.colonia = request.form['colonia']
+    emplea.codigoPostal = request.form['codigoPostal']
+    emplea.escolaridad = request.form['escolaridad']
+    emplea.especialidad = request.form['especialidad']
+    emplea.email = request.form['email']
+    emplea.contraseña = request.form['contraseña']
+    emplea.tipo = request.form['tipo']
+    emplea.estatus = request.form['estatus']
+    emplea.idDepartamento = request.form['idDepartamento']
+    emplea.idPuesto = request.form['idPuesto']
+    emplea.idCiudad = request.form['idCiudad']
+    emplea.idSucursal = request.form['idSucursal']
+    emplea.idTurno = request.form['idTurno']
+    emplea.insertar()
+    flash('Ciudad registrado exitosamente')
+    return redirect(url_for('registrarEmpleados'))
+
+@app.route('/empleados/ver/<int:id>')
+@login_required
+def editarEmpleados(id):
+    emplea = Empleados()
+    department = Departamentos()
+    puesto = Puestos()
+    ciudad = Ciudades()
+    sucursal = Sucursales()
+    turno = Turnos()
+    return render_template('/empleados/editar.html',emp=emplea.consultaIndividual(id), depa=department.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
+
+@app.route('/empleados/editandoEmpleados',methods=['post'])
+@login_required
+def editandoEmpleados():
+    try:
+        emplea = Empleados()
+        emplea.idEmpleado = request.form['idEmpleado']
+        emplea.nombre = request.form['nombre']
+        emplea.apellidoPaterno = request.form['apellidoPaterno']
+        emplea.apellidoMaterno = request.form['apellidoMaterno']
+        emplea.sexo = request.form['sexo']
+        emplea.fechaNacimiento = request.form['fechaNacimiento']
+        emplea.curp = request.form['curp']
+        emplea.estadoCivil = request.form['estadoCivil']
+        emplea.fechaContratacion = request.form['fechaContratacion']
+        emplea.salarioDiario = request.form['salarioDiario']
+        emplea.nss = request.form['nss']
+        emplea.diasVacaciones = request.form['diasVacaciones']
+        emplea.diasPermiso = request.form['diasPermiso']
+        emplea.fotografia = request.files['fotografia'].stream.read()
+        emplea.direccion = request.form['direccion']
+        emplea.colonia = request.form['colonia']
+        emplea.codigoPostal = request.form['codigoPostal']
+        emplea.escolaridad = request.form['escolaridad']
+        emplea.especialidad = request.form['especialidad']
+        emplea.email = request.form['email']
+        emplea.contraseña = request.form['contraseña']
+        emplea.tipo = request.form['tipo']
+        emplea.estatus = request.form['estatus']
+        emplea.idDepartamento = request.form['idDepartamento']
+        emplea.idPuesto = request.form['idPuesto']
+        emplea.idCiudad = request.form['idCiudad']
+        emplea.idSucursal = request.form['idSucursal']
+        emplea.idTurno = request.form['idTurno']
+        emplea.actualizar()
+        flash('Datos actualizados con exito')
+    except:
+        flash('!Error al actualizar!')
+    return render_template('/empleados/editar.html', emp=emplea)
+
+@app.route('/empleados/eliminarEmpleados/<int:id>')
+@login_required
+def eliminarEmpleados(id):
+    emplea = Empleados()
+    emplea.eliminar(id)
+    flash('Registro del ciudades eliminado con exito')
+    return redirect(url_for('consultarEmpleados'))
+
+
+
 #________________________________________________________________________________
 #--------------------------------ESTADOS-----------------------------------------
 #________________________________________________________________________________
@@ -105,6 +227,58 @@ def eliminarEstado(id):
     est.eliminar(id)
     flash('Registro del estado eliminado con exito')
     return redirect(url_for('consultarEstados'))
+
+#________________________________________________________________________________
+#--------------------------------DEPARTAMENTOS-----------------------------------------
+#________________________________________________________________________________
+@app.route('/departamentos/consultarDepartamentos')
+@login_required
+def consultarDepartamentos():
+    departments = Departamentos()
+    return render_template('/departamentos/consultar.html', depa=departments.consultaGeneral())
+
+@app.route('/departamentos/registrarDepartamentos')
+@login_required
+def registrarDepartamentos():
+    return render_template('/departamentos/nuevo.html')
+
+@app.route('/departamentos/guardandoDepartamentos',methods=['post'])
+@login_required
+def guardandoDepartamentos():
+    depa = Departamentos()
+    depa.nombre = request.form['nombre']
+    depa.estatus = request.form['estatus']
+    depa.insertar()
+    flash('Departamento registrado exitosamente')
+    return redirect(url_for('registrarDepartamentos'))
+
+@app.route('/departamentos/ver/<int:id>')
+@login_required
+def editarDepartamentos(id):
+    depa = Departamentos()
+    return render_template('/departamentos/editar.html', departments=depa.consultaIndividual(id))
+
+@app.route('/departamentos/editandoDepartamentos',methods=['post'])
+@login_required
+def editandoDepartamentos():
+    try:
+        depa = Departamentos()
+        depa.idDepartamento = request.form['idDepartamento']
+        depa.nombre = request.form['nombre']
+        depa.estatus = request.form['estatus']
+        depa.actualizar()
+        flash('Datos actualizados con exito')
+    except:
+        flash('!Error al actualizar!')
+    return render_template('/departamentos/editar.html', departments=depa)
+
+@app.route('/departamentos/eliminarDepartamentos/<int:id>')
+@login_required
+def eliminarDepartamentos(id):
+    depa = Departamentos()
+    depa.eliminar(id)
+    flash('Registro de departamentos eliminado con exito')
+    return redirect(url_for('consultarDepartamentos'))
 
 #________________________________________________________________________________
 #--------------------------------PUESTOS-----------------------------------------
@@ -225,7 +399,8 @@ def eliminarTurnos(id):
 @login_required
 def consultarCiudades():
     ciudad = Ciudades()
-    return render_template('/ciudades/consultar.html', ciud=ciudad.consultaGeneral())
+    estates = Estados()
+    return render_template('/ciudades/consultar.html', ciud=ciudad.consultaGeneral(), est=estates.consultaGeneral())
 
 @app.route('/ciudades/registrarCiudades')
 @login_required
@@ -256,7 +431,7 @@ def editarCiudades(id):
 def editandoCiudades():
     try:
         ciudad = Ciudades()
-        ciudad.idCiudad = request.form['idEstado']
+        ciudad.idCiudad = request.form['idCiudad']
         ciudad.nombre = request.form['nombre']
         ciudad.idEstado = request.form['idEstado']
         ciudad.estatus = request.form['estatus']
@@ -273,6 +448,142 @@ def eliminarCiudades(id):
     ciudad.eliminar(id)
     flash('Registro del ciudades eliminado con exito')
     return redirect(url_for('consultarCiudades'))
+#________________________________________________________________________________
+#--------------------------------Sucursales----------------------------------------
+#________________________________________________________________________________
+@app.route('/sucursales/consultarSucursales')
+@login_required
+def consultarSucursales():
+    sucursal = Sucursales()
+    return render_template('/sucursales/consultar.html', sucu=sucursal.consultaGeneral())
+
+@app.route('/sucursales/registrarSucursales')
+@login_required
+def registrarSucursales():
+    ciudad = Ciudades()
+    return render_template('/sucursales/nuevo.html', ciud=ciudad.consultaGeneral())
+
+@app.route('/sucursales/guardandoSucursales',methods=['post'])
+@login_required
+def guardandoSucursales():
+    sucursal = Sucursales()
+    sucursal.nombre = request.form['nombre']
+    sucursal.telefono = request.form['telefono']
+    sucursal.direccion = request.form['direccion']
+    sucursal.colonia = request.form['colonia']
+    sucursal.codigopostal = request.form['codigopostal']
+    sucursal.presupuesto = request.form['presupuesto']
+    sucursal.estatus = request.form['estatus']
+    sucursal.idCiudad = request.form['idCiudad']
+    sucursal.insertar()
+    flash('Sucursal registrada exitosamente')
+    return redirect(url_for('registrarSucursales'))
+
+@app.route('/sucursales/ver/<int:id>')
+@login_required
+def editarSucursales(id):
+    sucursal = Sucursales()
+    ciudad = Ciudades()
+    return render_template('/sucursales/editar.html', sucu=sucursal.consultaIndividual(id), ciud=ciudad.consultaGeneral())
+
+@app.route('/sucursales/editandoSucursales',methods=['post'])
+@login_required
+def editandoSucursales():
+    try:
+        sucursal = Sucursales()
+        sucursal.idSucursal = request.form['idSucursal']
+        sucursal.nombre = request.form['nombre']
+        sucursal.telefono = request.form['telefono']
+        sucursal.direccion = request.form['direccion']
+        sucursal.colonia = request.form['colonia']
+        sucursal.codigopostal = request.form['codigopostal']
+        sucursal.presupuesto = request.form['presupuesto']
+        sucursal.estatus = request.form['estatus']
+        sucursal.idCiudad = request.form['idCiudad']
+        sucursal.actualizar()
+        flash('Datos actualizados con exito')
+    except:
+        flash('!Error al actualizar!')
+    return render_template('/sucursales/editar.html', sucu=sucursal)
+
+@app.route('/sucursales/eliminarSucursales/<int:id>')
+@login_required
+def eliminarSucursales(id):
+    sucursal = Sucursales()
+    sucursal.eliminar(id)
+    flash('Registro de Sucursales eliminado con exito')
+    return redirect(url_for('consultarSucursales'))
+
+#________________________________________________________________________________
+#--------------------------------DocumentacionEmpleado----------------------------------------
+#________________________________________________________________________________
+@app.route('/documentacionEmpleado/consultarDocumentacionEmpleado')
+@login_required
+def consultarDocumentacionEmpleado():
+    docemp = DocumentacionEmpleado()
+    empl = Empleados()
+    return render_template('/documentacionEmpleado/consultar.html', doc=docemp.consultaGeneral(), emp=empl.consultaGeneral())
+
+@app.route('/documentacionEmpleado/registrarDocumentacionEmpleado')
+@login_required
+def registrarDocumentacionEmpleado():
+    empl = Empleados()
+    return render_template('/documentacionEmpleado/nuevo.html', emp=empl.consultaGeneral())
+
+
+
+
+@app.route('/documentacionEmpleado/consultarImagen/<int:id>')
+def consultarImagenDocumentacionEmpleado(id):
+    docemp= DocumentacionEmpleado()
+    return docemp.consultarImagen(id)
+
+
+@app.route('/documentacionEmpleado/guardandoDocumentacionEmpleado',methods=['post'])
+@login_required
+def guardandoDocumentacionEmpleado():
+    docemp = DocumentacionEmpleado()
+    docemp.nombre = request.form['nombre']
+    docemp.fechaEntrega = request.form['fechaEntrega']
+    docemp.documento = request.files['documento'].stream.read()
+    docemp.idEmpleado = request.form['idEmpleado']
+    docemp.insertar()
+    flash('Documentacion registrada exitosamente')
+    return redirect(url_for('registrarDocumentacionEmpleado'))
+
+@app.route('/documentacionEmpleado/ver/<int:id>')
+@login_required
+def editarDocumentacionEmpleado(id):
+    docemp = DocumentacionEmpleado()
+    empl = Empleados()
+    return render_template('/documentacionEmpleado/editar.html', doc=docemp.consultaIndividual(id), emp=empl.consultaGeneral())
+
+@app.route('/documentacionEmpleado/editandoDocumentacionEmpleado',methods=['post'])
+@login_required
+def editandoDocumentacionEmpleado():
+    try:
+        docemp = DocumentacionEmpleado()
+        docemp.idDocumento = request.form['idDocumento']
+        docemp.nombre = request.form['nombre']
+        docemp.fechaEntrega = request.form['fechaEntrega']
+        docemp.documento = request.files['documento'].stream.read()
+        docemp.idEmpleado = request.form['idEmpleado']
+        docemp.actualizar()
+        flash('Datos actualizados con exito')
+    except:
+        flash('!Error al actualizar!')
+    return render_template('/documentacionEmpleado/editar.html', doc=docemp)
+
+@app.route('/documentacionEmpleado/eliminarDocumentacionEmpleado/<int:id>')
+@login_required
+def eliminarDocumentacionEmpleado(id):
+    docemp = DocumentacionEmpleado()
+    docemp.eliminar(id)
+    flash('Registro de Dcoumento eliminado con exito')
+    return redirect(url_for('consultarSucursales'))
+
+
+
 #________________________________________________________________________________
 #--------------------------------Percepciones------------------------------------
 #________________________________________________________________________________
