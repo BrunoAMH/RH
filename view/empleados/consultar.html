@@ -74,12 +74,31 @@
                             <td class="text-center">{{emplea.contraseña}}</td>
                             <td class="text-center">{{emplea.tipo}}</td>
                             <td class="text-center">{{emplea.estatus}}</td>
-
-                            <td class="text-center">{{emplea.idDepartamento}}</td>
-                            <td class="text-center">{{emplea.idPuesto}}</td>
-                            <td class="text-center">{{emplea.idCiudad}}</td>
-                            <td class="text-center">{{emplea.idSucursal}}</td>
-                            <td class="text-center">{{emplea.idTurno}}</td>
+                            {% for departments in depa %}
+                            {% if depa.idDepartamento==emp.idDepartamento %}
+                            <td class="text-center">{{departments.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
+                            {% for puesto in puest %}
+                            {% if puest.idPuesto==emp.idPuesto %}
+                            <td class="text-center">{{puesto.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
+                            {% for ciuda in ciud %}
+                            {% if ciud.idCiudad==emp.idCiudad %}
+                            <td class="text-center">{{ciuda.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
+                            {% for sucursa in sucu %}
+                            {% if sucu.idSucursal==emp.idSucursal %}
+                            <td class="text-center">{{sucursa.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
+                            {% for turns in turn%}
+                            {% if turn.idTurno==emp.idTurno %}
+                            <td class="text-center">{{turns.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
                             <td class="text-center">
                                 <a href="/empleados/ver/{{emplea.idEmpleado}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
