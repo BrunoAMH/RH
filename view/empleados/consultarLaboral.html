@@ -13,7 +13,7 @@
             {% block content %}
              <div class="container-fluid">
                 <div class="well">
-                    <h1 class="text-center">EMPLEADOS REGISTRADAS</h1>
+                    <h1 class="text-center">INFORMACION LABORAL</h1>
                     <a class="btn btn-info" href="/empleados/registrarEmpleados">Registrar Empleados</a>
                     <br>
                     <div class="table-responsive">
@@ -21,25 +21,12 @@
                         <thead class="thead-dark">
                             <th class="text-center">ID</th>
                             <th class="text-center">NOMBRE</th>
-                            <th class="text-center">APELLIDO PATERNO</th>
-                            <th class="text-center">APLEIIDO MATERNO</th>
-                            <th class="text-center">SEXO</th>
-                            <th class="text-center">FECHA DE NACIMIENTO</th>
-                            <th class="text-center">CURP</th>
-                            <th class="text-center">ESTADO CIVIL</th>
                             <th class="text-center">FECHA CONTRATACION</th>
                             <th class="text-center">SALARIO DIARIO</th>
-                            <th class="text-center">NSS</th>
                             <th class="text-center">DIAS DE VACACIONES</th>
                             <th class="text-center">DIAS DE PERMISO</th>
-                            <th class="text-center">FOTOGRAFIA</th>
-                            <th class="text-center">DIRECCION</th>
-                            <th class="text-center">COLONIA</th>
-                            <th class="text-center">CODIGO POSTAL</th>
                             <th class="text-center">ESCOLARIDAD</th>
                             <th class="text-center">ESPECILIDAD</th>
-                            <th class="text-center">EMAIL</th>
-                            <th class="text-center">CONTRASEÑA</th>
                             <th class="text-center">TIPO</th>
                             <th class="text-center">ESTATUS</th>
                             <th class="text-center">DEPARTAMENTO</th>
@@ -55,26 +42,13 @@
                         <tr>
                             <td class="text-center">{{emplea.idEmpleado}}</td>
                             <td class="text-center">{{emplea.nombre}}</td>
-                            <td class="text-center">{{emplea.apellidoPaterno}}</td>
-                            <td class="text-center">{{emplea.apellidoMaterno}}</td>
-                            <td class="text-center">{{emplea.sexo}}</td>
-                            <td class="text-center">{{emplea.fechaNacimiento}}</td>
-                            <td class="text-center">{{emplea.curp}}</td>
-                            <td class="text-center">{{emplea.estadoCivil}}</td>
                             <td class="text-center">{{emplea.fechaContratacion}}</td>
                             <td class="text-center">{{emplea.salarioDiario}}</td>
-                            <td class="text-center">{{emplea.nss}}</td>
                             <td class="text-center">{{emplea.diasVacaciones}}</td>
                             <td class="text-center">{{emplea.diasPermiso}}</td>
-                            <td><img src="/empleados/consultarImagen/{{emplea.idEmpleado}}" width="100px" height="80px"></td>
-                            <td class="text-center">{{emplea.direccion}}</td>
-                            <td class="text-center">{{emplea.colonia}}</td>
-                            <td class="text-center">{{emplea.codigoPostal}}</td>
                             <td class="text-center">{{emplea.escolaridad}}</td>
                             <td class="text-center">{{emplea.especialidad}}</td>
-                            <td class="text-center">{{emplea.email}}</td>
-                            <td class="text-center">{{emplea.contraseña}}</td>
-                            <td class="text-center">{{emplea.tipo}}</td>
+                             <td class="text-center">{{emplea.tipo}}</td>
                             <td class="text-center">{{emplea.estatus}}</td>
                             {% for departments in depa %}
                             {% if depa.idDepartamento==emp.idDepartamento %}

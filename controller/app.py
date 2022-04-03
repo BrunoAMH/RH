@@ -64,6 +64,41 @@ def consultarEmpleados():
     turns = Turnos()
     return render_template('/empleados/consultar.html', emp=emplea.consultaGeneral(),depa=departments.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciuda.consultaGeneral(),sucu=sucursa.consultaGeneral(), turn = turns.consultaGeneral())
 
+@app.route('/empleados/consultarEmpleadosPersonal')
+@login_required
+def consultarEmpleadosPersonal():
+    emplea = Empleados()
+    departments = Departamentos()
+    puesto = Puestos()
+    ciuda = Ciudades()
+    sucursa = Sucursales()
+    turns = Turnos()
+    return render_template('/empleados/consultarPersonal.html', emp=emplea.consultaGeneral(),depa=departments.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciuda.consultaGeneral(),sucu=sucursa.consultaGeneral(), turn = turns.consultaGeneral())
+
+@app.route('/empleados/consultarEmpleadosDomicilio')
+@login_required
+def consultarEmpleadosDomicilio():
+    emplea = Empleados()
+    departments = Departamentos()
+    puesto = Puestos()
+    ciuda = Ciudades()
+    sucursa = Sucursales()
+    turns = Turnos()
+    return render_template('/empleados/consultarDomicilio.html', emp=emplea.consultaGeneral(),depa=departments.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciuda.consultaGeneral(),sucu=sucursa.consultaGeneral(), turn = turns.consultaGeneral())
+
+@app.route('/empleados/consultarEmpleadosLaboral')
+@login_required
+def consultarEmpleadosLaboral():
+    emplea = Empleados()
+    departments = Departamentos()
+    puesto = Puestos()
+    ciuda = Ciudades()
+    sucursa = Sucursales()
+    turns = Turnos()
+    return render_template('/empleados/consultarLaboral.html', emp=emplea.consultaGeneral(),depa=departments.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciuda.consultaGeneral(),sucu=sucursa.consultaGeneral(), turn = turns.consultaGeneral())
+
+
+
 @app.route('/empleados/consultarImagen/<int:id>')
 def consultarImagenEmpleados(id):
     emplea= Empleados()

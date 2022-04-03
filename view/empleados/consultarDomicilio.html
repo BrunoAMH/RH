@@ -13,7 +13,7 @@
             {% block content %}
              <div class="container-fluid">
                 <div class="well">
-                    <h1 class="text-center">EMPLEADOS REGISTRADAS</h1>
+                    <h1 class="text-center">EMPLEADOS DOMICILIO E INFORMACION LABORAL</h1>
                     <a class="btn btn-info" href="/empleados/registrarEmpleados">Registrar Empleados</a>
                     <br>
                     <div class="table-responsive">
@@ -21,32 +21,10 @@
                         <thead class="thead-dark">
                             <th class="text-center">ID</th>
                             <th class="text-center">NOMBRE</th>
-                            <th class="text-center">APELLIDO PATERNO</th>
-                            <th class="text-center">APLEIIDO MATERNO</th>
-                            <th class="text-center">SEXO</th>
-                            <th class="text-center">FECHA DE NACIMIENTO</th>
-                            <th class="text-center">CURP</th>
-                            <th class="text-center">ESTADO CIVIL</th>
-                            <th class="text-center">FECHA CONTRATACION</th>
-                            <th class="text-center">SALARIO DIARIO</th>
-                            <th class="text-center">NSS</th>
-                            <th class="text-center">DIAS DE VACACIONES</th>
-                            <th class="text-center">DIAS DE PERMISO</th>
-                            <th class="text-center">FOTOGRAFIA</th>
                             <th class="text-center">DIRECCION</th>
                             <th class="text-center">COLONIA</th>
                             <th class="text-center">CODIGO POSTAL</th>
-                            <th class="text-center">ESCOLARIDAD</th>
-                            <th class="text-center">ESPECILIDAD</th>
                             <th class="text-center">EMAIL</th>
-                            <th class="text-center">CONTRASEÑA</th>
-                            <th class="text-center">TIPO</th>
-                            <th class="text-center">ESTATUS</th>
-                            <th class="text-center">DEPARTAMENTO</th>
-                            <th class="text-center">PUESTO</th>
-                            <th class="text-center">CIUDAD</th>
-                            <th class="text-center">SUCURSAL</th>
-                            <th class="text-center">TURNO</th>
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
                         </thead>
@@ -55,52 +33,10 @@
                         <tr>
                             <td class="text-center">{{emplea.idEmpleado}}</td>
                             <td class="text-center">{{emplea.nombre}}</td>
-                            <td class="text-center">{{emplea.apellidoPaterno}}</td>
-                            <td class="text-center">{{emplea.apellidoMaterno}}</td>
-                            <td class="text-center">{{emplea.sexo}}</td>
-                            <td class="text-center">{{emplea.fechaNacimiento}}</td>
-                            <td class="text-center">{{emplea.curp}}</td>
-                            <td class="text-center">{{emplea.estadoCivil}}</td>
-                            <td class="text-center">{{emplea.fechaContratacion}}</td>
-                            <td class="text-center">{{emplea.salarioDiario}}</td>
-                            <td class="text-center">{{emplea.nss}}</td>
-                            <td class="text-center">{{emplea.diasVacaciones}}</td>
-                            <td class="text-center">{{emplea.diasPermiso}}</td>
-                            <td><img src="/empleados/consultarImagen/{{emplea.idEmpleado}}" width="100px" height="80px"></td>
                             <td class="text-center">{{emplea.direccion}}</td>
                             <td class="text-center">{{emplea.colonia}}</td>
                             <td class="text-center">{{emplea.codigoPostal}}</td>
-                            <td class="text-center">{{emplea.escolaridad}}</td>
-                            <td class="text-center">{{emplea.especialidad}}</td>
                             <td class="text-center">{{emplea.email}}</td>
-                            <td class="text-center">{{emplea.contraseña}}</td>
-                            <td class="text-center">{{emplea.tipo}}</td>
-                            <td class="text-center">{{emplea.estatus}}</td>
-                            {% for departments in depa %}
-                            {% if depa.idDepartamento==emp.idDepartamento %}
-                            <td class="text-center">{{departments.nombre}}</td>
-                            {% endif %}
-                            {% endfor %}
-                            {% for puesto in puest %}
-                            {% if puest.idPuesto==emp.idPuesto %}
-                            <td class="text-center">{{puesto.nombre}}</td>
-                            {% endif %}
-                            {% endfor %}
-                            {% for ciuda in ciud %}
-                            {% if ciud.idCiudad==emp.idCiudad %}
-                            <td class="text-center">{{ciuda.nombre}}</td>
-                            {% endif %}
-                            {% endfor %}
-                            {% for sucursa in sucu %}
-                            {% if sucu.idSucursal==emp.idSucursal %}
-                            <td class="text-center">{{sucursa.nombre}}</td>
-                            {% endif %}
-                            {% endfor %}
-                            {% for turns in turn%}
-                            {% if turn.idTurno==emp.idTurno %}
-                            <td class="text-center">{{turns.nombre}}</td>
-                            {% endif %}
-                            {% endfor %}
                             <td class="text-center">
                                 <a href="/empleados/ver/{{emplea.idEmpleado}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>

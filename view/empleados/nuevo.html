@@ -8,6 +8,7 @@
 
     <body>
         {% include "common/navigation_bar.html" %}
+         {% include "common/navigation_bar_empleados.html" %}
             {% block content %}
                 <div class="container-fluid text-center">
                     <div class="row">
@@ -39,11 +40,11 @@
 
                          <div  class="form-group">
                             <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                            <input type="date" class="form-control" id="fechaNacimiento" placeholder="fecha de Nacimiento del empleado a registrar"  required name="fechaNacimiento">
+                            <input type="date" class="form-control" id="fechaNacimiento" placeholder="fecha de Nacimiento del empleado a registrar" max="2004-12-31" min="1930-01-01" required name="fechaNacimiento">
                         </div>
                          <div  class="form-group">
                             <label for="curp">Curp:</label>
-                            <input type="text" class="form-control" id="curp" placeholder="curp de la Sucursal  a registrar"  maxlength="20" required name="curp">
+                            <input type="text" class="form-control" id="curp" placeholder="curp de la Sucursal  a registrar" minlength="20"  maxlength="20" required name="curp">
                         </div>
                          <div   class="form-group">
                             <label for="estadoCivil">estado Civil:</label>
@@ -65,15 +66,15 @@
                         </div>
                         <div  class="form-group">
                             <label for="nss">NSS</label>
-                            <input type="number" class="form-control" id="nss" placeholder="NSS del empelado a registrar" maxlength="11"  required name="nss">
+                            <input type="number" class="form-control" id="nss" placeholder="NSS del empelado a registrar" maxlength="11" minlength="11" required name="nss">
                         </div>
                         <div  class="form-group">
                             <label for="diasVacaciones">dias de Vacaciones</label>
-                            <input type="number" class="form-control" id="diasVacaciones" placeholder="dias de Vacaciones del empelado a registrar"  required name="diasVacaciones">
+                            <input type="number" class="form-control" id="diasVacaciones" placeholder="dias de Vacaciones del empelado a registrar" min="1" max="10" required name="diasVacaciones">
                         </div>
                         <div  class="form-group">
                             <label for="diasPermiso">dias de Permiso</label>
-                            <input type="number" class="form-control" id="diasPermiso" placeholder="dias de Permiso del empelado a registrar"   required name="diasPermiso">
+                            <input type="number" class="form-control" id="diasPermiso" placeholder="dias de Permiso del empelado a registrar"  min="1" max="10" required name="diasPermiso">
                         </div>
                         <div class="form-group">
                             <label for="fotografia">fotografia:</label>
@@ -89,7 +90,7 @@
                         </div>
                         <div  class="form-group">
                             <label for="codigoPostal">codigo Postal:</label>
-                            <input type="text" class="form-control" id="codigoPostal" placeholder="codigo Postal del empleado a registrar"  maxlength="5" required name="codigoPostal">
+                            <input type="text" class="form-control" id="codigoPostal" placeholder="codigo Postal del empleado a registrar"  maxlength="5" minlength="5" required name="codigoPostal">
                         </div>
                         <div   class="form-group">
                             <label for="escolaridad">escolaridad:</label>

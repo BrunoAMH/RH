@@ -26,7 +26,7 @@
                         </div>
                             <div class="form-group">
                             <label for="porcentaje" class="form-label">Porcentaje</label>
-                            <input type="number" class="form-control" id="porcentaje" placeholder="Porcentaje de las deducciones" maxlength="8" required name="porcentaje">
+                            <input type="number" class="form-control" id="porcentaje" placeholder="Porcentaje de las deducciones" maxlength="8" min="0" max="100" required name="porcentaje">
                         </div>
                         <nav id="bloqueBotones">
                             <button type="submit" onclick="return enviarFormulario();"  class="btn btn-success">Registrar</button>
