@@ -8,9 +8,11 @@ from model.DAO import db, Empleados, Estados, Puestos, Turnos, Ciudades, Percepc
 app=Flask(__name__, template_folder='../view', static_folder='../static')
 Bootstrap(app)
 #---------------------Conexion ARMANDO-----------------------------------------
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
+#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
 #---------------------Conexion BRUNO-------------------------------------------
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
+#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
+#---------------------Conexion Espinoza-----------------------------------------
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@localhost/rh'
 #------------------------------------------------------------------------------
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key='cl4v3'
@@ -568,8 +570,13 @@ def eliminarSucursales(id):
 @login_required
 def consultarDocumentacionEmpleado():
     docemp = DocumentacionEmpleado()
-    empl = Empleados()
-    return render_template('/documentacionEmpleado/consultar.html', doc=docemp.consultaGeneral(), emp=empl.consultaGeneral())
+    empleados = Empleados()
+    if current_user.is_admin():
+        return render_template('/documentacionEmpleado/consultarUsuarios.html', doc=docemp.consultaGeneral(),
+                               emp=empleados.consultaGeneral())
+    else:
+        return render_template('/documentacionEmpleado/consultar.html', doc=docemp.consultaGeneral(),
+                               emp=empleados.consultaGeneral())
 
 @app.route('/documentacionEmpleado/registrarDocumentacionEmpleado')
 @login_required
@@ -578,15 +585,13 @@ def registrarDocumentacionEmpleado():
     return render_template('/documentacionEmpleado/nuevo.html', emp=empl.consultaGeneral())
 
 
-
-
 @app.route('/documentacionEmpleado/consultarImagen/<int:id>')
 def consultarImagenDocumentacionEmpleado(id):
-    docemp= DocumentacionEmpleado()
+    docemp = DocumentacionEmpleado()
     return docemp.consultarImagen(id)
 
 
-@app.route('/documentacionEmpleado/guardandoDocumentacionEmpleado',methods=['post'])
+@app.route('/documentacionEmpleado/guardandoDocumentacionEmpleado', methods=['post'])
 @login_required
 def guardandoDocumentacionEmpleado():
     docemp = DocumentacionEmpleado()
@@ -598,14 +603,17 @@ def guardandoDocumentacionEmpleado():
     flash('Documentacion registrada exitosamente')
     return redirect(url_for('registrarDocumentacionEmpleado'))
 
+
 @app.route('/documentacionEmpleado/ver/<int:id>')
 @login_required
 def editarDocumentacionEmpleado(id):
     docemp = DocumentacionEmpleado()
     empl = Empleados()
-    return render_template('/documentacionEmpleado/editar.html', doc=docemp.consultaIndividual(id), emp=empl.consultaGeneral())
+    return render_template('/documentacionEmpleado/editar.html', doc=docemp.consultaIndividual(id),
+                           emp=empl.consultaGeneral())
 
-@app.route('/documentacionEmpleado/editandoDocumentacionEmpleado',methods=['post'])
+
+@app.route('/documentacionEmpleado/editandoDocumentacionEmpleado', methods=['post'])
 @login_required
 def editandoDocumentacionEmpleado():
     try:
@@ -621,6 +629,7 @@ def editandoDocumentacionEmpleado():
         flash('!Error al actualizar!')
     return render_template('/documentacionEmpleado/editar.html', doc=docemp)
 
+
 @app.route('/documentacionEmpleado/eliminarDocumentacionEmpleado/<int:id>')
 @login_required
 def eliminarDocumentacionEmpleado(id):
@@ -628,7 +637,6 @@ def eliminarDocumentacionEmpleado(id):
     docemp.eliminar(id)
     flash('Registro de Dcoumento eliminado con exito')
     return redirect(url_for('consultarSucursales'))
-
 
 
 #________________________________________________________________________________
