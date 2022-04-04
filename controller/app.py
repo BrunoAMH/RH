@@ -75,6 +75,18 @@ def consultarEmpleadosPersonal():
     turns = Turnos()
     return render_template('/empleados/consultarPersonal.html', emp=emplea.consultaGeneral(),depa=departments.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciuda.consultaGeneral(),sucu=sucursa.consultaGeneral(), turn = turns.consultaGeneral())
 
+@app.route('/empleados/consultarEmpleadosDiaspermiso')
+@login_required
+def consultarEmpleadosDiaspermiso():
+    emplea = Empleados()
+    departments = Departamentos()
+    puesto = Puestos()
+    ciuda = Ciudades()
+    sucursa = Sucursales()
+    turns = Turnos()
+    return render_template('/empleados/consultarDiaspermiso.html', emp=emplea.consultaGeneral(),depa=departments.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciuda.consultaGeneral(),sucu=sucursa.consultaGeneral(), turn = turns.consultaGeneral())
+
+
 @app.route('/empleados/consultarEmpleadosDomicilio')
 @login_required
 def consultarEmpleadosDomicilio():
