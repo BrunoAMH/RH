@@ -15,7 +15,11 @@
                         <div class="well col-sm-4">
                         <h1 class="text-center">REGISTRO DE DOCUMENTACION</h1>
                         <form action="/documentacionEmpleado/guardandoDocumentacionEmpleado" method="post" enctype="multipart/form-data">
-
+                        <div  class="form-group">
+                            <label for="nombre">Empleado</label>
+                            <input type="hidden" class="form-control" id="idEmpleado" value="{{current_user.idEmpleado}}" placeholder="Empledo de la Documentacion a registrar"  maxlength="60" readonly name="idEmpleado">
+                            <input type="text" class="form-control" value="{{current_user.nombre}}" placeholder="Empledo de la Documentacion a registrar"  maxlength="60" readonly>
+                        </div>
                         <div  class="form-group">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" placeholder="Nombre de la Documentacion a registrar"  maxlength="60" required name="nombre">
@@ -27,15 +31,6 @@
                        <div class="form-group">
                             <label for="documento">documento:</label>
                             <input type="file" class="form-control" id="documento" placeholder="Documento del Empleado"  required name="documento" >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="idEmpleado" class="form-label">Id Empleado</label>
-                            <select name='idEmpleado'  class="form-control">
-                                {% for empl in emp %}
-                                <option value="{{empl.idEmpleado}}">{{empl.nombre}}</option>
-                                {% endfor %}
-                            </select>
                         </div>
                         <nav id="bloqueBotones">
                             <button type="submit" class="btn btn-success">Registrar</button>

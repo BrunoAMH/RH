@@ -19,20 +19,25 @@
                     <table id="tablax" class="table">
                         <thead class="thead-dark">
                             <th class="text-center">ID</th>
+                            <th class="text-center">EMPLEADO</th>
                             <th class="text-center">NOMBRE</th>
                             <th class="text-center">FECHA DE ENTREGA</th>
                             <th class="text-center">DOCUMENTO</th>
-                            <th class="text-center">EMPLEADO</th>
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for docemp in doc %}
+                        {% if current_user.idEmpleado==docemp.idEmpleado %}
                         <tr>
                             <td class="text-center">{{docemp.idDocumento}}</td>
+                            {% for empleados in emp %}
+                            {% if empleados.idEmpleado==docemp.idEmpleado %}
+                            <td class="text-center">{{empleados.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
                             <td class="text-center">{{docemp.nombre}}</td>
                             <td class="text-center">{{docemp.fechaEntrega}}</td>
                             <td><img src="/documentacionEmpleado/consultarImagen/{{docemp.idDocumento}}" width="100px" height="80px"></td>
-                            <td class="text-center">{{docemp.idEmpleado}}</td>
                             <td class="text-center">
                                 <a href="/documentacionEmpleado/ver/{{docemp.idDocumento}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -44,6 +49,7 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
                     </div>
@@ -77,7 +83,7 @@
                 language: {
                     processing: "Tratamiento en curso...",
                     search: "Buscar&nbsp;:",
-                    lengthMenu: "Agrupar de _MENU_ Ciudades",
+                    lengthMenu: "Agrupar de _MENU_ Empleados",
                     info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
                     infoEmpty: "No existen datos.",
                     infoFiltered: "(filtrado de _MAX_ elementos en total)",

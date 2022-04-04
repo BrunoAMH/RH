@@ -14,9 +14,11 @@
                         <div class="well col-sm-4">
                         <h1 class="text-center">REGISTRO DE DOCUMENTOS</h1>
                         <form action="/documentacionEmpleado/editandoDocumentacionEmpleado" method="post" enctype="multipart/form-data">
-                            <div class="form-group text-center">
-                                <label>ID DOCUMENTO</label>
-                                <input type="number" name="idDocumento" value="{{doc.idDocumento}}" class="form-control text-center" readonly required>
+                            <input type="hidden" name="idDocumento" value="{{doc.idDocumento}}" class="form-control text-center" readonly required>
+                            <div  class="form-group">
+                                <label for="idEmpleado">Empleado</label>
+                                <input type="hidden" class="form-control" id="idEmpleado" value="{{current_user.idEmpleado}}" placeholder="Empledo de la Documentacion a registrar"  maxlength="60" readonly name="idEmpleado">
+                                <input type="text" class="form-control" value="{{current_user.nombre}}" placeholder="Empledo de la Documentacion a registrar"  maxlength="60" readonly>
                             </div>
                             <div class="form-group">
                                 <label>NOMBRE</label>
@@ -30,22 +32,9 @@
                                 <label>foto:</label>
                                  <img src="/documentacionEmpleado/consultarImagen/{{doc.idDocumento}}" value="{{doc.documento}}" width="100px" height="80px">
                                 <input type="file" name="documento" placeholder="documento del Empleado" class="form-control" value="{{doc.documento}}">
+
                                 </a>
                              </div>
-
-                            <div class="form-group">
-                                <label>ID EMPLEADO</label>
-                                <select name='idEmpleado'  class="form-control">
-                                    {% for empl in emp %}
-                                    {% if empl.idEmpleado!=doc.idEmpleado %}
-                                    <option value="{{empl.idEmpleado}}">{{empl.nombre}}</option>
-                                    {% endif %}
-                                    {% if empl.idEmpleado==doc.idEmpleado %}
-                                    <option value="{{doc.idEmpleado}}" selected>{{empl.nombre}}</option>
-                                    {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </div>
                             <br>
 
                         <nav id="bloqueBotones">
