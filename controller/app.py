@@ -9,9 +9,9 @@ app=Flask(__name__, template_folder='../view', static_folder='../static')
 Bootstrap(app)
 import json
 #---------------------Conexion ARMANDO-----------------------------------------
-#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
 #---------------------Conexion BRUNO-------------------------------------------
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
+#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
 #---------------------Conexion Espinoza-----------------------------------------
 #app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@localhost/rh'
 
@@ -196,6 +196,11 @@ def editarEmpleados(id):
 def editandoEmpleados():
     try:
         emplea = Empleados()
+        department = Departamentos()
+        puesto = Puestos()
+        ciudad = Ciudades()
+        sucursal = Sucursales()
+        turno = Turnos()
         emplea.idEmpleado = request.form['idEmpleado']
         emplea.nombre = request.form['nombre']
         emplea.apellidoPaterno = request.form['apellidoPaterno']
@@ -216,7 +221,7 @@ def editandoEmpleados():
         emplea.escolaridad = request.form['escolaridad']
         emplea.especialidad = request.form['especialidad']
         emplea.email = request.form['email']
-        emplea.contraseña = request.form['contraseña']
+        emplea.contraseña = request.form['contrasena']
         emplea.tipo = request.form['tipo']
         emplea.estatus = request.form['estatus']
         emplea.idDepartamento = request.form['idDepartamento']
@@ -228,7 +233,7 @@ def editandoEmpleados():
         flash('Datos actualizados con exito')
     except:
         flash('!Error al actualizar!')
-    return render_template('/empleados/editar.html', emp=emplea)
+    return render_template('/empleados/editar.html', emp=emplea.consultaIndividual(id), depa=department.consultaGeneral(), pues=puesto.consultaGeneral(), ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
 
 @app.route('/empleados/eliminarEmpleados/<int:id>')
 @login_required

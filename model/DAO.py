@@ -182,7 +182,6 @@ class Puestos(db.Model):
     salarioMinimo = Column(Float, nullable=False)
     salarioMaximo = Column(Float, nullable=False)
     estatus = Column(CHAR(1), nullable=False)
-
     def consultaGeneral(self):
         return self.query.all()
 

@@ -13,11 +13,11 @@
             {% block content %}
              <div class="container-fluid">
                 <div class="well">
-                    <h1 class="text-center">EMPLEADOS REGISTRADAS</h1>
+                    <h1 class="text-center">EMPLEADOS REGISTRADOS</h1>
                     <a class="btn btn-info" href="/empleados/registrarEmpleados">Registrar Empleados</a>
                     <br>
                     <div class="table-responsive">
-                    <table id="tablax" class="table">
+                        <table class="table" id="tablax">
                         <thead class="thead-dark">
                             <th class="text-center">ID</th>
                             <th class="text-center">NOMBRE</th>
@@ -81,9 +81,9 @@
                             <td class="text-center">{{departments.nombre}}</td>
                             {% endif %}
                             {% endfor %}
-                            {% for puesto in puest %}
-                            {% if puest.idPuesto==emp.idPuesto %}
-                            <td class="text-center">{{puesto.nombre}}</td>
+                            {% for puestos in pues %}
+                            {% if pues.idPuesto==emp.idPuesto %}
+                            <td class="text-center">{{puestos.nombre}}</td>
                             {% endif %}
                             {% endfor %}
                             {% for ciuda in ciud %}
@@ -114,7 +114,7 @@
                         </tr>
                         {% endif %}
                         {% endfor %}
-                    </table>
+                        </table>
                     </div>
                     <br>
                         {% if get_flashed_messages() %}

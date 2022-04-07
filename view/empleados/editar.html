@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
-    </head>
-
+<head>
+    <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+</head>
     <body>
         {% include "common/navigation_bar.html" %}
-         {% include "common/navigation_bar_empleados.html" %}
             {% block content %}
                 <div class="container-fluid text-center">
                     <div class="row">
                         <div class="col-sm-4" style="background-color: none;"></div>
                         <div class="well col-sm-4">
-                        <h1 class="text-center">REGISTRO DE EMPLEADOS</h1>
-                        <form action="/empleados/editandoEmpleados" method="post" enctype="multipart/form-data">
+                        <h1 class="text-center">EDICION DATOS EMPLEADO</h1>
+                        <form action="/empleados/editandoEmpleados" method="post">
                             <div class="form-group text-center">
                                 <label>ID EMPLEADO</label>
                                 <input type="number" name="idEmpleado" value="{{emp.idEmpleado}}" class="form-control text-center" readonly required>
@@ -73,11 +68,11 @@
                             </div>
                             <div class="form-group">
                                 <label>DIAS DE VACACIONES</label>
-                                <input type="number" name="nss" value="{{emp.diasVacaciones}}" class="form-control text-center"   min="1"  required>
+                                <input type="number" name="diasVacaciones" value="{{emp.diasVacaciones}}" class="form-control text-center"   min="1"  required>
                             </div>
                              <div class="form-group">
                                 <label>DIAS DE PERMISO</label>
-                                <input type="number" name="nss" value="{{emp.diasPermiso}}" class="form-control text-center"   min="1"  required>
+                                <input type="number" name="diasPermiso" value="{{emp.diasPermiso}}" class="form-control text-center"   min="1"  required>
                             </div>
                              <div class="form-group">
                                 <label>foto:</label>
@@ -120,7 +115,7 @@
                             </div>
                             <div class="form-group">
                                 <label>CONTRASEÑA:</label>
-                                <input type="password" name="contraseña" value="{{emp.contraseña}}" class="form-control text-center"   required>
+                                <input type="password" name="contrasena" value="{{emp.contraseña}}" class="form-control text-center"   required>
                             </div>
                              <div   class="form-group">
                             <label for="tipo">tipo:</label>
@@ -144,12 +139,7 @@
                                 <label>ID DEPARTAMENTO</label>
                                 <select  name='idDepartamento'  class="form-control">
                                     {% for department in depa  %}
-                                    {% if depa.idDepartamento!=emp.idCiudad %}
                                     <option value="{{department.idDepartamento}}">{{department.nombre}}</option>
-                                    {% endif %}
-                                    {% if depa.idDepartamento==emp.idCiudad %}
-                                    <option value="{{emp.idDepartamento}}" selected>{{department.nombre}}</option>
-                                    {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
@@ -157,24 +147,14 @@
                                 <label>ID PUESTO</label>
                                 <select  name='idPuesto'  class="form-control">
                                     {% for puesto in pues  %}
-                                    {% if pues.idPuesto!=emp.idPuesto %}
                                     <option value="{{puesto.idPuesto}}">{{puesto.nombre}}</option>
-                                    {% endif %}
-                                    {% if pues.idPuesto==emp.idPuesto %}
-                                    <option value="{{emp.idPuesto}}" selected>{{puesto.nombre}}</option>
-                                    {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
                                 <label>ID CIUDAD</label>
                                 <select  name='idCiudad'  class="form-control">
                                     {% for ciudad in ciud  %}
-                                    {% if ciud.idCiudad!=emp.idCiudad %}
                                     <option value="{{ciudad.idCiudad}}">{{ciudad.nombre}}</option>
-                                    {% endif %}
-                                    {% if ciud.idCiudad==emp.idCiudad %}
-                                    <option value="{{emp.idCiudad}}" selected>{{ciudad.nombre}}</option>
-                                    {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
@@ -182,12 +162,7 @@
                                 <label>ID SUCURSAL</label>
                                 <select  name='idSucursal'  class="form-control">
                                     {% for sucursal in sucu  %}
-                                    {% if sucu.idSucursal!=emp.idSucursal %}
                                     <option value="{{sucursal.idSucursal}}">{{sucursal.nombre}}</option>
-                                    {% endif %}
-                                    {% if sucu.idSucursal==emp.idSucursal %}
-                                    <option value="{{emp.idSucursal}}" selected>{{sucursal.nombre}}</option>
-                                    {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
@@ -195,12 +170,7 @@
                                 <label>ID TURNO</label>
                                 <select  name='idTurno'  class="form-control">
                                     {% for turno in turn  %}
-                                    {% if turn.idTurno!=emp.idTurno %}
-                                    <option value="{{turno.idTurno}}">{{turno.nombre }}</option>
-                                    {% endif %}
-                                    {% if turn.idTurno==emp.idTurno %}
                                     <option value="{{emp.idTurno}}" selected>{{turno.nombre}}</option>
-                                    {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
