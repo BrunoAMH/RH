@@ -47,6 +47,43 @@ class Empleados(UserMixin,db.Model):
     idTurno = Column(Integer, ForeignKey('turnos.idTurno'))
     turnos = relationship("Turnos", backref="empleados", lazy='select')
 
+    def consultarEmail(self, email):
+        salida = {"estatus": "", "mensaje": ""}
+        usuario = None
+        usuario = self.query.filter(Empleados.email == email).first()
+        if usuario != None:
+            salida["estatus"] = "Error"
+            salida["mensaje"] = "El correo " + email + " ya ha sido registrado. Intente con otro"
+        else:
+            salida["estatus"] = "Ok"
+            salida["mensaje"] = "El correo " + email + " esta libre"
+        return salida
+
+    def consultarCurp(self, curp):
+        salida = {"estatus": "", "mensaje": ""}
+        usuario = None
+        usuario = self.query.filter(Empleados.curp == curp).first()
+        if usuario != None:
+            salida["estatus"] = "Error"
+            salida["mensaje"] = "La Curp " + curp + " ya ha sido registrado. Intente con otro"
+        else:
+            salida["estatus"] = "Ok"
+            salida["mensaje"] = "La Curp " + curp + " esta libre"
+        return salida
+
+    def consultarNss(self, nss):
+        salida = {"estatus": "", "mensaje": ""}
+        usuario = None
+        usuario = self.query.filter(Empleados.nss == nss).first()
+        if usuario != None:
+            salida["estatus"] = "Error"
+            salida["mensaje"] = "El NSS " + nss + " ya ha sido registrado. Intente con otro"
+        else:
+            salida["estatus"] = "Ok"
+            salida["mensaje"] = "El NSS " + nss + " esta libre"
+        return salida
+
+
     def consultaGeneral(self):
         return self.query.all()
 

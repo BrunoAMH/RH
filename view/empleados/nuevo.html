@@ -4,6 +4,7 @@
     <head>
       <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
         <link rel="stylesheet" href="estilo.css">
+        <script src="{{url_for('static',filename='js/usuarios.js')}}"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
@@ -14,7 +15,7 @@
     <body>
         {% include "common/navigation_bar.html" %}
             {% block content %}
- <form action="/empleados/guardandoEmpleados" method="post" enctype="multipart/form-data">
+ <form action="/empleados/guardandoEmpleados" method="post" enctype="multipart/form-data" onsubmit="return validarEmpleados(this)">
     <div class="container">
         <br>
       <!-- Nav tabs -->
@@ -66,11 +67,11 @@
 
                              <div  class="form-group">
                                 <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                                <input type="date" class="form-control" id="fechaNacimiento" placeholder="fecha de Nacimiento del empleado a registrar" max="2004-12-31" min="1930-01-01" required name="fechaNacimiento">
+                                <input type="date" class="form-control" id="fechaNacimiento" placeholder="fecha de Nacimiento del empleado a registrar"  min="1930-01-01" required name="fechaNacimiento">
                             </div>
                              <div  class="form-group">
                                 <label for="curp">Curp:</label>
-                                <input type="text" class="form-control" id="curp" placeholder="curp de la Sucursal  a registrar" minlength="20"  maxlength="20" required name="curp">
+                                <input type="text" class="form-control" id="curp" placeholder="curp de la Sucursal  a registrar" minlength="20"  maxlength="20" required name="curp" onblur="consultarCurp()">
                             </div>
                              <div   class="form-group">
                                 <label for="estadoCivil">estado Civil:</label>
@@ -84,7 +85,7 @@
                             </div>
                              <div  class="form-group">
                                 <label for="nss">NSS</label>
-                                <input type="number" class="form-control" id="nss" placeholder="NSS del empelado a registrar" maxlength="11" minlength="11" required name="nss">
+                                <input type="number" class="form-control" id="nss" placeholder="NSS del empelado a registrar" maxlength="11" minlength="11" required name="nss" onblur="consultarNss()">
                             </div>
                              <div class="form-group">
                                 <label for="fotografia">fotografia:</label>
@@ -129,7 +130,7 @@
                             </div>
                              <div  class="form-group">
                                 <label for="email">email:</label>
-                                <input type="email" class="form-control" id="email" placeholder="email del empleado a registrar"  maxlength="100" required name="email">
+                                <input type="email" class="form-control" id="email" placeholder="email del empleado a registrar"  maxlength="100" required name="email" onblur="consultarEmail()" >
                             </div>
                               <div  class="form-group">
                                 <label for="contraseña">contraseña:</label>
@@ -164,7 +165,7 @@
                                     <label for="tipo">tipo:</label>
                                        <select name="tipo" id="tipo">
                                             <option name="tipo" value="Empleado">Empleado</option>
-                                            <option name="tipo" value="Administrador">Administrador</option>
+                                            <option name="tipo" value="Admin">Administrador</option>
                                             <option name="tipo" value="Staff">Staff</option>
                                        </select>
                                 </div>
@@ -231,11 +232,16 @@
                 </div>
             </div>
       </div>
+        <div id="notificaciones1" ></div>
+        <div id="notificaciones2" ></div>
+        <div id="notificaciones3" ></div>
+        <div id="notificaciones5" ></div>
             <nav id="bloqueBotones">
                 <button type="submit" class="btn btn-success">Registrar</button>
                 <a href="/empleados/consultarEmpleados" class="btn btn-warning">Regresar</a>
             </nav>
 </form>
+
 
 
         <br>

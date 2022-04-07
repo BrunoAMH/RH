@@ -7,12 +7,14 @@ from flask_login import current_user,login_user,logout_user,login_manager,login_
 from model.DAO import db, Empleados, Estados, Puestos, Turnos, Ciudades, Percepciones, Deducciones, Periodos, FormasPago, Sucursales, Departamentos, DocumentacionEmpleado
 app=Flask(__name__, template_folder='../view', static_folder='../static')
 Bootstrap(app)
+import json
 #---------------------Conexion ARMANDO-----------------------------------------
 #app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
 #---------------------Conexion BRUNO-------------------------------------------
-#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
 #---------------------Conexion Espinoza-----------------------------------------
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@localhost/rh'
+#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@localhost/rh'
+
 #------------------------------------------------------------------------------
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key='cl4v3'
@@ -48,6 +50,21 @@ def iniciandoSesion():
         return render_template('common/index.html')
     else:
         return render_template('common/login.html')
+
+@app.route('/empleados/email/<string:email>', methods=['get'])
+def consultarEmail(email):
+    e=Empleados()
+    return json.dumps(e.consultarEmail(email))
+
+@app.route('/empleados/curp/<string:curp>', methods=['get'])
+def consultarCurp(curp):
+    e=Empleados()
+    return json.dumps(e.consultarCurp(curp))
+
+@app.route('/empleados/nss/<string:nss>', methods=['get'])
+def consultarNss(nss):
+    e=Empleados()
+    return json.dumps(e.consultarNss(nss))
 
 @app.route('/cerrarSesion')
 @login_required
