@@ -27,6 +27,7 @@
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for periodo in peri %}
+                        {% if periodo.estatus != 'I' %}
                         <tr>
                             <td class="text-center">{{periodo.idPeriodo}}</td>
                             <td class="text-center">{{periodo.nombre}}</td>
@@ -44,6 +45,7 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
                     </div>

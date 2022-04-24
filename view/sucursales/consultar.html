@@ -31,6 +31,7 @@
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for sucursal in sucu %}
+                        {% if sucursal.estatus != 'I' %}
                         <tr>
                             <td class="text-center">{{sucursal.idSucursal}}</td>
                             <td class="text-center">{{sucursal.nombre}}</td>
@@ -40,7 +41,11 @@
                             <td class="text-center">{{sucursal.codigopostal}}</td>
                             <td class="text-center">{{sucursal.presupuesto}}</td>
                             <td class="text-center">{{sucursal.estatus}}</td>
-                            <td class="text-center">{{sucursal.idCiudad}}</td>
+                            {% for ciudad in ciud %}
+                            {% if ciudad.idCiudad==sucursal.idCiudad %}
+                            <td class="text-center">{{ciudad.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
                             <td class="text-center">
                                 <a href="/sucursales/ver/{{sucursal.idSucursal}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -52,6 +57,7 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
                     </div>

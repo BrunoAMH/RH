@@ -16,16 +16,16 @@
                         <form action="/estados/editandoEstado" method="post" enctype="multipart/form-data">
                             <div class="form-group text-center">
                                 <label>ID ESTADO</label>
-                                <input type="number" name="idEstado" value="{{estates.idEstado}}" class="form-control text-center" readonly>
+                                <input type="number" name="idEstado" value="{{est.idEstado}}" class="form-control text-center" readonly>
                             </div>
                             <div class="form-group">
                                 <label>NOMBRE</label>
-                                <input type="text" name="nombreEstado" value="{{estates.nombre}}" pattern="[A-z]{1,15}" class="form-control text-center" required>
+                                <input type="text" name="nombreEstado" value="{{est.nombre}}" pattern="[A-z]{1,15}" class="form-control text-center" required>
                             </div>
 
                             <div class="form-group">
                                 <label>SIGLAS</label>
-                                <input type="text" name="siglas" value="{{estates.siglas}}" pattern="[A-z]{1,15}" class="form-control text-center" required>
+                                <input type="text" name="siglas" value="{{est.siglas}}" pattern="[A-z]{1,15}" class="form-control text-center" required>
                             </div>
                             <div  class="mb-3">
                                 <label class="form-label">Estatus: </label>

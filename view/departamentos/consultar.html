@@ -25,6 +25,7 @@
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for departments in depa %}
+                        {% if departments.estatus != 'I' %}
                         <tr>
                             <td class="text-center">{{departments.idDepartamento}}</td>
                             <td class="text-center">{{departments.nombre}}</td>
@@ -40,6 +41,7 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
                     </div>
@@ -60,11 +62,11 @@
      <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
-        </script>
+    </script>
     <!-- DATATABLES -->
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js">
     </script>
-         <!-- BOOTSTRAP -->
+    <!-- BOOTSTRAP -->
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js">
     </script>
     <script>
@@ -97,6 +99,6 @@
             });
         });
     </script>
-<!-- Paginacion y Busqueda Fin -->
+    <!-- Paginacion y Busqueda Fin -->
     </body>
 </html>
