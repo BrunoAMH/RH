@@ -26,6 +26,7 @@
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for estates in est %}
+                        {% if estates.estatus != 'I' %}
                         <tr>
                             <td class="text-center">{{estates.idEstado}}</td>
                             <td class="text-center">{{estates.nombre}}</td>
@@ -42,6 +43,7 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
                     </div>

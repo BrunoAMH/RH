@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
+ <head>
       <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
         <link rel="stylesheet" href="estilo.css">
         <script src="{{url_for('static',filename='js/usuarios.js')}}"></script>
@@ -10,52 +7,50 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    </head>
-
+ </head>
     <body>
         {% include "common/navigation_bar.html" %}
-            {% block content %}
- <form action="/empleados/guardandoEmpleados" method="post" enctype="multipart/form-data" onsubmit="return validarEmpleados(this)">
-    <div class="container">
+        {% block content %}
+        <form action="/empleados/guardandoEmpleados" method="post" enctype="multipart/form-data" onsubmit="return validarEmpleados(this)">
+        <div class="container">
         <br>
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#home">Informacion Personal</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#menu1">Domicilio e informacion de contacto</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#menu2">Dias de permiso y Salario</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#menu3">Informacion Laboral</a>
-        </li>
-      </ul>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home">Informacion Personal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">Domicilio e informacion de contacto</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu2">Dias de permiso y Salario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu3">Informacion Laboral</a>
+            </li>
+        </ul>
 
-      <!-- Tab panes -->
+        <!-- Tab panes -->
         <h1 class="text-center">REGISTRO DE EMPLEADOS</h1>
-
-      <div class="tab-content">
-        <div id="home" class="container tab-pane active"><br>
-            <div class="container-fluid text-center">
-                <div class="row">
-                     <div class="col-sm-4" style="background-color: none;"></div>
-                        <div class="well col-sm-4">
-                            <div  class="form-group">
+        <div class="tab-content">
+            <div id="home" class="container tab-pane active"><br>
+                <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-sm-4" style="background-color: none;"></div>
+                            <div class="well col-sm-4">
+                            <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" placeholder="Nombre del empleado a registrar"  maxlength="30" required name="nombre">
                             </div>
-                            <div  class="form-group">
+                            <div class="form-group">
                                 <label for="apellidoPaterno">Apellido Paterno</label>
                                 <input type="text" class="form-control" id="apellidoPaterno" placeholder="Apellido Paterno del empleado a registrar"  maxlength="30" required name="apellidoPaterno">
                             </div>
-                            <div  class="form-group">
+                            <div class="form-group">
                                 <label for="apellidoMaterno">Apellido Materno</label>
                                 <input type="text" class="form-control" id="apellidoMaterno" placeholder="Apellido Materno del empleado a registrar"  maxlength="30" required name="apellidoMaterno">
                             </div>
-                                  <div  class="mb-3">
+                                <div  class="mb-3">
                                     <label class="form-label">sexo: </label>
                                     <label class="form-check-label" for="radio3">
                                         <input type="radio" id="radio3" name="sexo" value="H"checked>Hombre
@@ -63,19 +58,18 @@
                                     <label class="form-check-label" for="radio2">
                                         <input type="radio"  id="radio4" name="sexo" value="M">Mujer
                                     </label>
-                            </div>
-
-                             <div  class="form-group">
+                                </div>
+                            <div  class="form-group">
                                 <label for="fechaNacimiento">Fecha de Nacimiento:</label>
                                 <input type="date" class="form-control" id="fechaNacimiento" placeholder="fecha de Nacimiento del empleado a registrar"  min="1930-01-01" required name="fechaNacimiento">
                             </div>
-                             <div  class="form-group">
+                            <div  class="form-group">
                                 <label for="curp">Curp:</label>
                                 <input type="text" class="form-control" id="curp" placeholder="curp de la Sucursal  a registrar" minlength="20"  maxlength="20" required name="curp" onblur="consultarCurp()">
                             </div>
-                             <div   class="form-group">
+                            <div   class="form-group">
                                 <label for="estadoCivil">estado Civil:</label>
-                                   <select name="estadoCivil" id="estadoCivil">
+                                    <select name="estadoCivil" id="estadoCivil">
                                         <option name="estadoCivil" value="Soltero">Soltero</option>
                                         <option name="estadoCivil" value="Casado">Casado</option>
                                         <option name="estadoCivil" value="Union Libre">Union Libre</option>
@@ -83,15 +77,15 @@
                                         <option name="estadoCivil" value="Viudo/a">Viudo/a</option>
                                    </select>
                             </div>
-                             <div  class="form-group">
+                            <div  class="form-group">
                                 <label for="nss">NSS</label>
                                 <input type="number" class="form-control" id="nss" placeholder="NSS del empelado a registrar" maxlength="11" minlength="11" required name="nss" onblur="consultarNss()">
                             </div>
                              <div class="form-group">
                                 <label for="fotografia">fotografia:</label>
                                 <input type="file" class="form-control" id="fotografia" placeholder="Fotografia del Empleado" class="form-control" required name="fotografia" >
-                            </div>
-                            <div   class="form-group">
+                             </div>
+                             <div   class="form-group">
                                 <label for="escolaridad">escolaridad:</label>
                                    <select name="escolaridad" id="escolaridad">
                                         <option name="escolaridad" value="Preparatoria Completea">Preparatoria Completa</option>
@@ -102,44 +96,44 @@
                                         <option name="escolaridad" value="Doctorado">Doctorado</option>
                                         <option name="escolaridad" value="Pos Grado">Pos Grado</option>
                                    </select>
-                            </div>
+                             </div>
                             <div  class="form-group">
-                                <label for="especialidad">especialidad:</label>
+                                <label for="especialidad">Especialidad:</label>
                                 <input type="text" class="form-control" id="especialidad" placeholder="especialidad del empleado a registrar"  maxlength="100" required name="especialidad">
                             </div>
-                        </div>
+                            </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="menu1" class="container tab-pane fade"><br>
-          <div class="container-fluid text-center">
-                <div class="row">
-                     <div class="col-sm-4" style="background-color: none;"></div>
-                        <div class="well col-sm-4">
-                               <div  class="form-group">
-                                <label for="direccion">direccion:</label>
-                                <input type="text" class="form-control" id="direccion" placeholder="direccion del empleado a registrar"  maxlength="80" required name="direccion">
+            <div id="menu1" class="container tab-pane fade"><br>
+                <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-sm-4" style="background-color: none;"></div>
+                            <div class="well col-sm-4">
+                                <div  class="form-group">
+                                    <label for="direccion">direccion:</label>
+                                    <input type="text" class="form-control" id="direccion" placeholder="direccion del empleado a registrar"  maxlength="80" required name="direccion">
+                                </div>
+                                <div  class="form-group">
+                                    <label for="colonia">colonia:</label>
+                                    <input type="text" class="form-control" id="colonia" placeholder="colonia del empleado a registrar"  maxlength="50" required name="colonia">
+                                </div>
+                                <div  class="form-group">
+                                    <label for="codigoPostal">codigo Postal:</label>
+                                    <input type="text" class="form-control" id="codigoPostal" placeholder="codigo Postal del empleado a registrar"  maxlength="5" minlength="5" required name="codigoPostal">
+                                </div>
+                                <div  class="form-group">
+                                    <label for="email">email:</label>
+                                    <input type="email" class="form-control" id="email" placeholder="email del empleado a registrar"  maxlength="100" required name="email" onblur="consultarEmail()" >
+                                </div>
+                                <div  class="form-group">
+                                    <label for="contraseña">contraseña:</label>
+                                    <input type="password" class="form-control" id="contraseña" placeholder="contraseña del empleado a registrar"  maxlength="20" required name="contraseña">
+                                </div>
                             </div>
-                             <div  class="form-group">
-                                <label for="colonia">colonia:</label>
-                                <input type="text" class="form-control" id="colonia" placeholder="colonia del empleado a registrar"  maxlength="50" required name="colonia">
-                            </div>
-                            <div  class="form-group">
-                                <label for="codigoPostal">codigo Postal:</label>
-                                <input type="text" class="form-control" id="codigoPostal" placeholder="codigo Postal del empleado a registrar"  maxlength="5" minlength="5" required name="codigoPostal">
-                            </div>
-                             <div  class="form-group">
-                                <label for="email">email:</label>
-                                <input type="email" class="form-control" id="email" placeholder="email del empleado a registrar"  maxlength="100" required name="email" onblur="consultarEmail()" >
-                            </div>
-                              <div  class="form-group">
-                                <label for="contraseña">contraseña:</label>
-                                <input type="password" class="form-control" id="contraseña" placeholder="contraseña del empleado a registrar"  maxlength="20" required name="contraseña">
-                            </div>
-                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
             <div id="menu2" class="container tab-pane fade"><br>
               <div class="container-fluid text-center">
                     <div class="row">
@@ -174,37 +168,37 @@
                 </div>
             </div>
             <div id="menu3" class="container tab-pane fade"><br>
-              <div class="container-fluid text-center">
+                <div class="container-fluid text-center">
                     <div class="row">
                          <div class="col-sm-4" style="background-color: none;"></div>
                             <div class="well col-sm-4">
                                  <div  class="mb-3">
-                                        <label class="form-label">Estatus: </label>
+                                     <label class="form-label">Estatus: </label>
                                         <label class="form-check-label" for="radio1">
                                             <input type="radio" id="radio1" name="estatus" value="A"checked>Activo
                                         </label>
                                         <label class="form-check-label" for="radio2">
                                             <input type="radio"  id="radio2" name="estatus" value="I">Inactivo
                                         </label>
-                                </div>
+                                 </div>
                                  <div class="form-group">
-                                    <label for="idDepartamento" class="form-label">Departamento</label>
-                                    <select name='idDepartamento'  class="form-control">
-                                        {% for department in depa %}
-                                        <option value="{{department.idDepartamento}}">{{department.nombre}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
+                                    <label class="form-label">Departamento:</label>
+                                        <select name='idDepartament'  class="form-control">
+                                            {% for department in depa %}
+                                                <option value="{{department.idDepartamento}}">{{department.nombre}}</option>
+                                            {% endfor %}
+                                        </select>
+                                 </div>
                                 <div class="form-group">
-                                    <label for="idPuesto" class="form-label">Puesto</label>
+                                    <label class="form-label">Puesto</label>
                                     <select name='idPuesto'  class="form-control">
                                         {% for puesto in pues %}
-                                        <option value="{{puesto.idPuesto}}">{{puesto.nombre}}</option>
+                                            <option value="{{puesto.idPuesto}}">{{puesto.nombre}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="idCiudad" class="form-label">Ciudad</label>
+                                    <label class="form-label">Ciudad</label>
                                     <select name='idCiudad'  class="form-control">
                                         {% for ciudad in ciud %}
                                         <option value="{{ciudad.idCiudad}}">{{ciudad.nombre}}</option>
@@ -212,7 +206,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="idSucursal" class="form-label">Sucursal</label>
+                                    <label class="form-label">Sucursal</label>
                                     <select name='idSucursal'  class="form-control">
                                         {% for sucursal in sucu %}
                                         <option value="{{sucursal.idSucursal}}">{{sucursal.nombre}}</option>
@@ -220,7 +214,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="idTurno" class="form-label">Turno</label>
+                                    <label class="form-label">Turno</label>
                                     <select name='idTurno'  class="form-control">
                                         {% for turno in turn %}
                                         <option value="{{turno.idTurno}}">{{turno.nombre}}</option>
@@ -232,31 +226,33 @@
                 </div>
             </div>
       </div>
+<<<<<<< HEAD
         <div  id="notificaciones1" ></div>
         <div  id="notificaciones2" ></div>
         <div  id="notificaciones3" ></div>
         <div  id="notificaciones5" ></div>
             <nav id="bloqueBotones">
+=======
+        <div id="notificaciones1" ></div>
+        <div id="notificaciones2" ></div>
+        <div id="notificaciones3" ></div>
+        <div id="notificaciones5" ></div>
+    </div>
+            <nav id="bloqueBotones" class="text-center">
+>>>>>>> 45c8f3b35dffecd9e10ed7eda16cb2b4da406778
                 <button type="submit" class="btn btn-success">Registrar</button>
                 <a href="/empleados/consultarEmpleados" class="btn btn-warning">Regresar</a>
             </nav>
 </form>
-
-
-
         <br>
         {% if get_flashed_messages() %}
         <div id="mensajeAlert" class="alert alert-success alert-dismissible">
            {% for message in get_flashed_messages() %}
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>{{message}}</strong>
-                            {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            {% endblock %}
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>{{message}}</strong>
+           {% endfor %}
+        </div>
+        {% endif %}
+    {% endblock %}
         <p class="text text-center">Este es el pie de pagina</p>
     </body>
-</html>

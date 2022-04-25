@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-sm-4" style="background-color: none;"></div>
                         <div class="well col-sm-4">
-                        <h1 class="text-center">REGISTRO DE CIUDADES</h1>
+                        <h1 class="text-center">ACTUALIZACION DE DATOS SUCURSAL</h1>
                         <form action="/sucursales/editandoSucursales" method="post" enctype="multipart/form-data">
                             <div class="form-group text-center">
                                 <label>ID SUCURSAL</label>
@@ -45,11 +45,11 @@
                             <div class="form-group">
                                 <label>ID CIUDAD</label>
                                 <select  name='idCiudad'  class="form-control">
-                                    {% for ciudad in ciud  %}
-                                    {% if ciud.idCiudad!=sucu.idCiudad %}
+                                    {% for ciudad in ciud %}
+                                    <!--{% if ciudad.idCiudad!=sucu.idCiudad %} -->
                                     <option value="{{ciudad.idCiudad}}">{{ciudad.nombre}}</option>
-                                    {% endif %}
-                                    {% if ciud.idCiudad==sucu.idCiudad %}
+                                    <!--{% endif %}-->
+                                    {% if ciudad.idCiudad==sucu.idCiudad %}
                                     <option value="{{sucu.idCiudad}}" selected>{{ciudad.nombre}}</option>
                                     {% endif %}
                                     {% endfor %}
@@ -64,9 +64,7 @@
                                     <input type="radio"  id="radio2" name="estatus" value="I">Inactivo
                                 </label>
                             </div>
-
                             <br>
-
                         <nav id="bloqueBotones">
                             <button type="submit" class="btn btn-success">Actualizar</button>
                             <a href="/sucursales/consultarSucursales" class="btn btn-warning">Regresar</a>

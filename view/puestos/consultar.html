@@ -27,6 +27,7 @@
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for puesto in pues %}
+                        {% if puesto.estatus != 'I' %}
                         <tr>
                             <td class="text-center">{{puesto.idPuesto}}</td>
                             <td class="text-center">{{puesto.nombre}}</td>
@@ -44,6 +45,7 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
                     </div>

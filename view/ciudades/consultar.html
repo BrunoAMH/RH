@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
-         <!-- Paginacion y Busqueda Inicio -->
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-          <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-          <!-- Paginacion y Busqueda Fin -->
-    </head>
-    <body>
+<body>
         {% include "common/navigation_bar.html" %}
             {% block content %}
              <div class="container-fluid">
                 <div class="well">
-                    <h1 class="text-center">CIUDADES REGISTRADOS</h1>
+                    <h1 class="text-center">CIUDADES REGISTRADAS</h1>
                     <a class="btn btn-info" href="/ciudades/registrarCiudades">Registrar cuidades</a>
                     <br>
                     <div class="table-responsive">
@@ -26,11 +17,12 @@
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for ciudad in ciud %}
+                        {% if ciudad.estatus=='A' %}
                         <tr>
                             <td class="text-center">{{ciudad.idCiudad}}</td>
                             <td class="text-center">{{ciudad.nombre}}</td>
                             {% for estates in est%}
-                            {% if est.idEstado==ciud.idEstado %}
+                            {% if estates.idEstado==ciudad.idEstado %}
                             <td class="text-center">{{estates.nombre}}</td>
                             {% endif %}
                             {% endfor %}
@@ -46,6 +38,7 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
                     </div>
@@ -104,5 +97,4 @@
         });
     </script>
 <!-- Paginacion y Busqueda Fin -->
-    </body>
-</html>
+</body>

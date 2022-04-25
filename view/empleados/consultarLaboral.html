@@ -32,34 +32,34 @@
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for emplea in emp %}
-                        {% if emp.estatus!="I" %}
+                        {% if emplea.estatus!="I" %}
                         <tr>
                             <td class="text-center">{{emplea.idEmpleado}}</td>
                             <td class="text-center">{{emplea.nombre}}</td>
                              <td class="text-center">{{emplea.tipo}}</td>
                             <td class="text-center">{{emplea.estatus}}</td>
-                            {% for departments in depa %}
-                            {% if depa.idDepartamento==emp.idDepartamento %}
-                            <td class="text-center">{{departments.nombre}}</td>
+                            {% for departaments in depa %}
+                            {% if departaments.idDepartamento==emplea.idDepartamento %}
+                            <td class="text-center">{{departaments.nombre}}</td>
                             {% endif %}
                             {% endfor %}
                             {% for puesto in pues %}
-                            {% if pues.idPuesto==emp.idPuesto %}
+                            {% if puesto.idPuesto==emplea.idPuesto %}
                             <td class="text-center">{{puesto.nombre}}</td>
                             {% endif %}
                             {% endfor %}
                             {% for ciuda in ciud %}
-                            {% if ciud.idCiudad==emp.idCiudad %}
+                            {% if ciuda.idCiudad==emplea.idCiudad %}
                             <td class="text-center">{{ciuda.nombre}}</td>
                             {% endif %}
                             {% endfor %}
                             {% for sucursa in sucu %}
-                            {% if sucu.idSucursal==emp.idSucursal %}
+                            {% if sucursa.idSucursal==emplea.idSucursal %}
                             <td class="text-center">{{sucursa.nombre}}</td>
                             {% endif %}
                             {% endfor %}
                             {% for turns in turn%}
-                            {% if turn.idTurno==emp.idTurno %}
+                            {% if emplea.idTurno == turns.idTurno%}
                             <td class="text-center">{{turns.nombre}}</td>
                             {% endif %}
                             {% endfor %}

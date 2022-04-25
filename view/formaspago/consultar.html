@@ -25,6 +25,7 @@
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for formaspa in fop %}
+                        {% if formaspa.estatus != 'I' %}
                         <tr>
                             <td class="text-center">{{formaspa.idFormaPago}}</td>
                             <td class="text-center">{{formaspa.nombre}}</td>
@@ -40,6 +41,7 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
                     </div>

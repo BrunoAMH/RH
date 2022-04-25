@@ -35,7 +35,7 @@
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for emplea in emp %}
-                        {% if emp.estatus!="I" %}
+                        {% if emplea.estatus!="I" %}
                         <tr>
                             <td class="text-center">{{emplea.idEmpleado}}</td>
                             <td class="text-center">{{emplea.nombre}}</td>
