@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_required
 from model.DAO import Estados, Ciudades
 
@@ -8,6 +9,7 @@ ciudades = Blueprint("ciudades", __name__, static_folder="view", template_folder
 @ciudades.route('/ciudades/consultarCiudades')
 @login_required
 def consultarCiudades():
+    #ciudad = Ciudades.query.join(Estados).paginate(1, 3, True)
     ciudad = Ciudades()
     estates = Estados()
     return render_template('/ciudades/consultar.html', ciud=ciudad.consultaGeneral(), est=estates.consultaGeneral())

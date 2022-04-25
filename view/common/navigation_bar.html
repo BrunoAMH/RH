@@ -21,7 +21,7 @@
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
     <!-- Dropdown -->
-      {% if current_user.tipo == "Admin" %}
+      {% if current_user.tipo == "Admin" or current_user.tipo == "Staff" %}
       <li class="nav-item">
         <a class="nav-link" href="/estados/consultarEstados" id="navbardrop" >Estados</a>
       </li>
@@ -53,7 +53,7 @@
        <li class="nav-item">
         <a class="nav-link" href="/departamentos/consultarDepartamentos" id="navbardrop10" >Departamentos</a>
       </li>
-      {% if current_user.tipo == "Admin" %}
+      {% if current_user.tipo == "Admin" or current_user.tipo == "Staff" %}
        <li class="nav-item">
         <a class="nav-link" href="/empleados/consultarEmpleados" id="navbardrop11" >Empleados</a>
       </li>

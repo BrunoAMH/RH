@@ -221,10 +221,6 @@
                                         {% endfor %}
                                     </select>
                                 </div>
-                                <nav id="bloqueBotones">
-                <button type="submit" class="btn btn-success">Registrar</button>
-                <a href="/empleados/consultarEmpleados" class="btn btn-warning">Regresar</a>
-            </nav>
                             </div>
                     </div>
                 </div>
@@ -235,6 +231,10 @@
         <div id="notificaciones3" ></div>
         <div id="notificaciones5" ></div>
     </div>
+            <nav id="bloqueBotones" class="text-center">
+                <button type="submit" class="btn btn-success">Registrar</button>
+                <a href="/empleados/consultarEmpleados" class="btn btn-warning">Regresar</a>
+            </nav>
 </form>
         <br>
         {% if get_flashed_messages() %}

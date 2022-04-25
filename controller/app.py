@@ -219,7 +219,7 @@ def guardandoEmpleados():
     emplea.idSucursal = request.form['idSucursal']
     emplea.idTurno = request.form['idTurno']
     emplea.insertar()
-    flash('Ciudad registrado exitosamente')
+    flash('Empleado registrado exitosamente')
     return redirect(url_for('registrarEmpleados'))
 
 
@@ -289,7 +289,7 @@ def editandoEmpleados():
 def eliminarEmpleados(id):
     emplea = Empleados()
     emplea.eliminar(id)
-    flash('Registro del ciudades eliminado con exito')
+    flash('Registro de empleado eliminado con exito')
     return redirect(url_for('consultarEmpleados'))
 
 
