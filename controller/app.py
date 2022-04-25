@@ -11,7 +11,7 @@ import json
 #---------------------Conexion ARMANDO-----------------------------------------
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
 #---------------------Conexion BRUNO-------------------------------------------
-#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
 #---------------------Conexion Espinoza-----------------------------------------
 #app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@localhost/rh'
 
@@ -528,6 +528,11 @@ def consultarSucursales():
     sucursal = Sucursales()
     return render_template('/sucursales/consultar.html', sucu=sucursal.consultaGeneral())
 
+@app.route('/sucursales/nombre/<string:nombre>', methods=['get'])
+def consultarNombreSucursales(nombre):
+    e=Sucursales()
+    return json.dumps(e.consultarNombreSucursales(nombre))
+
 @app.route('/sucursales/registrarSucursales')
 @login_required
 def registrarSucursales():
@@ -781,6 +786,11 @@ def consultarPeriodos():
 def registrarPeriodos():
     return render_template('/periodos/nuevo.html')
 
+@app.route('/periodos/nombre/<string:nombre>', methods=['get'])
+def consultarNombrePeriodos(nombre):
+    e=Periodos()
+    return json.dumps(e.consultarNombrePeriodos(nombre))
+
 @app.route('/periodos/guardandoPeriodos',methods=['post'])
 @login_required
 def guardandoPeriodos():
@@ -838,6 +848,11 @@ def consultarFormasPago():
 @login_required
 def registrarFormasPago():
     return render_template('/formaspago/nuevo.html')
+
+@app.route('/formaspago/nombre/<string:nombre>', methods=['get'])
+def consultarNombreFormasPago(nombre):
+    e=FormasPago()
+    return json.dumps(e.consultarNombreFormasPago(nombre))
 
 @app.route('/formaspago/guardandoFormasPago',methods=['post'])
 @login_required

@@ -296,6 +296,18 @@ class Periodos(db.Model):
     fechaFin = Column(Date, nullable=False)
     estatus = Column(CHAR(1), nullable=False)
 
+    def consultarNombrePeriodos(self, nombre):
+        salida = {"estatus": "", "mensaje": ""}
+        usuario = None
+        usuario = self.query.filter(Periodos.nombre == nombre).first()
+        if usuario != None:
+            salida["estatus"] = "Error"
+            salida["mensaje"] = "El nombre " + nombre + " ya ha sido registrado. Intente con otro"
+        else:
+            salida["estatus"] = "Ok"
+            salida["mensaje"] = "El Nombre " + nombre + " esta libre"
+        return salida
+
     def consultaGeneral(self):
         return self.query.all()
 
@@ -322,6 +334,18 @@ class FormasPago(db.Model):
     idFormaPago = Column(Integer, primary_key=True)
     nombre = Column(String(50), nullable=False)
     estatus = Column(CHAR(1), nullable=False)
+
+    def consultarNombreFormasPago(self, nombre):
+        salida = {"estatus": "", "mensaje": ""}
+        usuario = None
+        usuario = self.query.filter(FormasPago.nombre == nombre).first()
+        if usuario != None:
+            salida["estatus"] = "Error"
+            salida["mensaje"] = "El nombre " + nombre + " ya ha sido registrado. Intente con otro"
+        else:
+            salida["estatus"] = "Ok"
+            salida["mensaje"] = "El Nombre " + nombre + " esta libre"
+        return salida
 
     def consultaGeneral(self):
         return self.query.all()
@@ -410,6 +434,19 @@ class Sucursales(db.Model):
     presupuesto = Column(Float, nullable=False)
     estatus = Column(CHAR(1), nullable=False)
     idCiudad = Column(Integer, ForeignKey('ciudades.idCiudad'))
+
+    def consultarNombreSucursales(self, nombre):
+        salida = {"estatus": "", "mensaje": ""}
+        usuario = None
+        usuario = self.query.filter(Sucursales.nombre == nombre).first()
+        if usuario != None:
+            salida["estatus"] = "Error"
+            salida["mensaje"] = "El nombre " + nombre + " ya ha sido registrado. Intente con otro"
+        else:
+            salida["estatus"] = "Ok"
+            salida["mensaje"] = "El Nombre " + nombre + " esta libre"
+        return salida
+
 
 
     def consultaGeneral(self):

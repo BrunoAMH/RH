@@ -3,6 +3,7 @@
 
     <head>
       <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+        <script src="{{url_for('static',filename='js/usuarios.js')}}"></script>
     </head>
 
     <body>
@@ -16,8 +17,9 @@
                         <form action="/formaspago/guardandoFormasPago" method="post" enctype="multipart/form-data">
 
                         <div  class="form-group">
-                            <label for="estateName">Nombre</label>
-                            <input type="text" class="form-control" id="estateName" placeholder="Nombre de la forma de pago a registrar" pattern="[A-z]{1,15}" maxlength="50" required name="nombre">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre de la forma de pago a registrar"  maxlength="50" required name="nombre" onblur="consultarNombreSucursales()">
+
                         </div>
                         <div  class="mb-3">
                                 <label class="form-label">Estatus: </label>
@@ -32,7 +34,7 @@
                             <button type="submit" class="btn btn-success">Registrar</button>
                             <a href="/formaspago/consultarFormasPago" class="btn btn-warning">Regresar</a>
                         </nav>
-
+                            <div  id="notificaciones7" ></div>
                         </form>
                         <br>
                             {% if get_flashed_messages() %}
