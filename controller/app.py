@@ -17,11 +17,11 @@ from percepciones import percepciones
 from deducciones import deducciones
 from documentacion import documentacion
 import json
-<<<<<<< HEAD
+app = Flask(__name__, template_folder='../view', static_folder='../static')
 #---------------------Conexion ARMANDO-----------------------------------------
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Cocacola079*+@localhost/rh'
 #---------------------Conexion BRUNO-------------------------------------------
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
+#app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1/rh'
 #---------------------Conexion Espinoza-----------------------------------------
 #app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@localhost/rh'
 
@@ -29,9 +29,7 @@ app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:Banano2805@127.0.0.1
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key='cl4v3'
 login_manager=LoginManager()
-=======
 
-app = Flask(__name__, template_folder='../view', static_folder='../static')
 app.register_blueprint(estados)
 app.register_blueprint(ciudades)
 app.register_blueprint(puestos)
@@ -56,10 +54,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Cocacola079*+@loca
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'cl4v3'
 login_manager = LoginManager()
->>>>>>> 45c8f3b35dffecd9e10ed7eda16cb2b4da406778
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
 
 # ________________________________________________________________________________
 # --------------------------------COMUNES-----------------------------------------
@@ -260,7 +256,6 @@ def editandoEmpleados():
     puesto = Puestos()
     ciudad = Ciudades()
     sucursal = Sucursales()
-<<<<<<< HEAD
     return render_template('/sucursales/consultar.html', sucu=sucursal.consultaGeneral())
 
 @app.route('/sucursales/nombre/<string:nombre>', methods=['get'])
@@ -578,7 +573,6 @@ def eliminarPeriodos(id):
 def consultarFormasPago():
     formaspa = FormasPago()
     return render_template('/formaspago/consultar.html', fop=formaspa.consultaGeneral())
-=======
     turno = Turnos()
     emplea.idEmpleado = request.form['idEmpleado']
     emplea.nombre = request.form['nombre']
@@ -615,10 +609,8 @@ def consultarFormasPago():
     return render_template('/empleados/editar.html', emp=emplea.consultaIndividual(id),
                            depa=department.consultaGeneral(), pues=puesto.consultaGeneral(),
                            ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
->>>>>>> 45c8f3b35dffecd9e10ed7eda16cb2b4da406778
 
 
-<<<<<<< HEAD
 @app.route('/formaspago/nombre/<string:nombre>', methods=['get'])
 def consultarNombreFormasPago(nombre):
     e=FormasPago()
@@ -635,9 +627,9 @@ def guardandoFormasPago():
     return redirect(url_for('registrarFormasPago'))
 
 @app.route('/formaspago/ver/<int:id>')
-=======
+
 @app.route('/empleados/eliminarEmpleados/<int:id>')
->>>>>>> 45c8f3b35dffecd9e10ed7eda16cb2b4da406778
+
 @login_required
 def eliminarEmpleados(id):
     emplea = Empleados()
