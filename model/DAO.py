@@ -469,7 +469,7 @@ class Sucursales(db.Model):
         db.session.commit()
 
 #-----------------------------------------------------------------------------------------------------------------------
-#------------------------------------------------------DocumentacionEmpleado-------------------------------------------------------
+#------------------------------------------------------DocumentacionEmpleado--------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------
 class DocumentacionEmpleado(db.Model):
     __tablename__ = 'documentacionempleado'
@@ -504,3 +504,65 @@ class DocumentacionEmpleado(db.Model):
 
     def consultarFoto(self, id):
         return self.consultaIndividual(id).documento
+
+#-----------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------ASISTENCIAS EMPLEADO-----------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
+class Asistencias(db.Model):
+    __tablename__ = 'asistencias'
+    idAsistencia = Column(Integer, primary_key=True)
+    idEmpleado = Column(Integer, ForeignKey('empleados.idEmpleado'))
+    fecha = Column(String(60), nullable=False)
+    horaEntrada = Column(Date, nullable=False)
+    horaSalida = Column(Date, nullable=False)
+    dia = Column(Date, nullable=False)
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        obj = self.consultaIndividual(id)
+        db.session.delete(obj)
+        db.session.commit()
+
+#-----------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------HISTORIAL DE PUESTOS-----------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
+class historialPuestos(db.Model):
+    __tablename__ = 'historialpuestos'
+    idEmpleado = Column(Integer, ForeignKey('empleados.idEmpleado'))
+    idPuesto = Column(Integer, ForeignKey('puestos.idPuesto'))
+    idDepartamento = Column(Integer, ForeignKey('departamentos.idDepartamento'))
+    fechaInicio = Column(Date, primary_key=True)
+    fechaFin = Column(Date, nullable=False)
+
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        obj = self.consultaIndividual(id)
+        db.session.delete(obj)
+        db.session.commit()

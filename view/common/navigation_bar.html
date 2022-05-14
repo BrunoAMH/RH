@@ -30,7 +30,7 @@
         <a class="nav-link" href="/puestos/consultarPuestos" id="navbardrop2" >Puestos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/turnos/consultarTurnos" id="navbardrop3" >Ver Turnos</a>
+        <a class="nav-link" href="/turnos/consultarTurnos" id="navbardrop3" >Turnos</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/percepciones/consultarPercepciones" id="navbardrop4" >Percepciones</a>
@@ -54,12 +54,15 @@
         <a class="nav-link" href="/departamentos/consultarDepartamentos" id="navbardrop10" >Departamentos</a>
       </li>
       {% if current_user.tipo == "Admin" or current_user.tipo == "Staff" %}
-       <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" href="/empleados/consultarEmpleados" id="navbardrop11" >Empleados</a>
       </li>
       {% endif %}
        <li class="nav-item">
         <a class="nav-link" href="/documentacionEmpleado/consultarDocumentacionEmpleado" id="navbardrop12" >Documentacion Empleado</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/asistencias/consultarAsistencias" id="navbardrop13" >Asistencia</a>
       </li>
     </ul>
     <!-- Brand -->

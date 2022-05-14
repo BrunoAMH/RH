@@ -1,0 +1,56 @@
+{% include "common/navigation_bar.html" %}
+    {% block content %}
+        <div class="container-fluid">
+            <div class="well">
+                <h1 class="text-center">ASISTENCIAS</h1>
+                    <a class="btn btn-info" href="/asistencias/guardandoAsistencia" >Registrar asistencia</a>
+                    <br>
+                    <div class="table-responsive">
+                    <table id="tablax" class="table">
+                        <thead class="thead-dark">
+                            <th class="text-center">ID</th>
+                            <th class="text-center">EMPLEADO</th>
+                            <th class="text-center">FECHA</th>
+                            <th class="text-center">HORA DE ENTRADA</th>
+                            <th class="text-center">HORA DE SALIDA</th>
+                            <th class="text-center">DIA</th>
+                            <th class="text-center">VER</th>
+                            <th class="text-center">ELIMINAR</th>
+                        </thead>
+                        {% for asistencia in asist %}
+                        {% if asistencia.idEmpleado == current_user.idEmpleado %}
+                        <tr>
+                            <td class="text-center">{{asistencia.idAsistencia}}</td>
+                            <td class="text-center">{{current_user.nombre}}</td>
+                            <td class="text-center">{{asistencia.fecha}}</td>
+                            <td class="text-center">{{asistencia.horaEntrada}}</td>
+                            <td class="text-center">{{asistencia.horaSalida}}</td>
+                            <td class="text-center">{{asistencia.dia}}</td>
+                            <td class="text-center">
+                                <a href="/asistencias/ver/{{asistencia.idAsistencia}}">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="/asistencias/eliminarAsistencia/{{asistencia.idAsistencia}}">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                    </table>
+                    </div>
+                    <br>
+                        {% if get_flashed_messages() %}
+                            <div id="menssageAlert" class="alert alert-success alert-dismissible">
+                                {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                </div>
+             </div>
+    {% endblock %}
