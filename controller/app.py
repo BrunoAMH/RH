@@ -259,7 +259,9 @@ def editandoEmpleados():
         emplea.nss = request.form['nss']
         emplea.diasVacaciones = request.form['diasVacaciones']
         emplea.diasPermiso = request.form['diasPermiso']
-        emplea.fotografia = request.files['fotografia'].stream.read()
+        imagen = request.files['fotografia'].stream.read()
+        if imagen:
+            emplea.fotografia = imagen
         emplea.direccion = request.form['direccion']
         emplea.colonia = request.form['colonia']
         emplea.codigoPostal = request.form['codigoPostal']
