@@ -3,6 +3,7 @@
 
     <head>
       <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+          <script src="{{url_for('static',filename='js/usuarios.js')}}"></script>
     </head>
 
     <body>
@@ -17,7 +18,7 @@
 
                         <div  class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre de la Percepcion a registrar"  maxlength="30" required name="nombre">
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre de la Percepcion a registrar"  maxlength="30" required name="nombre" onblur="consultarNombrePercepciones()">
                         </div>
 
                         <div class="form-group">
@@ -26,13 +27,13 @@
                         </div>
                             <div class="form-group">
                             <label for="diasPagar" class="form-label">Dias a pagar</label>
-                            <input type="number" class="form-control" id="diasPagar" placeholder="Dias a pagar de la percepcion" maxlength="8" required name="diasPagar">
+                            <input type="number" class="form-control" id="diasPagar" placeholder="Dias a pagar de la percepcion" max="7" min="1" required name="diasPagar">
                         </div>
                         <nav id="bloqueBotones">
                             <button type="submit" class="btn btn-success">Registrar</button>
                             <a href="/percepciones/consultarPercepciones" class="btn btn-warning">Regresar</a>
                         </nav>
-
+                            <div  id="notificaciones9" ></div>
                         </form>
                         <br>
                             {% if get_flashed_messages() %}
