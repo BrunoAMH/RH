@@ -15,9 +15,11 @@
         {% include "common/navigation_bar.html" %}
             {% block content %}
              <div class="wrap">
-                 <a class="btn btn-info" href="/documentacionEmpleado/registrarDocumentacionEmpleado">Registro de Documentacion Empleado</a>
-		<h1>DOCUMENTOS REGISTRADOS</h1>
+                 <a class="btn btn-info" href="/ausenciaJustificada/registrarAusenciaJustificada">Registro de Ausencia justificada</a>
+		<h1>AUSENCIAS REGISTRADOS</h1>
+
 		<div class="store-wrapper">
+
 			<div class="category_list">
                 <a href="#" class="category_item" category="all">Todo</a>
                 {% for empleados in emp %}
@@ -25,17 +27,19 @@
 				{% endfor %}
 			</div>
 			<section class="products-list">
-                {% for docemp in doc %}
-				<div class="product-item" category="{{docemp.idEmpleado}}">
-					<img src="/documentacionEmpleado/consultarImagen/{{docemp.idDocumento}}" alt="" width="100px" height="100px">
+
+                {% for ausencia in aus %}
+				<div class="product-item" category="{{ausencia.idEmpleadoSolicita}}">
+					<img src="/ausenciaJustificada/consultarImagen/{{ausencia.idAusencia}}" alt="" width="100px" height="100px">
                     {% for empleados in emp %}
-                    {% if empleados.idEmpleado==docemp.idEmpleado %}
-                    <a href="/documentacionEmpleado/ver/{{docemp.idDocumento}}">{{empleados.nombre}}</a>
+                    {% if empleados.idEmpleado==ausencia.idEmpleadoSolicita %}
+                    <a href="/ausenciaJustificada/ver/{{ausencia.idAusencia}}">{{empleados.nombre}}</a>
                     {% endif %}
                     {% endfor %}
-                    <a href="/documentacionEmpleado/ver/{{docemp.idDocumento}}">{{docemp.nombre}}</a>
-                    <a href="/documentacionEmpleado/ver/{{docemp.idDocumento}}">{{docemp.fechaEntrega}}</a>
-                    <a href="/documentacionEmpleado/eliminarDocumentacionEmpleado/{{docemp.idDocumento}}" style="background-color:red">Eliminar</a>
+                    <a href="/ausenciaJustificada/ver/{{ausencia.idAusencia}}">{{ausencia.tipo}}</a>
+                    <a href="/ausenciaJustificada/ver/{{ausencia.idAusencia}}">{{ausencia.fechaSolicitud}}</a>
+                    <a href="/ausenciaJustificada/ver/{{ausencia.idAusencia}}">{{ausencia.estatus}}</a>
+                    <a href="/ausenciaJustificada/eliminarAusenciaJustificada/{{ausencia.idAusencia}}" style="background-color:red">Eliminar</a>
 				</div>
                 {% endfor %}
 			</section>

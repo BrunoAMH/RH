@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+        <link rel="stylesheet" href="estilo.css">
+    </head>
+
+    <body>
+        {% include "common/navigation_bar.html" %}
+            {% block content %}
+                <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-sm-4" style="background-color: none;"></div>
+                        <div class="well col-sm-4">
+                        <h1 class="text-center">REGISTRO DE AUSENCIA JUSTIFICADA</h1>
+                        <form action="/ausenciaJustificada/guardandoAusenciaJustificada" method="post" enctype="multipart/form-data" id="formulario-tarjeta" class="formulario-tarjeta">
+                        <div  class="form-group">
+                            <label for="EmpleadoSolicita">Empleado</label>
+                            <input type="hidden" class="form-control" id="EmpleadoSolicita" value="{{current_user.idEmpleado}}" placeholder="Empledo de la Documentacion a registrar"  maxlength="60" readonly name="idEmpleadoSolicita">
+                            <input type="text" class="form-control" value="{{current_user.nombre}}" placeholder="Empledo de la Ausencia a registrar"  maxlength="60" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="EmpleadoAutoriza" class="form-label">Empleado que autoriza</label>
+                            <select name='idEmpleadoAutoriza' id="EmpleadoAutoriza" class="form-control">
+                                {% for empl in emp %}
+                                <option value="{{empl.idEmpleado}}">{{empl.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div  class="form-group">
+                            <label for="fechaSolicitud">fecha de Solicitud</label>
+                            <input name="fechaSolicitud" type="date" class="form-control" id="fechaSolicitud" placeholder="fecha de solicitud de la Ausencia a registrar"  required >
+                        </div>
+                        <div  class="form-group">
+                            <label for="fechaInicio">fecha de Inicio</label>
+                                <input type="date" class="form-control" id="fechaInicio" placeholder="fecha de Inicio de la Ausencia a registrar"  required name="fechaInicio">
+                        </div>
+                        <div  class="form-group">
+                            <label for="fechaFin">fecha de Fin</label>
+                                <input type="date" class="form-control" id="fechaFin" placeholder="fecha de Fin de la Ausencia a registrar"  required name="fechaFin">
+                        </div>
+                        <div   class="form-group">
+                                    <label for="tipo">tipo:</label>
+                                       <select name="tipo" id="tipo">
+                                            <option name="tipo" value="Vacaciones">Vacaciones</option>
+                                            <option name="tipo" value="Permiso">Permiso</option>
+                                       </select>
+                        </div>
+                       <div class="form-group">
+                            <label for="evidencia">evidencia:</label>
+                            <input type="file" class="form-control" id="evidencia" placeholder="evidencia de la Ausencia"  required name="evidencia" >
+                        </div>
+                       <div   class="form-group">
+                                    <label for="estatus">estatus:</label>
+                                       <select name="estatus" id="estatus">
+                                            <option name="estatus" value="P">Pendinte</option>
+                                           {% if current_user.is_authenticated and current_user.is_admin() %}
+                                            <option name="estatus" value="A">Aprovado</option>
+                                            <option name="estatus" value="D">Denegada</option>
+                                           {% endif %}
+                                       </select>
+                        </div>
+                        <div  class="form-group">
+                            <label for="motivo">motivo</label>
+                            <input type="text" class="form-control" id="motivo" placeholder="motivo de la Ausencia a registrar"  maxlength="60" required name="motivo">
+                        </div>
+                            <div  class="form-group">
+                                <input type="text" class="form-control" id="ass" required>
+                            </div>
+                        <nav id="bloqueBotones">
+                            <button type="submit" class="btn btn-success">Registrar</button>
+                            <a href="/ausenciaJustificada/consultarAusenciaJustificada" class="btn btn-warning">Regresar</a>
+                            <p class="warnings" id="error"></p>
+                        </nav>
+
+                        </form>
+                            <script src="/static/js/ausenciaJustificada.js"></script>
+                        <br>
+                            {% if get_flashed_messages() %}
+                                <div id="mensajeAlert" class="alert alert-success alert-dismissible">
+                            {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                            {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        <p class="text text-center">Este es el pie de pagina</p>
+    </body>
+</html>

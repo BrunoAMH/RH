@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+    </head>
+
+    <body>
+        {% include "common/navigation_bar.html" %}
+            {% block content %}
+                <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-sm-4" style="background-color: none;"></div>
+                        <div class="well col-sm-4">
+                        <h1 class="text-center">REGISTRO DE AUSENCIAS</h1>
+                        <form action="/ausenciaJustificada/editandoAusenciaJustificada" method="post" enctype="multipart/form-data" id="formulario-tarjeta">
+                         <div class="form-group text-center">
+                                <label>ID AUSENCIA</label>
+                                <input type="text" name="idAusencia" value="{{aus.idAusencia}}" class="form-control text-center" readonly required>
+                         </div>
+                         <div class="form-group">
+                            <label class="form-label">Empleado que Solicita</label>
+                            <select name='idEmpleadoSolicita' id="EmpleadoSolicita"  class="form-control">
+                                {% for empl in emp %}
+                                {% if empl.idEmpleado == aus.idEmpleadoSolicita %}
+                                <option value="{{aus.idEmpleadoSolicita}}" selected readonly>{{empl.nombre}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Empleado que autoriza</label>
+                            <select name='idEmpleadoAutoriza' id="EmpleadoAutoriza" class="form-control">
+                                {% for empl in emp %}
+                                {% if empl.idEmpleado != aus.idEmpleadoAutoriza %}
+                                <option value="{{aus.idEmpleadoSolicita}}">{{empl.nombre}}</option>
+                                {% endif %}
+                                {% if empl.idEmpleado == aus.idEmpleadoAutoriza %}
+                                <option value="{{aus.idEmpleadoAutoriza}}" selected>{{empl.nombre}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div  class="form-group">
+                            <label>fecha de Solicitud</label>
+                            <input name="fechaSolicitud" id="fechaSolicitud" value="{{aus.fechaSolicitud}}" type="date" class="form-control">
+                        </div>
+                        <div  class="form-group">
+                            <label>fecha de Inicio</label>
+                                <input type="date" id="fechaInicio" value="{{aus.fechaInicio}}" class="form-control"  required name="fechaInicio">
+                        </div>
+                        <div  class="form-group">
+                            <label >fecha de Fin</label>
+                                <input type="date" class="form-control" id="fechaFin" value="{{aus.fechaFin}}"   required name="fechaFin">
+                        </div>
+                        <div   class="form-group">
+                                    <label >tipo:</label>
+                                       <select name="tipo" >
+                                            <option name="tipo" value="{{aus.tipo}}">{{aus.tipo}}</option>
+                                            <option name="tipo" value="Vacaciones">Vacaciones</option>
+                                            <option name="tipo" value="Permiso">Permiso</option>
+                                       </select>
+                        </div>
+                       <div class="form-group">
+                            <label for="evidencia">evidencia:</label>
+                           <img src="/ausenciaJustificada/consultarImagen/{{aus.idAusencia}}" width="100px" height="80px">
+                            <input type="file" class="form-control" value="{{aus.evidencia}}" id="evidencia" placeholder="evidencia de la Ausencia" name="evidencia" >
+                        </div>
+                       <div   class="form-group">
+                                    <label for="estatus">estatus:</label>
+                                       <select name="estatus" id="estatus">
+                                            <option name="estatus" value="P">Pendiente</option>
+                                           {% if current_user.is_authenticated and current_user.is_admin() or current_user.is_staff() %}
+                                            <option name="estatus" value="A">Aprovado</option>
+                                            <option name="estatus" value="D">Denegado</option>
+                                           {% endif %}
+                                       </select>
+                        </div>
+                        <div  class="form-group">
+                            <label for="motivo">motivo</label>
+                            <input type="text" class="form-control" id="motivo"value="{{aus.motivo}}" placeholder="motivo de la Ausencia a registrar"  maxlength="60" required name="motivo">
+                        </div>
+                            <div  class="form-group">
+                                <input type="text" class="form-control" id="ass" required>
+                            </div>
+                        <nav id="bloqueBotones">
+                            <button type="submit" class="btn btn-success">Actualizar</button>
+                            <a href="/ausenciaJustificada/consultarAusenciaJustificada" class="btn btn-warning">Regresar</a>
+                            <p class="warnings" id="error"></p>
+                        </nav>
+
+                        </form>
+                            <script src="/static/js/ausenciaJustificada.js"></script>
+                        <br>
+                            {% if get_flashed_messages() %}
+                                <div id="menssageAlert" class="alert alert-success alert-dismissible">
+                            {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                            {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        <p class="text text-center">Este es el pie de pagina</p>
+    </body>
+</html>
