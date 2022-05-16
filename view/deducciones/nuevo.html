@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="/static/js/formulario.js"></script>
+
     <head>
       <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+        <script src="{{url_for('static',filename='js/usuarios.js')}}"></script>
         <link rel="stylesheet" >
     </head>
 
@@ -18,7 +19,7 @@
 
                         <div  class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre de la Deduccion a registrar" pattern="[A-Z]{1,30}" maxlength="30" required name="nombre">
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre de la Deduccion a registrar"  maxlength="30" required name="nombre" onblur="consultarNombreDeducciones()">
                         </div>
                         <div class="form-group">
                             <label for="descripcion" class="form-label">Descripcion de la Deduccion</label>
@@ -33,6 +34,7 @@
                             <p class="warnings" id="warnings"></p>
                             <a href="/deducciones/consultarDeducciones" class="btn btn-warning">Regresar</a>
                         </nav>
+                            <div  id="notificaciones10" ></div>
                         </form>
                         <br>
                             {% if get_flashed_messages() %}
