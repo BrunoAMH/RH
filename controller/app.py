@@ -16,6 +16,7 @@ from percepciones import percepciones
 from deducciones import deducciones
 from documentacion import documentacion
 from asistencias import asistencias
+from asistenciaJustificada import asistenciaJustificada
 import json
 app = Flask(__name__, template_folder='../view', static_folder='../static')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
