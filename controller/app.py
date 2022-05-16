@@ -16,7 +16,7 @@ from percepciones import percepciones
 from deducciones import deducciones
 from documentacion import documentacion
 from asistencias import asistencias
-from asistenciaJustificada import asistenciaJustificada
+from ausenciaJustificada import asistenciaJustificada
 import json
 app = Flask(__name__, template_folder='../view', static_folder='../static')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -45,6 +45,7 @@ app.register_blueprint(percepciones)
 app.register_blueprint(deducciones)
 app.register_blueprint(documentacion)
 app.register_blueprint(asistencias)
+app.register_blueprint(asistenciaJustificada)
 Bootstrap(app)
 
 # ________________________________________________________________________________
