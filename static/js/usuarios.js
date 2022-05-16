@@ -182,3 +182,45 @@ function consultarNombreSucursales(){
     };
     ajax.send();
 }
+
+
+function consultarNombrePercepciones(){
+    var ajax= new XMLHttpRequest();
+    var nombre=document.getElementById("nombre").value;
+    var url="/percepciones/nombre/" + nombre;
+    ajax.open("get", url,true);
+    var div = document.getElementById("notificaciones9");
+    ajax.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+            var respuesta=JSON.parse(this.responseText);
+            if(respuesta.estatus=='Error'){
+                div.innerHTML=respuesta.mensaje;
+                document.getElementById("registrar").setAttribute("disabled","true");
+            }else{
+                div.innerHTML="";
+                document.getElementById("registrar").removeAttribute("disabled");
+            }
+        }
+    };
+    ajax.send();
+}
+function consultarNombreDeducciones(){
+    var ajax= new XMLHttpRequest();
+    var nombre=document.getElementById("nombre").value;
+    var url="/deducciones/nombre/" + nombre;
+    ajax.open("get", url,true);
+    var div = document.getElementById("notificaciones10");
+    ajax.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+            var respuesta=JSON.parse(this.responseText);
+            if(respuesta.estatus=='Error'){
+                div.innerHTML=respuesta.mensaje;
+                document.getElementById("registrar").setAttribute("disabled","true");
+            }else{
+                div.innerHTML="";
+                document.getElementById("registrar").removeAttribute("disabled");
+            }
+        }
+    };
+    ajax.send();
+}
