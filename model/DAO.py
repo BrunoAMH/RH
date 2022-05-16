@@ -238,6 +238,17 @@ class Percepciones(db.Model):
     nombre = Column(String(30), nullable=False)
     descripcion = Column(String(80), nullable=False)
     diasPagar = Column(Integer, nullable=False)
+    
+     def consultarNombrePercepciones(self, nombre):
+        salida = {"estatus": "", "mensaje": ""}
+        usuario = None
+        usuario = self.query.filter(Percepciones.nombre == nombre).first()
+        if usuario != None:
+            salida["estatus"] = "Error"
+            salida["mensaje"] = "El nombre " + nombre + " ya ha sido registrado. Intente con otro"
+        else:
+            salida["estatus"] = "Ok"
+            salida["mensaje"] = "El nombre " + nombre + " esta libre"
 
     def consultaGeneral(self):
         return self.query.all()
@@ -266,6 +277,18 @@ class Deducciones(db.Model):
     nombre = Column(String(30), nullable=False)
     descripcion = Column(String(80), nullable=False)
     porcentaje = Column(Float, nullable=False)
+    
+    def consultarNombreDeducciones(self, nombre):
+        salida = {"estatus": "", "mensaje": ""}
+        usuario = None
+        usuario = self.query.filter(Deducciones.nombre == nombre).first()
+        if usuario != None:
+            salida["estatus"] = "Error"
+            salida["mensaje"] = "El nombre " + nombre + " ya ha sido registrado. Intente con otro"
+        else:
+            salida["estatus"] = "Ok"
+            salida["mensaje"] = "El nombre " + nombre + " esta libre"
+        return salida
 
     def consultaGeneral(self):
         return self.query.all()
