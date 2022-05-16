@@ -61,7 +61,9 @@ def editandoDocumentacionEmpleado():
         docemp.idDocumento = request.form['idDocumento']
         docemp.nombre = request.form['nombre']
         docemp.fechaEntrega = request.form['fechaEntrega']
-        docemp.documento = request.files['documento'].stream.read()
+        documento = request.files['documento'].stream.read()
+        if documento:
+            docemp.documento = documento
         docemp.idEmpleado = request.form['idEmpleado']
         docemp.actualizar()
         flash('Datos actualizados con exito')
