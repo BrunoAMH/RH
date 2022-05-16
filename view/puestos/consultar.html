@@ -13,7 +13,9 @@
              <div class="container-fluid">
                 <div class="well">
                         <h1 class="text-center">PUESTOS REGISTRADOS</h1>
+                    {% if current_user.tipo == 'Admin' %}
                     <a class="btn btn-info" href="/puestos/registrarPuestos">Registrar Puestos</a>
+                    {% endif %}
                     <br>
                     <div  class="table-responsive">
                     <table id="tablax" class="table">
@@ -23,8 +25,10 @@
                             <th class="text-center">SALARIO MINIMO</th>
                             <th class="text-center">SALARIO MAXIMO</th>
                             <th class="text-center">ESTATUS</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for puesto in pues %}
                         {% if puesto.estatus != 'I' %}
@@ -34,6 +38,7 @@
                             <td class="text-center">{{puesto.salarioMinimo}}</td>
                             <td class="text-center">{{puesto.salarioMaximo}}</td>
                             <td class="text-center">{{puesto.estatus}}</td>
+                            {% if current_user.tipo == 'Admin' %}
                             <td class="text-center">
                                 <a href="/puestos/ver/{{puesto.idPuesto}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -44,6 +49,7 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endif %}
                         {% endfor %}

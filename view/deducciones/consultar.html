@@ -13,7 +13,9 @@
              <div class="container-fluid">
                 <div class="well">
                         <h1 class="text-center">DEDUCCIONES REGISTRADAS</h1>
+                    {% if current_user.tipo == 'Admin' %}
                     <a class="btn btn-info" href="/deducciones/registrarDeducciones">Registrar Deducciones</a>
+                    {% endif %}
                     <br>
                     <div class="table-responsive">
                     <table id="tablax" class="table">
@@ -22,8 +24,10 @@
                             <th class="text-center">NOMBRE</th>
                             <th class="text-center">DESCRIPCION</th>
                             <th class="text-center">PORCENTAJE</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for deductions in deduc %}
                         <tr>
@@ -31,6 +35,7 @@
                             <td class="text-center">{{deductions.nombre}}</td>
                             <td class="text-center">{{deductions.descripcion}}</td>
                             <td class="text-center">{{deductions.porcentaje}}</td>
+                            {% if current_user.tipo == 'Admin' %}
                             <td class="text-center">
                                 <a href="/deducciones/ver/{{deductions.idDeduccion}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -41,6 +46,7 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </table>

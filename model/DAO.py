@@ -4,6 +4,7 @@ from sqlalchemy import Column, Integer, String, Boolean, BLOB, CHAR, Float, Fore
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship
 db = SQLAlchemy()
+
 #-----------------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------EMPLEADOS---------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------
@@ -536,14 +537,18 @@ class Asistencias(db.Model):
         db.session.delete(obj)
         db.session.commit()
 
+    def consultarFecha(self, fecha, idEmp):
+        return self.query.filter(Asistencias.fecha == fecha, Asistencias.idEmpleado == idEmp).first()
+
+
 #-----------------------------------------------------------------------------------------------------------------------
 #----------------------------------------------HISTORIAL DE PUESTOS-----------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------
-class historialPuestos(db.Model):
+class historial_de_puestos(db.Model):
     __tablename__ = 'historialpuestos'
-    idEmpleado = Column(Integer, ForeignKey('empleados.idEmpleado'))
-    idPuesto = Column(Integer, ForeignKey('puestos.idPuesto'))
-    idDepartamento = Column(Integer, ForeignKey('departamentos.idDepartamento'))
+    idEmpleado = Column(Integer, primary_key=True)
+    idPuesto = Column(Integer, primary_key=True)
+    idDepartamento = Column(Integer, primary_key=True)
     fechaInicio = Column(Date, primary_key=True)
     fechaFin = Column(Date, nullable=False)
 
@@ -551,8 +556,9 @@ class historialPuestos(db.Model):
     def consultaGeneral(self):
         return self.query.all()
 
-    def consultaIndividual(self, id):
-        return self.query.get(id)
+    def consultaIndividual(self, idEmpleado, idPuesto, idDepartamento, fechaInicio ):
+        return self.query.filter(historial_de_puestos.idEmpleado == idEmpleado, historial_de_puestos.idPuesto == idPuesto,
+                                 historial_de_puestos.idDepartamento == idDepartamento, historial_de_puestos.fechaInicio == fechaInicio).first()
 
     def insertar(self):
         db.session.add(self)
@@ -566,6 +572,7 @@ class historialPuestos(db.Model):
         obj = self.consultaIndividual(id)
         db.session.delete(obj)
         db.session.commit()
+
 #-----------------------------------------------------------------------------------------------------------------------
 #------------------------------------------------------AusenciaJustificada-------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------

@@ -13,7 +13,9 @@
              <div class="container-fluid">
                 <div class="well">
                     <h1 class="text-center">PERIODOS REGISTRADOS</h1>
+                    {% if current_user.tipo == 'Admin' %}
                     <a class="btn btn-info" href="/periodos/registrarPeriodos">Registrar Periodos</a>
+                    {% endif %}
                     <br>
                     <div class="table-responsive">
                     <table id="tablax" class="table">
@@ -23,8 +25,10 @@
                             <th class="text-center">FECHA DE INICIO</th>
                             <th class="text-center">FECHA DE FIN</th>
                             <th class="text-center">ESTATUS</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for periodo in peri %}
                         {% if periodo.estatus != 'I' %}
@@ -34,6 +38,7 @@
                             <td class="text-center">{{periodo.fechaInicio}}</td>
                             <td class="text-center">{{periodo.fechaFin}}</td>
                             <td class="text-center">{{periodo.estatus}}</td>
+                            {% if current_user.tipo == 'Admin' %}
                             <td class="text-center">
                                 <a href="/periodos/ver/{{periodo.idPeriodo}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -44,6 +49,7 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endif %}
                         {% endfor %}

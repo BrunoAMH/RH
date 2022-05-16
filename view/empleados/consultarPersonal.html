@@ -32,6 +32,7 @@
                             <th class="text-center">ESCOLARIDAD</th>
                             <th class="text-center">ESPECILIDAD</th>
                             <th class="text-center">VER</th>
+                            <th class="text-center">HISTORIAL PUESTOS</th>
                             <th class="text-center">ELIMINAR</th>
                         </thead>
                         {% for emplea in emp %}
@@ -46,12 +47,17 @@
                             <td class="text-center">{{emplea.curp}}</td>
                             <td class="text-center">{{emplea.estadoCivil}}</td>
                             <td class="text-center">{{emplea.nss}}</td>
-                            <td><img src="/empleados/consultarImagen/{{emplea.idEmpleado}}" width="100px" height="80px"></td>
+                            <td><img src="/empleados/consultarImagen/{{emplea.idEmpleado}}" width="120px" height="50px" style="width:50px;" class="rounded-pill"></td>
                             <td class="text-center">{{emplea.escolaridad}}</td>
                             <td class="text-center">{{emplea.especialidad}}</td>
                             <td class="text-center">
                                 <a href="/empleados/ver/{{emplea.idEmpleado}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="/historialPuestos/consultar/{{emplea.idEmpleado}}">
+                                    <span class="glyphicon glyphicon-list-alt"></span>
                                 </a>
                             </td>
                             <td class="text-center">
@@ -114,7 +120,7 @@
                     }
                 },
                 scrollY: 400,
-                lengthMenu: [ [2, 25, -1], [2, 25, "All"] ],
+                lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
             });
         });
     </script>

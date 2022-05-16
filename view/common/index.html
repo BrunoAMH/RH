@@ -8,7 +8,7 @@
         {% include "common/navigation_bar.html" %}
 
         {% block content %}
-            <h1>Hola punetas</h1>
+            <h1 class="text-center">Hola {{current_user.nombre}}</h1>
         {% endblock %}
         <p class="text text-center">Este es el pie de pagina</p>
     </body>

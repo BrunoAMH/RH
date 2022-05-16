@@ -13,7 +13,9 @@
              <div class="container-fluid">
                 <div class="well">
                         <h1 class="text-center">TURNOS REGISTRADOS</h1>
+                    {% if current_user.tipo == 'Admin' %}
                      <a class="btn btn-info" href="/percepciones/registrarPercepciones">Registrar Percepciones</a>
+                    {% endif %}
                     <br>
                     <div class="table-responsive">
                     <table id="tablax" class="table">
@@ -22,8 +24,10 @@
                             <th class="text-center">NOMBRE</th>
                             <th class="text-center">DESCRIPCION</th>
                             <th class="text-center">DIAS A PAGAR</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for perceps in perce %}
                         <tr>
@@ -31,6 +35,7 @@
                             <td class="text-center">{{perceps.nombre}}</td>
                             <td class="text-center">{{perceps.descripcion}}</td>
                             <td class="text-center">{{perceps.diasPagar}}</td>
+                            {% if current_user.tipo == 'Admin' %}
                             <td class="text-center">
                                 <a href="/percepciones/ver/{{perceps.idPercepcion}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -41,6 +46,7 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </table>

@@ -1,31 +1,41 @@
 {% include "common/navigation_bar.html" %}
     {% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{url_for('static',filename='js/asistencias.js')}}"></script>
         <div class="container-fluid">
             <div class="well">
                 <h1 class="text-center">ASISTENCIAS</h1>
-                    <a class="btn btn-info" href="/asistencias/guardandoAsistencia" >Registrar asistencia</a>
+                <form action="/asistencias/guardandoAsistencia" method="post">
+                    <div class="form-group">
+                    <input type="text" id="currentDate" name="currentDate" value="currentDate">
+                    </div>
+                </form>
+                    <a class="btn btn-info"  href="/asistencias/guardandoAsistencia" method="post" type="submit">Registrar asistencia</a>
                     <br>
                     <div class="table-responsive">
                     <table id="tablax" class="table">
                         <thead class="thead-dark">
-                            <th class="text-center">ID</th>
+                            <th class="text-center">ID ASISTENCIA</th>
                             <th class="text-center">EMPLEADO</th>
                             <th class="text-center">FECHA</th>
                             <th class="text-center">HORA DE ENTRADA</th>
                             <th class="text-center">HORA DE SALIDA</th>
                             <th class="text-center">DIA</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for asistencia in asist %}
                         {% if asistencia.idEmpleado == current_user.idEmpleado %}
                         <tr>
                             <td class="text-center">{{asistencia.idAsistencia}}</td>
-                            <td class="text-center">{{current_user.nombre}}</td>
+                            <td class="text-center">{{current_user.nombre +' '+ current_user.apellidoPaterno +' '+ current_user.apellidoMaterno}}</td>
                             <td class="text-center">{{asistencia.fecha}}</td>
                             <td class="text-center">{{asistencia.horaEntrada}}</td>
                             <td class="text-center">{{asistencia.horaSalida}}</td>
                             <td class="text-center">{{asistencia.dia}}</td>
+                            {% if current_user.tipo == 'Admin' %}
                             <td class="text-center">
                                 <a href="/asistencias/ver/{{asistencia.idAsistencia}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -36,12 +46,18 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endif %}
                         {% endfor %}
 
                     </table>
                     </div>
+                <script>
+                var date = new Date();
+                var currentDate = date.toISOString().slice(0,10);
+                document.getElementById('currentDate').value = currentDate;
+                </script>
                     <br>
                         {% if get_flashed_messages() %}
                             <div id="menssageAlert" class="alert alert-success alert-dismissible">

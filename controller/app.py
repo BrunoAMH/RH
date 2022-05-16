@@ -16,6 +16,7 @@ from percepciones import percepciones
 from deducciones import deducciones
 from documentacion import documentacion
 from asistencias import asistencias
+from historialPuestos import historialPuestos
 from ausenciaJustificada import asistenciaJustificada
 import json
 app = Flask(__name__, template_folder='../view', static_folder='../static')
@@ -45,6 +46,7 @@ app.register_blueprint(percepciones)
 app.register_blueprint(deducciones)
 app.register_blueprint(documentacion)
 app.register_blueprint(asistencias)
+app.register_blueprint(historialPuestos)
 app.register_blueprint(asistenciaJustificada)
 Bootstrap(app)
 

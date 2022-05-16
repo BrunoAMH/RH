@@ -13,7 +13,9 @@
              <div class="container-fluid">
                 <div class="well">
                     <h1 class="text-center">SUCURSALES REGISTRADAS</h1>
+                    {% if current_user.tipo == 'Admin' %}
                     <a class="btn btn-info" href="/sucursales/registrarSucursales">Registrar Sucursales</a>
+                    {% endif %}
                     <br>
                     <div class="table-responsive">
                     <table id="tablax" class="table">
@@ -27,8 +29,10 @@
                             <th class="text-center">PRESUPUESTO</th>
                             <th class="text-center">ESTATUS</th>
                             <th class="text-center">CIUDAD</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for sucursal in sucu %}
                         {% if sucursal.estatus != 'I' %}
@@ -46,6 +50,7 @@
                             <td class="text-center">{{ciudad.nombre}}</td>
                             {% endif %}
                             {% endfor %}
+                            {% if current_user.tipo == 'Admin' %}
                             <td class="text-center">
                                 <a href="/sucursales/ver/{{sucursal.idSucursal}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -56,6 +61,7 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endif %}
                         {% endfor %}

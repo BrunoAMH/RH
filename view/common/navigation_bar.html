@@ -65,7 +65,7 @@
         <a class="nav-link" href="/asistencias/consultarAsistencias" id="navbardrop13" >Asistencia</a>
       </li>
         <li class="nav-item">
-        <a class="nav-link" href="/ausenciaJustificada/consultarAusenciaJustificada" id="navbardrop13" >Ausencias Justificadas</a>
+        <a class="nav-link" href="/ausenciaJustificada/consultarAusenciaJustificada" id="navbardrop14" >Ausencias Justificadas</a>
       </li>
     </ul>
     <!-- Brand -->
@@ -77,7 +77,7 @@
         </a>
           <ul class="dropdown-menu" >
             {% if current_user.is_authenticated %}
-            <li><a href="/empleados/editandoEmpleados">Editar cuenta</a></li>
+            <li><a href="/empleados/ver/{{current_user.idEmpleado}}">Editar cuenta</a></li>
             <li><a href="/cerrarSesion">Cerrar sesion</a></li>
             <li><a href="/">Cambiar cuenta</a></li>
             {% endif %}

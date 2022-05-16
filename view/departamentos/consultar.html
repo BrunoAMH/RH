@@ -14,15 +14,19 @@
                 <div class="well">
                     <h1 class="text-center">DEPARTAMENTOS REGISTRADOS</h1>
                     <br>
+                    {% if current_user.tipo == 'Admin' %}
                     <a href="/departamentos/registrarDepartamentos" class="btn btn-info">Registrar Departamentos</a>
+                    {% endif %}
                     <div class="table-responsive">
                     <table  id="tablax" class="table">
                         <thead class="thead-dark">
                             <th class="text-center">ID</th>
                             <th class="text-center">NOMBRE</th>
                             <th class="text-center">ESTATUS</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for departments in depa %}
                         {% if departments.estatus != 'I' %}
@@ -30,6 +34,7 @@
                             <td class="text-center">{{departments.idDepartamento}}</td>
                             <td class="text-center">{{departments.nombre}}</td>
                             <td class="text-center">{{departments.estatus}}</td>
+                            {% if current_user.tipo == 'Admin' %}
                             <td class="text-center">
                                 <a href="/departamentos/ver/{{departments.idDepartamento}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -40,6 +45,7 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endif %}
                         {% endfor %}

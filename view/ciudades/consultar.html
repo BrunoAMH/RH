@@ -3,7 +3,9 @@
              <div class="container-fluid">
                 <div class="well">
                     <h1 class="text-center">CIUDADES REGISTRADAS</h1>
+                    {% if current_user.tipo == 'Admin' %}
                     <a class="btn btn-info" href="/ciudades/registrarCiudades">Registrar cuidades</a>
+                    {% endif %}
                     <br>
                     <div class="table-responsive">
                     <table id="tablax" class="table">
@@ -12,8 +14,10 @@
                             <th class="text-center">NOMBRE</th>
                             <th class="text-center">ESTADO</th>
                             <th class="text-center">ESTATUS</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for ciudad in ciud %}
                         {% if ciudad.estatus=='A' %}
@@ -26,6 +30,7 @@
                             {% endif %}
                             {% endfor %}
                             <td class="text-center">{{ciudad.estatus}}</td>
+                            {% if current_user.tipo == 'Admin' %}
                             <td class="text-center">
                                 <a href="/ciudades/ver/{{ciudad.idCiudad}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -36,6 +41,7 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endif %}
                         {% endfor %}

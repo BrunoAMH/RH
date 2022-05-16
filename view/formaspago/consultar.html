@@ -13,7 +13,9 @@
              <div class="container-fluid">
                 <div class="well">
                     <h1 class="text-center">FORMAS DE PAGO REGISTRADAS</h1>
+                    {% if current_user.tipo == 'Admin' %}
                     <a class="btn btn-info" href="/formaspago/registrarFormasPago">Registrar Formas de pago</a>
+                    {% endif%}
                     <br>
                     <div class="table-responsive">
                     <table id="tablax" class="table">
@@ -21,8 +23,10 @@
                             <th class="text-center">ID</th>
                             <th class="text-center">NOMBRE</th>
                             <th class="text-center">ESTATUS</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for formaspa in fop %}
                         {% if formaspa.estatus != 'I' %}
@@ -30,6 +34,7 @@
                             <td class="text-center">{{formaspa.idFormaPago}}</td>
                             <td class="text-center">{{formaspa.nombre}}</td>
                             <td class="text-center">{{formaspa.estatus}}</td>
+                            {% if current_user.tipo == 'Admin' %}
                             <td class="text-center">
                                 <a href="/formaspago/ver/{{formaspa.idFormaPago}}">
                                     <span class="glyphicon glyphicon-eye-open"></span>
@@ -40,6 +45,7 @@
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
+                            {% endif %}
                         </tr>
                         {% endif %}
                         {% endfor %}

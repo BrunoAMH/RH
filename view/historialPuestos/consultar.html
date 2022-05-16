@@ -1,10 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% include "common/navigation_bar.html" %}
+    {% block content %}
+        <div class="container-fluid">
+            <div class="well">
+                <h1 class="text-center">HISTORIAL DE PUESTOS</h1>
+                    <br>
+                    <div class="table-responsive">
+                    <table id="tablax" class="table">
+                        <thead class="thead-dark">
+                            <th class="text-center">EMPLEADO</th>
+                            <th class="text-center">PUESTO</th>
+                            <th class="text-center">DEPARTAMENTO</th>
+                            <th class="text-center">FECHA INICIO</th>
+                            <th class="text-center">FECHA FIN</th>
+                            <th class="text-center">VER</th>
+                        </thead>
+                        {% for his in hp %}
+                        {% if his.idEmpleado == id%}
+                        <tr>
+                            {% for emple in emp %}
+                            {% if emple.idEmpleado == his.idEmpleado %}
+                            <td class="text-center">{{emple.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
+                            {% for puesto in pues %}
+                            {% if puesto.idPuesto == his.idPuesto %}
+                            <td class="text-center">{{puesto.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
+                            {% for depart in depa %}
+                            {% if depart.idDepartamento == his.idDepartamento %}
+                            <td class="text-center">{{depart.nombre}}</td>
+                            {% endif %}
+                            {% endfor %}
+                            <td class="text-center">{{his.fechaInicio}}</td>
+                            <td class="text-center">{{his.fechaFin}}</td>
+                            <td class="text-center">
+                                <a href="/historialPuestos/ver/{{his.idEmpleado}}/{{his.idPuesto}}/{{his.idDepartamento}}/{{his.fechaInicio}}">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
 
-</body>
-</html>
+                    </table>
+                    </div>
+                <script>
+                var date = new Date();
+                var currentDate = date.toISOString().slice(0,10);
+                document.getElementById('currentDate').value = currentDate;
+                </script>
+                    <br>
+                        {% if get_flashed_messages() %}
+                            <div id="menssageAlert" class="alert alert-success alert-dismissible">
+                                {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                </div>
+             </div>
+    {% endblock %}

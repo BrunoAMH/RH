@@ -1,10 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+    </head>
 
-</body>
+    <body>
+        {% include "common/navigation_bar.html" %}
+            {% block content %}
+                <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-sm-4" style="background-color: none;"></div>
+                        <div class="well col-sm-4">
+                            <form action="/historialPuestos/editandoHistorialPuesto" method="POST" enctype="multipart/form-data">
+                        <h1 class="text-center">DATOS DE HISTORIAL</h1>
+                            <div class="form-group text-center">
+                                <label>ID EMPLEADO</label>
+                                <input type="number" name="idEmpleado" value="{{hp.idEmpleado}}" class="form-control text-center" readonly>
+                            </div>
+                            <div class="form-group text-center">
+                                <label>ID PUESTO</label>
+                                <input type="number" name="idPuesto" value="{{hp.idPuesto}}" class="form-control text-center" readonly>
+                            </div>
+                            <div class="form-group text-center">
+                                <label>ID DEPARTAMENTO</label>
+                                <input type="number" name="idDepartamento" value="{{hp.idDepartamento}}" class="form-control text-center" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>FECHA INICIO</label>
+                                <input type="date" name="fechaInicio" value="{{hp.fechaInicio}}"  class="form-control text-center" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>FECHA FIN</label>
+                                <input type="date" name="fechaFin" value="{{hp.fechaFin}}"  class="form-control text-center">
+                            </div>
+                            <!--
+                            <div class="form-group text-center">
+                                <label>EMPLEADO</label>
+                                {% for empleado in emp %}
+                                {% if asistencia.idEmpleado == empleado.idEmpleado  %}
+                                <input type="text" name="nombreEmpleado" value="{{empleado.nombre + ' ' + empleado.apellidoPaterno + ' ' + empleado.apellidoMaterno}}" class="form-control text-center" readonly>
+                                {% endif %}
+                                {% endfor %}
+                            </div> !-->
+                            <br>
+                        <nav id="bloqueBotones">
+                            <button type="submit" class="btn btn-success">Actualizar</button>
+                            <a href="/historialPuestos/consultar/{{hp.idEmpleado}}" class="btn btn-warning">Regresar</a>
+                        </nav>
+                        </form>
+                        <br>
+                            {% if get_flashed_messages() %}
+                                <div id="menssageAlert" class="alert alert-success alert-dismissible">
+                            {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                            {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        <p class="text text-center">Este es el pie de pagina</p>
+    </body>
 </html>
