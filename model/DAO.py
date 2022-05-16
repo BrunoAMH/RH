@@ -566,3 +566,43 @@ class historialPuestos(db.Model):
         obj = self.consultaIndividual(id)
         db.session.delete(obj)
         db.session.commit()
+#-----------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------AusenciaJustificada-------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
+class AusenciaJustificada(db.Model):
+    __tablename__ = 'ausenciajustificada'
+    idAusencia = Column(Integer, primary_key=True)
+    fechaSolicitud = Column(Date, nullable=False)
+    fechaInicio = Column(Date, nullable=False)
+    fechaFin = Column(Date, nullable=False)
+    tipo = Column(String(100), nullable=False)
+    evidencia = Column(BLOB, nullable=False)
+    estatus = Column(CHAR(1), nullable=False)
+    motivo = Column(String(100), nullable=False)
+    idEmpleadoSolicita = Column(Integer, ForeignKey('empleados.idEmpleado'))
+    idEmpleadoAutoriza = Column(Integer, ForeignKey('empleados.idEmpleado'))
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        obj = self.consultaIndividual(id)
+        db.session.delete(obj)
+        db.session.commit()
+
+    def consultarImagen(self, id):
+        return self.consultaIndividual(id).evidencia
+
+    def consultarFoto(self, id):
+        return self.consultaIndividual(id).evidencia
