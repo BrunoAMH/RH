@@ -25,7 +25,17 @@ def guardandoTurnos():
     turn.nombre = request.form['nombre']
     turn.horaInicio = request.form['horaInicio']
     turn.horaFin = request.form['horaFin']
-    turn.dias = request.form['dias']
+    lun = request.form.get("lunes")
+    mar = request.form.get("martes")
+    mie = request.form.get("miercoles")
+    jue = request.form.get("jueves")
+    vie = request.form.get("viernes")
+    sab = request.form.get("sabado")
+    dom = request.form.get("domingo")
+    dias_trabajo = (str(lun)+str(mar)+str(mie)+str(jue)+str(vie)+str(sab)+str(dom))
+    for x in range(len(dias_trabajo)):
+        dias_trabajo = dias_trabajo.replace("None", "")
+    turn.dias = dias_trabajo
     turn.insertar()
     flash('Turnos registrado exitosamente')
     return redirect('registrarTurnos')
