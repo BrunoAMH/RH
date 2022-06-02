@@ -1,8 +1,22 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from flask_login import login_required
 from model.DAO import Deducciones
+from pymysql import OperationalError
+
 
 deducciones = Blueprint("deducciones", __name__, static_folder="view", template_folder="controller")
+
+@deducciones.route('/deducciones/pagina/<int:page>')
+def consultarPaginaDeducciones(page=1):
+    try:
+        e=Deducciones()
+        paginacion=e.consultarPagina(page)
+        deduc=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        deduc=None
+    return render_template('deducciones/consultar.html', deduc=deduc,  paginas=paginas, pagina=page)
 
 @deducciones.route('/deducciones/consultarDeducciones')
 @login_required
