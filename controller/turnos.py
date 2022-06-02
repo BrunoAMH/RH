@@ -1,9 +1,21 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from flask_login import login_required
 from model.DAO import Turnos
+from pymysql import OperationalError
 
 turnos = Blueprint("turnos", __name__, static_folder="view", template_folder="controller")
 
+@turnos.route('/turnos/pagina/<int:page>')
+def consultarPaginaTurnos(page=1):
+    try:
+        e=Turnos()
+        paginacion=e.consultarPagina(page)
+        turn=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        turn=None
+    return render_template('turnos/consultar.html', turn=turn,  paginas=paginas, pagina=page)
 
 @turnos.route('/turnos/consultarTurnos')
 @login_required
