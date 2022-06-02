@@ -92,6 +92,77 @@ def consultarPaginaEmpleados(page=1):
     return render_template('empleados/consultar.html', emp=emp,  paginas=paginas, pagina=page,depa=department.consultaGeneral(), pues=puesto.consultaGeneral(),
                            ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
 
+@app.route('/empleadosPersonal/pagina/<int:page>')
+def consultarPaginaEmpleadosPersonal(page=1):
+    try:
+        e=Empleados()
+        paginacion=e.consultarPagina(page)
+        emp=paginacion.items
+        department = Departamentos()
+        puesto = Puestos()
+        ciudad = Ciudades()
+        sucursal = Sucursales()
+        turno = Turnos()
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        emp=None
+    return render_template('empleados/consultarPersonal.html', emp=emp,  paginas=paginas, pagina=page,depa=department.consultaGeneral(), pues=puesto.consultaGeneral(),
+                           ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
+
+@app.route('/empleadosLaboral/pagina/<int:page>')
+def consultarPaginaEmpleadosLaboral(page=1):
+    try:
+        e=Empleados()
+        paginacion=e.consultarPagina(page)
+        emp=paginacion.items
+        department = Departamentos()
+        puesto = Puestos()
+        ciudad = Ciudades()
+        sucursal = Sucursales()
+        turno = Turnos()
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        emp=None
+    return render_template('empleados/consultarLaboral.html', emp=emp,  paginas=paginas, pagina=page,depa=department.consultaGeneral(), pues=puesto.consultaGeneral(),
+                           ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
+
+@app.route('/empleadosDomicilio/pagina/<int:page>')
+def consultarPaginaEmpleadosDomicilio(page=1):
+    try:
+        e=Empleados()
+        paginacion=e.consultarPagina(page)
+        emp=paginacion.items
+        department = Departamentos()
+        puesto = Puestos()
+        ciudad = Ciudades()
+        sucursal = Sucursales()
+        turno = Turnos()
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        emp=None
+    return render_template('empleados/consultarDomicilio.html', emp=emp,  paginas=paginas, pagina=page,depa=department.consultaGeneral(), pues=puesto.consultaGeneral(),
+                           ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
+
+@app.route('/empleadosDiaspermiso/pagina/<int:page>')
+def consultarPaginaEmpleadosDomicilioDiaspermiso(page=1):
+    try:
+        e=Empleados()
+        paginacion=e.consultarPagina(page)
+        emp=paginacion.items
+        department = Departamentos()
+        puesto = Puestos()
+        ciudad = Ciudades()
+        sucursal = Sucursales()
+        turno = Turnos()
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        emp=None
+    return render_template('empleados/consultarDiaspermiso.html', emp=emp,  paginas=paginas, pagina=page,depa=department.consultaGeneral(), pues=puesto.consultaGeneral(),
+                           ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
 #---------paginacion-------------
 
 @app.route('/empleados/iniciandoSesion', methods=['post'])
