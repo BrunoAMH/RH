@@ -47,6 +47,11 @@ class Empleados(UserMixin,db.Model):
 
     idTurno = Column(Integer, ForeignKey('turnos.idTurno'))
     turnos = relationship("Turnos", backref="empleados", lazy='select')
+    
+    def consultarPagina(self, pagina):
+      paginacion = self.query.order_by(Empleados.idEmpleado.asc()).paginate(pagina, per_page=10, error_out=False)
+      return paginacion
+
 
     def consultarEmail(self, email):
         salida = {"estatus": "", "mensaje": ""}
@@ -154,6 +159,11 @@ class Estados(db.Model):
     nombre = Column(String(60), nullable=False)
     siglas = Column(String(10), nullable=False)
     estatus = Column(CHAR(1), nullable=False)
+    
+    def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(Estados.idEstado.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
+
 
     def consultaGeneral(self):
         return self.query.all()
@@ -183,6 +193,11 @@ class Puestos(db.Model):
     salarioMinimo = Column(Float, nullable=False)
     salarioMaximo = Column(Float, nullable=False)
     estatus = Column(CHAR(1), nullable=False)
+    
+    def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(Puestos.idPuesto.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
+    
     def consultaGeneral(self):
         return self.query.all()
 
@@ -211,6 +226,10 @@ class Turnos(db.Model):
     horaInicio = Column(Date, nullable=False)
     horaFin = Column(Date, nullable=False)
     dias = Column(String(30), nullable=False)
+   
+    def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(Turnos.idTurno.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
 
     def consultaGeneral(self):
         return self.query.all()
@@ -250,6 +269,10 @@ class Percepciones(db.Model):
         else:
             salida["estatus"] = "Ok"
             salida["mensaje"] = "El nombre " + nombre + " esta libre"
+            
+    def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(Percepciones.idPercepcion.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
 
     def consultaGeneral(self):
         return self.query.all()
@@ -292,6 +315,10 @@ class Deducciones(db.Model):
             salida["mensaje"] = "El nombre " + nombre + " esta libre"
         return salida
 
+    def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(Deducciones.idDeduccion.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
+    
     def consultaGeneral(self):
         return self.query.all()
 
@@ -332,6 +359,10 @@ class Periodos(db.Model):
             salida["estatus"] = "Ok"
             salida["mensaje"] = "El Nombre " + nombre + " esta libre"
         return salida
+    
+    def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(Periodos.idPeriodo.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
 
     def consultaGeneral(self):
         return self.query.all()
@@ -371,6 +402,10 @@ class FormasPago(db.Model):
             salida["estatus"] = "Ok"
             salida["mensaje"] = "El Nombre " + nombre + " esta libre"
         return salida
+    
+     def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(FormasPago.idFormaPago.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
 
     def consultaGeneral(self):
         return self.query.all()
@@ -399,6 +434,10 @@ class Ciudades(db.Model):
     nombre = Column(String(60), nullable=False)
     idEstado = Column(Integer, ForeignKey('estados.idEstado'))
     estatus = Column(CHAR(1), nullable=False)
+    
+    def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(Ciudades.idCiudad.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
 
     def consultaGeneral(self):
         return self.query.all()
@@ -426,6 +465,10 @@ class Departamentos(db.Model):
     idDepartamento = Column(Integer, primary_key=True)
     nombre = Column(String(50), nullable=False)
     estatus = Column(CHAR(1), nullable=False)
+    
+     def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(Departamentos.idDepartamento.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
 
     def consultaGeneral(self):
         return self.query.all()
@@ -472,7 +515,9 @@ class Sucursales(db.Model):
             salida["mensaje"] = "El Nombre " + nombre + " esta libre"
         return salida
 
-
+    def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(Sucursales.idSucursal.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
 
     def consultaGeneral(self):
         return self.query.all()
@@ -613,6 +658,10 @@ class AusenciaJustificada(db.Model):
     idEmpleadoSolicita = Column(Integer, ForeignKey('empleados.idEmpleado'))
     idEmpleadoAutoriza = Column(Integer, ForeignKey('empleados.idEmpleado'))
 
+    def consultarPagina(self, pagina):
+        paginacion = self.query.order_by(AusenciaJustificada.idAusencia.asc()).paginate(pagina, per_page=10, error_out=False)
+        return paginacion
+    
     def consultaGeneral(self):
         return self.query.all()
 
