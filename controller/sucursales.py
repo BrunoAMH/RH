@@ -1,9 +1,22 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from flask_login import login_required
 from model.DAO import Sucursales, Ciudades
+from pymysql import OperationalError
 
 sucursales = Blueprint("sucursales", __name__, static_folder="view", template_folder="controller")
 
+@sucursales.route('/sucursales/pagina/<int:page>')
+def consultarPaginaSucursales(page=1):
+    try:
+        e=Sucursales()
+        paginacion=e.consultarPagina(page)
+        sucursales=paginacion.items
+        ciudades=Ciudades()
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay estados registrados")
+        sucursales=None
+    return render_template('sucursales/consultar.html', sucursales=sucursales,ciud=ciudades.consultaGeneral(),  paginas=paginas, pagina=page)
 
 @sucursales.route('/sucursales/consultarSucursales')
 @login_required
