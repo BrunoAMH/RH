@@ -5,17 +5,17 @@ from pymysql import OperationalError
 
 periodos = Blueprint("periodos", __name__, static_folder="view", template_folder="controller")
 
-@percepciones.route('/percepciones/pagina/<int:page>')
-def consultarPaginaPercepciones(page=1):
+@periodos.route('/periodos/pagina/<int:page>')
+def consultarPaginaperiodos(page=1):
     try:
-        e=Percepciones()
+        e=Periodos()
         paginacion=e.consultarPagina(page)
-        perce=paginacion.items
+        peri=paginacion.items
         paginas=paginacion.pages
     except OperationalError:
         flash("No hay datos registrados")
-        perce=None
-    return render_template('percepciones/consultar.html', perce=perce,  paginas=paginas, pagina=page)
+        peri=None
+    return render_template('periodos/consultar.html', peri=peri,  paginas=paginas, pagina=page)
 
 @periodos.route('/periodos/consultarPeriodos')
 @login_required
