@@ -2,6 +2,8 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required
 from model.DAO import historial_de_puestos, Puestos, Departamentos, Empleados
+from pymysql import OperationalError
+
 
 historialPuestos = Blueprint("historialPuestos", __name__, static_folder="view", template_folder="controller")
 
