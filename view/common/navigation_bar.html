@@ -21,41 +21,41 @@
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
     <!-- Dropdown -->
-      {% if current_user.tipo == "Admin" or current_user.tipo == "Staff" %}
+       {% if current_user.tipo == "Admin" or current_user.tipo == "Staff" %}
       <li class="nav-item">
-        <a class="nav-link" href="/estados/consultarEstados" id="navbardrop" >Estados</a>
+        <a class="nav-link" href="/estados/pagina/1" id="navbardrop" >Estados</a>
       </li>
       {% endif %}
        <li class="nav-item">
-        <a class="nav-link" href="/puestos/consultarPuestos" id="navbardrop2" >Puestos</a>
+        <a class="nav-link" href="/puestos/pagina/1" id="navbardrop2" >Puestos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/turnos/consultarTurnos" id="navbardrop3" >Ver Turnos</a>
+        <a class="nav-link" href="/turnos/pagina/1" id="navbardrop3" >Ver Turnos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/percepciones/consultarPercepciones" id="navbardrop4" >Percepciones</a>
+        <a class="nav-link" href="/percepciones/pagina/1" id="navbardrop4" >Percepciones</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/deducciones/consultarDeducciones" id="navbardrop5" >Deducciones</a>
+        <a class="nav-link" href="/deducciones/pagina/1" id="navbardrop5" >Deducciones</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/periodos/consultarPeriodos" id="navbardrop6" >Periodos</a>
+        <a class="nav-link" href="/periodos/pagina/1" id="navbardrop6" >Periodos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/formaspago/consultarFormasPago" id="navbardrop7" >Formas de pago</a>
+        <a class="nav-link" href="/formaspago/pagina/1" id="navbardrop7" >Formas de pago</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/ciudades/consultarCiudades" id="navbardrop8" >Cuidades</a>
+        <a class="nav-link" href="/ciudades/pagina/1" id="navbardrop8" >Cuidades</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/sucursales/consultarSucursales" id="navbardrop9" >Sucursales</a>
+        <a class="nav-link" href="/sucursales/pagina/1" id="navbardrop9" >Sucursales</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="/departamentos/consultarDepartamentos" id="navbardrop10" >Departamentos</a>
+        <a class="nav-link" href="/departamentos/pagina/1" id="navbardrop10" >Departamentos</a>
       </li>
       {% if current_user.tipo == "Admin" or current_user.tipo == "Staff" %}
        <li class="nav-item">
-        <a class="nav-link" href="/empleados/consultarEmpleados" id="navbardrop11" >Empleados</a>
+        <a class="nav-link" href="/empleados/pagina/1" id="navbardrop11" >Empleados</a>
       </li>
       {% endif %}
        <li class="nav-item">
