@@ -10,10 +10,16 @@ def consultarDeducciones():
     deductions = Deducciones()
     return render_template('/deducciones/consultar.html', deduc=deductions.consultaGeneral())
 
+@app.route('/deducciones/nombre/<string:nombre>', methods=['get'])
+def consultarNombreDeducciones(nombre):
+    e=Deducciones()
+    return json.dumps(e.consultarNombreDeducciones(nombre))
+
 @deducciones.route('/deducciones/registrarDeducciones')
 @login_required
 def registrarDeducciones():
     return render_template('/deducciones/nuevo.html')
+
 
 @deducciones.route('/deducciones/guardandoDeducciones',methods=['post'])
 @login_required

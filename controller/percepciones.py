@@ -11,6 +11,11 @@ def consultarPercepciones():
     perceps = Percepciones()
     return render_template('/percepciones/consultar.html', perce=perceps.consultaGeneral())
 
+@app.route('/percepciones/nombre/<string:nombre>', methods=['get'])
+def consultarNombrePercepciones(nombre):
+    e=Percepciones()
+    return json.dumps(e.consultarNombrePercepciones(nombre))
+
 
 @percepciones.route('/percepciones/registrarPercepciones')
 @login_required
