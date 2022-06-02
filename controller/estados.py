@@ -1,8 +1,21 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from flask_login import login_required
 from model.DAO import Estados
+from pymysql import OperationalError
 
 estados = Blueprint("estados", __name__, static_folder="view", template_folder="controller")
+
+@estados.route('/estados/pagina/<int:page>')
+def consultarPaginaEstados(page=1):
+    try:
+        e=Estados()
+        paginacion=e.consultarPagina(page)
+        est=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        est=None
+    return render_template('estados/consultar.html', est=est,  paginas=paginas, pagina=page)
 
 @estados.route('/estados/consultarEstados')
 @login_required
