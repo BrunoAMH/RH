@@ -13,8 +13,10 @@
                             <th class="text-center">NOMBRE</th>
                             <th class="text-center">ESTADO</th>
                             <th class="text-center">ESTATUS</th>
+                            {% if current_user.tipo == 'Admin' %}
                             <th class="text-center">VER</th>
                             <th class="text-center">ELIMINAR</th>
+                            {% endif %}
                         </thead>
                         {% for ciudad in ciud %}
 
