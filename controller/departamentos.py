@@ -1,8 +1,22 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from flask_login import login_required
 from model.DAO import Departamentos
+from pymysql import OperationalError
 
 departamentos = Blueprint("departamentos", __name__, static_folder="view", template_folder="controller")
+
+@departamentos.route('/departamentos/pagina/<int:page>')
+def consultarPaginaEstados(page=1):
+    try:
+        e=Departamentos()
+        paginacion=e.consultarPagina(page)
+        depa=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        depa=None
+    return render_template('departamentos/consultar.html', depa=depa,  paginas=paginas, pagina=page)
+
 
 @departamentos.route('/departamentos/consultarDepartamentos')
 @login_required
