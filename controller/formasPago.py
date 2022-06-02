@@ -4,6 +4,18 @@ from model.DAO import FormasPago
 
 formasPago = Blueprint("formasPago", __name__, static_folder="view", template_folder="controller")
 
+@formasPago.route('/formaspago/pagina/<int:page>')
+def consultarPaginaperiodos(page=1):
+    try:
+        e=FormasPago()
+        paginacion=e.consultarPagina(page)
+        fop=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        fop=None
+    return render_template('formaspago/consultar.html', fop=fop,  paginas=paginas, pagina=page)
+
 
 @formasPago.route('/formaspago/consultarFormasPago')
 @login_required
