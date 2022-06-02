@@ -240,7 +240,7 @@ class Percepciones(db.Model):
     descripcion = Column(String(80), nullable=False)
     diasPagar = Column(Integer, nullable=False)
     
-     def consultarNombrePercepciones(self, nombre):
+    def consultarNombrePercepciones(self, nombre):
         salida = {"estatus": "", "mensaje": ""}
         usuario = None
         usuario = self.query.filter(Percepciones.nombre == nombre).first()
@@ -269,6 +269,7 @@ class Percepciones(db.Model):
         obj = self.consultaIndividual(id)
         db.session.delete(obj)
         db.session.commit()
+
 #-----------------------------------------------------------------------------------------------------------------------
 #----------------------------------------------------DEDUCCIONES--------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------
@@ -597,7 +598,7 @@ class historial_de_puestos(db.Model):
         db.session.commit()
 
 #-----------------------------------------------------------------------------------------------------------------------
-#------------------------------------------------------AusenciaJustificada-------------------------------------------------------
+#-------------------------------------------------AusenciaJustificada---------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------
 class AusenciaJustificada(db.Model):
     __tablename__ = 'ausenciajustificada'
@@ -636,3 +637,96 @@ class AusenciaJustificada(db.Model):
 
     def consultarFoto(self, id):
         return self.consultaIndividual(id).evidencia
+
+#-----------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------NOMINAS--------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
+class Nominas(db.Model):
+    __tablename__ = 'nominas'
+    idNomina = Column(Integer, primary_key=True)
+    fechaElaboracion = Column(Date, nullable=False)
+    fechaPago = Column(Date, nullable=False)
+    subtotal = Column(Float, nullable=False)
+    retenciones = Column(Float, nullable=False)
+    total = Column(Float, nullable=False)
+    diasTrabajados = Column(Integer, nullable=False)
+    estatus = Column(CHAR(1), nullable=False)
+    idEmpleado = Column(Integer, ForeignKey('empleados.idEmpleado'))
+    idFormaPago = Column(Integer, ForeignKey('formaspago.idFormaPago'))
+    idPeriodo = Column(Integer, ForeignKey('periodos.idPeriodo'))
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        obj = self.consultaIndividual(id)
+        db.session.delete(obj)
+        db.session.commit()
+
+#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------NOMINAS-PERCEPCIONES--------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
+class NominasPercepciones(db.Model):
+    __tablename__ = 'nominaspercepciones'
+    idNomina = Column(Integer, primary_key=True)
+    idPercepcion = Column(Integer, primary_key=True)
+    importe = Column(Float, nullable=False)
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        obj = self.consultaIndividual(id)
+        db.session.delete(obj)
+        db.session.commit()
+
+#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------NOMINAS-DEDUCCIONES---------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
+class NominasDeducciones(db.Model):
+    __tablename__ = 'nominasdeducciones'
+    idNomina = Column(Integer, primary_key=True)
+    idDeduccion = Column(Integer, primary_key=True)
+    importe = Column(Float, nullable=False)
+
+    def consultaGeneral(self):
+        return self.query.all()
+
+    def consultaIndividual(self, id):
+        return self.query.get(id)
+
+    def insertar(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def actualizar(self):
+        db.session.merge(self)
+        db.session.commit()
+
+    def eliminar(self, id):
+        obj = self.consultaIndividual(id)
+        db.session.delete(obj)
+        db.session.commit()
+        
