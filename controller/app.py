@@ -18,6 +18,7 @@ from documentacion import documentacion
 from asistencias import asistencias
 from historialPuestos import historialPuestos
 from ausenciaJustificada import asistenciaJustificada
+from pymysql import OperationalError
 import json
 app = Flask(__name__, template_folder='../view', static_folder='../static')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -71,6 +72,28 @@ def inicio():
 # ________________________________________________________________________________
 # --------------------------------EMPLEADOS---------------------------------------
 # ________________________________________________________________________________
+
+#---------paginacion-------------
+@app.route('/empleados/pagina/<int:page>')
+def consultarPaginaEmpleados(page=1):
+    try:
+        e=Empleados()
+        paginacion=e.consultarPagina(page)
+        emp=paginacion.items
+        department = Departamentos()
+        puesto = Puestos()
+        ciudad = Ciudades()
+        sucursal = Sucursales()
+        turno = Turnos()
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        emp=None
+    return render_template('empleados/consultar.html', emp=emp,  paginas=paginas, pagina=page,depa=department.consultaGeneral(), pues=puesto.consultaGeneral(),
+                           ciud=ciudad.consultaGeneral(), sucu=sucursal.consultaGeneral(), turn=turno.consultaGeneral())
+
+#---------paginacion-------------
+
 @app.route('/empleados/iniciandoSesion', methods=['post'])
 def iniciandoSesion():
     correo = request.form['correo']
