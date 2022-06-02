@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from flask_login import login_required
 from model.DAO import FormasPago
+from pymysql import OperationalError
 
 formasPago = Blueprint("formasPago", __name__, static_folder="view", template_folder="controller")
 
