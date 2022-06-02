@@ -1,9 +1,21 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from flask_login import login_required
 from model.DAO import Periodos
+from pymysql import OperationalError
 
 periodos = Blueprint("periodos", __name__, static_folder="view", template_folder="controller")
 
+@percepciones.route('/percepciones/pagina/<int:page>')
+def consultarPaginaPercepciones(page=1):
+    try:
+        e=Percepciones()
+        paginacion=e.consultarPagina(page)
+        perce=paginacion.items
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        perce=None
+    return render_template('percepciones/consultar.html', perce=perce,  paginas=paginas, pagina=page)
 
 @periodos.route('/periodos/consultarPeriodos')
 @login_required
