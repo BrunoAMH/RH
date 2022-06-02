@@ -2,8 +2,24 @@ from flask import Blueprint, render_template, request, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_required
 from model.DAO import Estados, Ciudades
+from pymysql import OperationalError
 
 ciudades = Blueprint("ciudades", __name__, static_folder="view", template_folder="controller")
+
+#--Paginacion--
+@ciudades.route('/ciudades/pagina/<int:page>')
+def consultarPaginaEstados(page=1):
+    try:
+        e=Ciudades()
+        paginacion=e.consultarPagina(page)
+        ciud=paginacion.items
+        estates = Estados()
+        paginas=paginacion.pages
+    except OperationalError:
+        flash("No hay datos registrados")
+        ciud=None
+    return render_template('ciudades/consultar.html', ciud=ciud,  paginas=paginas, pagina=page,est=estates.consultaGeneral())
+#--Paginacion--
 
 
 @ciudades.route('/ciudades/consultarCiudades')
