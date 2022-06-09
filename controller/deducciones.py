@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, render_template, request, flash, redirect
 from flask_login import login_required
 from model.DAO import Deducciones
@@ -24,7 +26,7 @@ def consultarDeducciones():
     deductions = Deducciones()
     return render_template('/deducciones/consultar.html', deduc=deductions.consultaGeneral())
 
-@app.route('/deducciones/nombre/<string:nombre>', methods=['get'])
+@deducciones.route('/deducciones/nombre/<string:nombre>', methods=['get'])
 def consultarNombreDeducciones(nombre):
     e=Deducciones()
     return json.dumps(e.consultarNombreDeducciones(nombre))

@@ -1,0 +1,90 @@
+{% include "common/navigation_bar.html" %}
+    {% block content %}
+        <div class="container-fluid">
+            <div class="well">
+
+                <h1 class="text-center">NOMINAS</h1><br>
+                    {% if (current_user.tipo == 'Admin') or (current_user.tipo == 'Staff')%}
+                        <a class="btn btn-info" href="/nominas/captura">Capturar nomina</a>
+                    {% endif %}
+                    <br>
+                    <div class="table-responsive">
+                    <table id="tablax" class="table">
+                        <thead class="thead-dark">
+                            <th class="text-center">ID</th>
+                            <th class="text-center">FECHA DE ELABORACION</th>
+                            <th class="text-center">FECHA DE PAGO</th>
+                            <th class="text-center">SUBTOTAL</th>
+                            <th class="text-center">RETENCIONES</th>
+                            <th class="text-center">TOTAL</th>
+                            <th class="text-center">DIAS TRABAJADOS</th>
+                            <th class="text-center">ESTATUS</th>
+                            <th class="text-center">EMPLEADO</th>
+                            <th class="text-center">FORMA DE PAGO</th>
+                            <th class="text-center">PERIODO</th>
+                            {% if (current_user.tipo == 'Admin') or (current_user.tipo == 'Staff')%}
+                            <th class="text-center">VER</th>
+                            <th class="text-center">ELIMINAR</th>
+                            {% endif %}
+                            {% if current_user.puestos.nombre == 'Director de recursos humanos' and current_user.departamentos.nombre == 'Recursos humanos'%}
+                            <th class="text-center">APROBAR</th>
+                            {% endif %}
+                            <th class="text-center">IMPRIMIR</th>
+
+                        </thead>
+                        {% for nomina in nom %}
+                        {% if nomina.estatus != 'E' %}
+                        <tr>
+                            <td class="text-center">{{nomina.idNomina}}</td>
+                            <td class="text-center">{{nomina.fechaElaboracion}}</td>
+                            <td class="text-center">{{nomina.fechaPago}}</td>
+                            <td class="text-center">{{nomina.subtotal}}</td>
+                            <td class="text-center">{{nomina.retenciones}}</td>
+                            <td class="text-center">{{nomina.total}}</td>
+                            <td class="text-center">{{nomina.diasTrabajados}}</td>
+                            <td class="text-center">{{nomina.estatus}}</td>
+                            <td class="text-center">{{nomina.empleados.nombre+" "+nomina.empleados.apellidoPaterno+" "+nomina.empleados.apellidoMaterno}}</td>
+                            <td class="text-center">{{nomina.formasPago.nombre}}</td>
+                            <td class="text-center">{{nomina.periodos.nombre}}</td>
+                            {% if (current_user.tipo == 'Admin') or (current_user.tipo == 'Staff')%}
+                            <td class="text-center">
+                                <a href="/nominas/ver/{{nomina.idNomina}}">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="/nominas/eliminarNominas/{{nomina.idNomina}}">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                            {% endif %}
+                            {% if current_user.puestos.nombre == 'Director de recursos humanos' and current_user.departamentos.nombre == 'Recursos humanos'%}
+                            <td class="text-center">
+                                <a href="/nominas/aprobandoNomina/{{nomina.idNomina}}">
+                                  <span class="glyphicon glyphicon-ok"></span>
+                                </a>
+                            </td>
+                            {% endif %}
+                            <td class="text-center">
+                                <a href="#">
+                                  <span class="glyphicon glyphicon-print"></span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                    </table>
+                    </div>
+                    <br>
+                        {% if get_flashed_messages() %}
+                            <div id="menssageAlert" class="alert alert-success alert-dismissible">
+                                {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                </div>
+             </div>
+    {% endblock %}

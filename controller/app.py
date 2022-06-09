@@ -3,7 +3,7 @@ from urllib import request
 from flask import Flask, Blueprint, render_template, request, flash, redirect, url_for, abort
 from flask_bootstrap import Bootstrap
 from flask_login import current_user, login_user, logout_user, login_manager, login_required, LoginManager
-from model.DAO import db, Empleados, Puestos, Turnos, Ciudades, Sucursales, Departamentos
+from model.DAO import db, Empleados, Puestos, Turnos, Ciudades, Sucursales, Departamentos, NominasPercepciones
 from estados import estados
 from ciudades import ciudades
 from puestos import puestos
@@ -18,6 +18,7 @@ from documentacion import documentacion
 from asistencias import asistencias
 from historialPuestos import historialPuestos
 from ausenciaJustificada import asistenciaJustificada
+from nominas import nominas
 from pymysql import OperationalError
 import json
 app = Flask(__name__, template_folder='../view', static_folder='../static')
@@ -49,6 +50,7 @@ app.register_blueprint(documentacion)
 app.register_blueprint(asistencias)
 app.register_blueprint(historialPuestos)
 app.register_blueprint(asistenciaJustificada)
+app.register_blueprint(nominas)
 Bootstrap(app)
 
 # ________________________________________________________________________________

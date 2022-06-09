@@ -403,7 +403,7 @@ class FormasPago(db.Model):
             salida["mensaje"] = "El Nombre " + nombre + " esta libre"
         return salida
     
-     def consultarPagina(self, pagina):
+    def consultarPagina(self, pagina):
         paginacion = self.query.order_by(FormasPago.idFormaPago.asc()).paginate(pagina, per_page=10, error_out=False)
         return paginacion
 
@@ -466,7 +466,7 @@ class Departamentos(db.Model):
     nombre = Column(String(50), nullable=False)
     estatus = Column(CHAR(1), nullable=False)
     
-     def consultarPagina(self, pagina):
+    def consultarPagina(self, pagina):
         paginacion = self.query.order_by(Departamentos.idDepartamento.asc()).paginate(pagina, per_page=10, error_out=False)
         return paginacion
 
@@ -687,28 +687,35 @@ class AusenciaJustificada(db.Model):
     def consultarFoto(self, id):
         return self.consultaIndividual(id).evidencia
 
-#-----------------------------------------------------------------------------------------------------------------------
-#--------------------------------------------------------NOMINAS--------------------------------------------------------
-#-----------------------------------------------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------NOMINAS--------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------
 class Nominas(db.Model):
     __tablename__ = 'nominas'
     idNomina = Column(Integer, primary_key=True)
-    fechaElaboracion = Column(Date, nullable=False)
-    fechaPago = Column(Date, nullable=False)
-    subtotal = Column(Float, nullable=False)
-    retenciones = Column(Float, nullable=False)
-    total = Column(Float, nullable=False)
-    diasTrabajados = Column(Integer, nullable=False)
-    estatus = Column(CHAR(1), nullable=False)
+    fechaElaboracion = Column(Date, nullable=True)
+    fechaPago = Column(Date, nullable=True)
+    subtotal = Column(Float, nullable=True)
+    retenciones = Column(Float, nullable=True)
+    total = Column(Float, nullable=True)
+    diasTrabajados = Column(Integer, nullable=True)
+    estatus = Column(CHAR(1), nullable=True)
     idEmpleado = Column(Integer, ForeignKey('empleados.idEmpleado'))
+    empleados = relationship("Empleados", backref="empleados", lazy='select')
     idFormaPago = Column(Integer, ForeignKey('formaspago.idFormaPago'))
+    formasPago = relationship("FormasPago", backref="formaspago", lazy='select')
     idPeriodo = Column(Integer, ForeignKey('periodos.idPeriodo'))
+    periodos = relationship("Periodos", backref="periodos", lazy='select')
 
     def consultaGeneral(self):
         return self.query.all()
 
     def consultaIndividual(self, id):
         return self.query.get(id)
+
+    def consultarUltimo(self):
+        return db.session.query(Nominas).order_by(Nominas.idNomina.desc()).first()
 
     def insertar(self):
         db.session.add(self)
@@ -723,15 +730,17 @@ class Nominas(db.Model):
         db.session.delete(obj)
         db.session.commit()
 
-#-----------------------------------------------------------------------------------------------------------------------
-#-------------------------------------------------NOMINAS-PERCEPCIONES--------------------------------------------------
-#-----------------------------------------------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------------------------------------------------
+# -------------------------------------------------NOMINAS-PERCEPCIONES--------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------
 class NominasPercepciones(db.Model):
     __tablename__ = 'nominaspercepciones'
     idNomina = Column(Integer, primary_key=True)
     idPercepcion = Column(Integer, primary_key=True)
     importe = Column(Float, nullable=False)
 
+
     def consultaGeneral(self):
         return self.query.all()
 
@@ -742,18 +751,10 @@ class NominasPercepciones(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def actualizar(self):
-        db.session.merge(self)
-        db.session.commit()
 
-    def eliminar(self, id):
-        obj = self.consultaIndividual(id)
-        db.session.delete(obj)
-        db.session.commit()
-
-#-----------------------------------------------------------------------------------------------------------------------
-#-------------------------------------------------NOMINAS-DEDUCCIONES---------------------------------------------------
-#-----------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------
+# -------------------------------------------------NOMINAS-DEDUCCIONES---------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------
 class NominasDeducciones(db.Model):
     __tablename__ = 'nominasdeducciones'
     idNomina = Column(Integer, primary_key=True)
@@ -770,12 +771,4 @@ class NominasDeducciones(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def actualizar(self):
-        db.session.merge(self)
-        db.session.commit()
-
-    def eliminar(self, id):
-        obj = self.consultaIndividual(id)
-        db.session.delete(obj)
-        db.session.commit()
         

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+    </head>
+    <body>
+        {% include "common/navigation_bar.html" %}
+            {% block content %}
+            <div class="container">
+                <h1>DEDUCCIONES</h1>
+                <div class="table-responsive">
+                    <table class="table" id="tablaDeducciones">
+                        <thead class="thead-dark">
+                            <th class="text-center">ID</th>
+                            <th class="text-center">NOMBRE</th>
+                            <th class="text-center">DESCCRIPCION</th>
+                            <th class="text-center">PORCENTAJE</th>
+                            <th class="text-center">ANADIR</th>
+                            <th class="text-center">ELIMINAR</th>
+                        </thead>
+                        {% for deduccion in deduc %}
+                            <tr>
+                                <td class="text-center">{{deduccion.idDeduccion}}</td>
+                                <td class="text-center">{{deduccion.nombre}}</td>
+                                <td class="text-center">{{deduccion.descripcion}}</td>
+                                <td class="text-center">{{deduccion.porcentaje}}</td>
+                                <td class="text-center">
+                                    <a href="/nominas/guardandoDeduccion/{{nom.idNomina}}/{{deduccion.idDeduccion}}" class="btn btn-info btn-lg">
+                                        <span class="glyphicon glyphicon-plus-sign"></span> Anadir
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="/nominas/eliminandoDeduccion/{{nom.idNomina}}/{{deduccion.idDeduccion}}" class="btn btn-danger btn-lg">
+                                        <span class="glyphicon glyphicon-plus-sign"></span> Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div><br>
+            {% endblock %}
+        <p class="text text-center">Este es el pie de pagina</p>
+    </body>
+</html>

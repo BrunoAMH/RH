@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+    </head>
+
+    <body>
+        {% include "common/navigation_bar.html" %}
+            {% block content %}
+            <form action="/nominas/finalizar" method="post" enctype="multipart/form-data">
+                <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-sm-2" style="background-color: none;"></div>
+                        <div class="well col-sm-8">
+                        <h1 class="text-center">NOMINAS</h1>
+                            <div class="form-group text-center">
+                                <label>ID</label>
+                                <input type="number" name="idNomina" value="{{nom.idNomina}}" class="form-control text-center" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>FECHA DE ELABORACION</label>
+                                <input type="date" name="fechaElaboracion" value="{{nom.fechaElaboracion}}" class="form-control text-center" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>FECHA PAGO</label>
+                                <input type="date" name="fechaPago" value="{{nom.fechaPago}}" class="form-control text-center" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>SUBTOTAL</label>
+                                <input type="number" name="subtotal" value="{{nom.subtotal}}" class="form-control text-center" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>RETENCIONES</label>
+                                <input type="number" name="retenciones" value="{{nom.retenciones}}" class="form-control text-center" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>TOTAL</label>
+                                <input type="number" name="total" value="{{nom.total}}" class="form-control text-center" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>DIAS TRABAJADOS</label>
+                                <input type="number" name="subtotal" value="{{nom.diasTrabajados}}" class="form-control text-center" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>ESTATUS</label>
+                                <input type="text" name="estatus" value="{{nom.estatus}}" class="form-control text-center" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>EMPLEADO</label>
+                                <input type="text" name="nombreEmp" value="{{nom.empleados.nombre+ ' ' +nom.empleados.apellidoPaterno+ ' ' +nom.empleados.apellidoMaterno}}" class="form-control text-center" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>FORMA DE PAGO</label>
+                                <input type="text" name="formaPago" value="{{nom.formasPago.nombre}}" class="form-control text-center" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>PERIODO</label>
+                                <input type="text" name="periodo" value="{{nom.periodos.nombre}}" class="form-control text-center" readonly>
+                            </div>
+                            <div class="container">
+                                <h1>PERCEPCIONES</h1>
+                                <div class="table-responsive">
+                                    <table class="table" id="tablaPercepciones">
+                                        <thead class="thead-dark">
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">IMPORTE</th>
+                                        </thead>
+                                        {% for nomper in np %}
+                                            {% if nomper.idNomina == nom.idNomina %}
+                                                <tr>
+                                                    <td class="text-center">{{nomper.idPercepcion}}</td>
+                                                    <td class="text-center">{{nomper.importe}}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="container">
+                                <h1>DEDUCCIONES</h1>
+                                <div class="table-responsive">
+                                    <table class="table" id="tablaDeducciones">
+                                        <thead class="thead-dark">
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">IMPORTE</th>
+                                        </thead>
+                                        {% for nomdec in nd %}
+                                            {% if nomdec.idNomina == nom.idNomina %}
+                                                <tr>
+                                                    <td class="text-center">{{nomdec.idDeduccion}}</td>
+                                                    <td class="text-center">{{nomdec.importe}}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                            <a href="/nominas/anadiendoPercepcion/{{nom.idNomina}}" class="btn btn-info btn-lg">
+                                <span class="glyphicon glyphicon-plus-sign"></span> Anadir percepciones
+                            </a>
+                            <a href="/nominas/anadiendoDeduccion/{{nom.idNomina}}" class="btn btn-info btn-lg">
+                                <span class="glyphicon glyphicon-plus-sign"></span> Anadir deducciones
+                            </a><br><br><br>
+                            <button type="submit" class="btn btn-success">Registrar</button>
+                            {% if get_flashed_messages() %}
+                                <div id="menssageAlert" class="alert alert-success alert-dismissible">
+                            {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                            {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        <p class="text text-center">Este es el pie de pagina</p>
+    </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/cardStyles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+{% include "common/navigation_bar.html" %}
+        {% block content %}
+<form action="/nominas/guardandoNomina" method="POST" enctype="multipart/form-data">
+    <div class="container">
+        <h1>Seleccion de empleado</h1>
+        <div class="row">
+            <div class="col-12">
+                <div class="card-deck">
+                    {% for empleado in emp %}
+                    <div class="card mb-3" style="min-width: 18rem;">
+                        <img class="card-img-top" src="/empleados/consultarImagen/{{empleado.idEmpleado}}">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ empleado.nombre + " " + empleado.apellidoPaterno + " " + empleado.apellidoMaterno}}</h4>
+                            <p class="card-text">{{ empleado.puestos.nombre}}</p>
+                            <div class="form-group">
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="opt_empleado" value="{{empleado.idEmpleado}}">Seleccionar
+                              </label>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Seleccion de periodo</h1>
+        <div class="table-responsive">
+            <table class="table" id="tablaGeneral">
+                <thead class="thead-dark">
+                    <th class="text-center">ID</th>
+                    <th class="text-center">NOMBRE</th>
+                    <th class="text-center">FECHA INICIO</th>
+                    <th class="text-center">FECHA FIN</th>
+                    <th class="text-center">SELECCIONAR</th>
+                </thead>
+                {% for periodo in per %}
+                    {% if periodo.estatus!="I" %}
+                        {% if current_user.is_authenticated and current_user.is_admin() %}
+                        <tr>
+                            <td class="text-center">{{periodo.idPeriodo}}</td>
+                            <td class="text-center">{{periodo.nombre}}</td>
+                            <td class="text-center">{{periodo.fechaInicio}}</td>
+                            <td class="text-center">{{periodo.fechaFin}}</td>
+                            <td class="text-center">
+                                <div class="form-group">
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="opt_periodo" value="{{periodo.idPeriodo}}">Seleccionar
+                              </label>
+                            </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Seleccion de forma de pago</h1>
+        <div class="form-group">
+            <label class="form-label">Forma de pago:</label>
+                <select name='idForma' class="form-control">
+                    {% for forma in formasP %}
+                        <option value="{{forma.idFormaPago}}">{{forma.nombre}}</option>
+                    {% endfor %}
+                </select>
+            </div><br><br>
+        <button type="submit" class="btn btn-success">Siguiente</button>
+        <a href="/nominas/consultarNominas" class="btn btn-warning">Regresar</a>
+    </div>
+</form>
+{% endblock %}
+</body>
+</html>

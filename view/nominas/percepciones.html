@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>{% block title %}Agroquimicos el banano{% endblock %}</title>
+    </head>
+    <body>
+        {% include "common/navigation_bar.html" %}
+            {% block content %}
+                                <div class="container">
+                                <h1>PERCEPCIONES</h1>
+                                <div class="table-responsive">
+                                    <table class="table" id="tablaGeneral">
+                                        <thead class="thead-dark">
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">NOMBRE</th>
+                                            <th class="text-center">DESCCRIPCION</th>
+                                            <th class="text-center">DIAS A PAGAR</th>
+                                            <th class="text-center">ANADIR</th>
+                                            <th class="text-center">ELIMINAR</th>
+                                        </thead>
+                                        {% for percepcion in percep %}
+                                                <tr>
+                                                    <td class="text-center">{{percepcion.idPercepcion}}</td>
+                                                    <td class="text-center">{{percepcion.nombre}}</td>
+                                                    <td class="text-center">{{percepcion.descripcion}}</td>
+                                                    <td class="text-center">{{percepcion.diasPagar}}</td>
+                                                    <td class="text-center">
+                                                        <a href="/nominas/guardandoPercepcion/{{nom.idNomina}}/{{percepcion.idPercepcion}}" class="btn btn-info btn-lg">
+                                                          <span class="glyphicon glyphicon-plus-sign"></span> Anadir
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="/nominas/eliminandoPercepcion/{{nom.idNomina}}/{{percepcion.idPercepcion}}" class="btn btn-danger btn-lg">
+                                                          <span class="glyphicon glyphicon-plus-sign"></span> Eliminar
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                </div><br>
+                            {% if get_flashed_messages() %}
+                                <div id="menssageAlert" class="alert alert-success alert-dismissible">
+                            {% for message in get_flashed_messages() %}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>{{message}}</strong>
+                            {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        <p class="text text-center">Este es el pie de pagina</p>
+    </body>
+</html>
