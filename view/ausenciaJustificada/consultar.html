@@ -46,7 +46,12 @@
                             {% endfor %}
                              {% for empleados in emp %}
                             {% if empleados.idEmpleado==ausencia.idEmpleadoAutoriza %}
+                            {% if ausencia.idEmpleadoSolicita!=ausencia.idEmpleadoAutoriza %}
                             <td class="text-center">{{empleados.nombre}}</td>
+                            {% endif %}
+                            {% if ausencia.idEmpleadoSolicita==ausencia.idEmpleadoAutoriza %}
+                            <td class="text-center"></td>
+                            {% endif %}
                             {% endif %}
                             {% endfor %}
                             <td><img src="/ausenciaJustificada/consultarImagen/{{ausencia.idAusencia}}" width="100px" height="80px"></td>

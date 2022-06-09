@@ -20,12 +20,15 @@
                             <input type="text" class="form-control" value="{{current_user.nombre}}" placeholder="Empledo de la Ausencia a registrar"  maxlength="60" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="EmpleadoAutoriza" class="form-label">Empleado que autoriza</label>
-                            <select name='idEmpleadoAutoriza' id="EmpleadoAutoriza" class="form-control">
-                                {% for empl in emp %}
-                                <option value="{{empl.idEmpleado}}">{{empl.nombre}}</option>
-                                {% endfor %}
-                            </select>
+                            <input type="text" class="form-control" id="EmpleadoAutoriza" value="{{current_user.idEmpleado}}" name="idEmpleadoAutoriza" hidden>
+                        </div>
+                        <div   class="form-group">
+                                    <label for="ti">tipo:</label>
+                                       <select name="ti" id="ti">
+                                            <option disabled selected>Tipo de Ausencia</option>
+                                            <option name="tipo" id="va" value="{{current_user.diasVacaciones}}">Vacaciones</option>
+                                            <option name="tipo" id="per" value="{{current_user.diasPermiso}}">Permiso</option>
+                                       </select>
                         </div>
                         <div  class="form-group">
                             <label for="fechaSolicitud">fecha de Solicitud</label>
@@ -39,34 +42,22 @@
                             <label for="fechaFin">fecha de Fin</label>
                                 <input type="date" class="form-control" id="fechaFin" placeholder="fecha de Fin de la Ausencia a registrar"  required name="fechaFin">
                         </div>
-                        <div   class="form-group">
-                                    <label for="tipo">tipo:</label>
-                                       <select name="tipo" id="tipo">
-                                            <option name="tipo" value="V">Vacaciones</option>
-                                            <option name="tipo" value="P">Permiso</option>
-                                       </select>
-                        </div>
+                            <div>
+                                <label>Dias disponibles:</label>
+                                <input type="text" class="form-control" id="dias" required name="dias" readonly>
+                                <input type="text" class="form-control" id="tipo" required name="tipo" hidden>
+                                <label>Dias pedidos:</label>
+                                <input type="text" class="form-control" id="dias2" required name="dias2" readonly>
+                                <input type="text" class="form-control" value="P" id="estatus" required name="estatus" hidden>
+                            </div>
                        <div class="form-group">
                             <label for="evidencia">evidencia:</label>
                             <input type="file" class="form-control" id="evidencia" placeholder="evidencia de la Ausencia"  required name="evidencia" >
-                        </div>
-                       <div   class="form-group">
-                                    <label for="estatus">estatus:</label>
-                                       <select name="estatus" id="estatus">
-                                            <option name="estatus" value="P">Pendinte</option>
-                                           {% if current_user.is_authenticated and current_user.is_admin() %}
-                                            <option name="estatus" value="A">Aprovado</option>
-                                            <option name="estatus" value="D">Denegada</option>
-                                           {% endif %}
-                                       </select>
                         </div>
                         <div  class="form-group">
                             <label for="motivo">motivo</label>
                             <input type="text" class="form-control" id="motivo" placeholder="motivo de la Ausencia a registrar"  maxlength="60" required name="motivo">
                         </div>
-                            <div  class="form-group">
-                                <input type="text" class="form-control" id="ass" required>
-                            </div>
                         <nav id="bloqueBotones">
                             <button type="submit" class="btn btn-success">Registrar</button>
                             <a href="/ausenciaJustificada/consultarAusenciaJustificada" class="btn btn-warning">Regresar</a>
