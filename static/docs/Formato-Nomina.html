@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ISO 8859-1">
+    <title>ERP </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div style="
+    width: 40%;
+    margin: auto;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bolder;
+    color: rgb(0, 128, 0) !important;">
+
+        <div>agroquímico Banano</div>
+    </div>
+
+    <div style="
+    text-align: center;
+    ">
+        <h1> <label>Pago de Nomina</label> </h1>
+    </div>
+    <div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                Nombre del empleado: {{empleado.nombre}} {{empleado.apellidoPaterno}} {{empleado.apellidoMaterno}}
+            </div>
+            <div class="form-group col-sm-6">
+                Puesto: {{empleado.puestos.nombre}}
+            </div>
+            <div class="form-group col-sm-6">
+                Departamento: {{empleado.departamentos.nombre}}
+            </div>
+            <div class="form-group col-sm-6">
+                Salario: {{empleado.salarioDiario}}
+            </div>
+            <div class="form-group col-sm-6">
+                Curp: {{empleado.curp}}
+            </div>
+            <div class="form-group col-sm-6">
+                Nss: {{empleado.nss}}
+            </div>
+            <div class="form-group col-sm-6">
+                Fecha de contratacion: {{empleado.fechaContratacion}}
+            </div>
+            <div class="form-group col-sm-6">
+                Turno: {{empleado.turnos.nombre}}
+            </div>
+
+    </div>
+    <div >
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Nomina</h2>
+            </div>
+            <div class="form-group col-sm-6">
+                Periodo de Pago: {{permiso.idPeriodo}}
+            </div>
+            <div class="form-group col-sm-6">
+                Fecha de Pago: {{permiso.fechaPago}}
+            </div>
+            <div class="form-group col-sm-6">
+                Forma de pago: {{permiso.idFormaPago}}
+            </div>
+            <div class="form-group col-sm-6">
+                Fecha de elaboracion: {{permiso.fechaElaboracion}}
+            </div>
+            <div class="form-group col-sm-6">
+               Dias trabajados: {{permiso.diasTrabajados}}
+            </div>
+            <div class="form-group col-sm-6">
+                Subtotal: {{permiso.subtotal}}
+            </div>
+            <div class="form-group col-sm-6">
+                Total de retenciones: {{permiso.retenciones}}
+            </div>
+            <div class="form-group col-sm-6">
+                Total de pagar: {{permiso.total}}
+            </div>
+        </div>
+    </div>
+    <div >
+        <table style="
+    width: 60%;
+    margin: auto;
+    padding: 40px;
+    font-size: x-large;
+    text-align: center;">
+        <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        <tbody>
+            <tr>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td class="col-sm-4" style="border-top-style: solid;">Firma del empleado</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>

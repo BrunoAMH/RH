@@ -1,9 +1,13 @@
 from datetime import datetime
-
 import mysql.connector as mysql
+import os
+import pdfkit
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required
 from model.DAO import Nominas, Empleados, FormasPago, Periodos, Deducciones, Percepciones, NominasPercepciones, NominasDeducciones
+from datetime import datetime
+from jinja2 import Environment, FileSystemLoader
+ruta= os.path.join(os.getcwd()+'/..')
 
 nominas = Blueprint("nominas", __name__, static_folder="view", template_folder="controller")
 
@@ -14,6 +18,32 @@ config = {
 'port': '3306',
 'database': 'rh',
 'raise_on_warnings': True}
+
+@nominas.route('/docNominas/<int:id>')
+def docNominas(id):
+    env = Environment(loader=FileSystemLoader("../static"))
+    template = env.get_template("docs/Formato-Nomina.html")
+    permiso = nominas()
+    empleado = Empleados()
+    permiso = permiso.consultaIndividual(id)
+    empleado = empleado.consultaIndividual(permiso.consultaIndividual(id).idEmpleado)
+
+    datos={
+        'permiso': permiso,
+        'empleado': empleado,
+
+    }
+    html = template.render(datos)
+    file = open(ruta + '/static/docs/Formato-NominaTMP.html', "w")
+    file.write(html)
+    file.close()
+    pdfkit.from_file(ruta + '\static\docs\Formato-NominaTMP.html', ruta + '\static\docs\Formato-Nomina.pdf')
+    pdf = open(ruta + '\static\docs\Formato-Nomina.pdf', "rb")
+    doc = pdf.read()
+    pdf.close()
+    # os.remove(ruta + '\static\docs\Formato-NominaTMP.html')
+    # os.remove(ruta+'\Static\docs\Formato-Nomina.pdf')
+    return doc
 
 
 @nominas.route('/nominas/consultarNominas')

@@ -60,7 +60,7 @@
                             {% endif %}
                             {% if current_user.puestos.nombre == 'Director de recursos humanos' and current_user.departamentos.nombre == 'Recursos humanos'%}
                             <td class="text-center">
-                                <a href="/nominas/aprobandoNomina/{{nomina.idNomina}}">
+                                <a href="/docNominas/{{nomina.idNomina}}">
                                   <span class="glyphicon glyphicon-ok"></span>
                                 </a>
                             </td>
